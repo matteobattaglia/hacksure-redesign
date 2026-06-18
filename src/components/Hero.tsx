@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimateIn } from "@/components/AnimateIn";
 
-const trustItems = ["NIS2 & GDPR", "Penetration Test", "ISO 27001", "Team certificato"];
-
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-zinc-800">
@@ -23,14 +21,7 @@ export function Hero() {
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-28">
         <AnimateIn>
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-600/30 bg-brand-600/10 px-3 py-1 text-xs font-medium text-brand-400">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-60 motion-reduce:animate-none" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
-            </span>
-            Cybersecurity per PMI — Brescia &amp; Italia
-          </div>
-          <h1 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
+          <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
             Sicurezza informatica{" "}
             <span className="bg-gradient-to-r from-brand-300 to-brand-500 bg-clip-text text-transparent">
               a 360°
@@ -49,16 +40,6 @@ export function Hero() {
             <Link href="/compliance" className="btn-secondary">
               Autovalutazione compliance
             </Link>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {trustItems.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-400"
-              >
-                {item}
-              </span>
-            ))}
           </div>
         </AnimateIn>
 

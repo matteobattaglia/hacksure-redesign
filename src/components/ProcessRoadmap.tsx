@@ -86,13 +86,29 @@ export function ProcessRoadmap() {
         </div>
 
         <div ref={ref} className="relative mt-12 lg:mt-16">
-          {/* Timeline connector — desktop */}
-          <div className="absolute left-0 right-0 top-[2.75rem] hidden h-0.5 lg:block" aria-hidden="true">
-            <div className="h-full w-full rounded-full bg-zinc-800" />
+          {/* Timeline dots — desktop only, above cards */}
+          <div className="relative mb-6 hidden lg:block" aria-hidden="true">
+            <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px -translate-y-1/2 bg-zinc-800" />
             <div
-              className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-brand-600 to-brand-400 transition-all duration-[1.2s] ease-out"
-              style={{ width: visible ? "100%" : "0%" }}
+              className="absolute left-[12.5%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-brand-600 to-brand-400 transition-all duration-[1.2s] ease-out"
+              style={{ width: visible ? "75%" : "0%" }}
             />
+            <div className="grid grid-cols-4">
+              {steps.map((item, i) => (
+                <div key={item.step} className="flex justify-center">
+                  <div
+                    className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full border-2 text-[10px] font-bold transition-all duration-500 ${
+                      visible
+                        ? "border-brand-500 bg-surface-950 text-brand-400"
+                        : "border-zinc-700 bg-surface-950 text-zinc-600"
+                    }`}
+                    style={{ transitionDelay: visible ? `${i * 150 + 200}ms` : "0ms" }}
+                  >
+                    {item.step}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
@@ -104,25 +120,22 @@ export function ProcessRoadmap() {
                 }`}
                 style={{ transitionDelay: visible ? `${i * 150}ms` : "0ms" }}
               >
-                {/* Step node */}
-                <div className="mb-5 flex items-center gap-3 lg:flex-col lg:items-start lg:gap-0">
-                  <div
-                    className={`relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500 ${
-                      visible
-                        ? "border-brand-500 bg-brand-600/20 text-brand-400 shadow-lg shadow-brand-600/20"
-                        : "border-zinc-700 bg-surface-900 text-zinc-600"
-                    }`}
-                    style={{ transitionDelay: visible ? `${i * 150 + 200}ms` : "0ms" }}
-                  >
-                    {item.icon}
+                <div className="card-hover gradient-border flex min-h-[200px] flex-1 flex-col p-5 sm:min-h-[220px] lg:min-h-[240px]">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-all duration-500 ${
+                        visible
+                          ? "border-brand-500/40 bg-brand-600/15 text-brand-400"
+                          : "border-zinc-700 bg-zinc-900 text-zinc-600"
+                      }`}
+                      style={{ transitionDelay: visible ? `${i * 150 + 100}ms` : "0ms" }}
+                    >
+                      {item.icon}
+                    </div>
+                    <span className="text-xs font-bold tracking-widest text-brand-600/50 lg:hidden">
+                      STEP {item.step}
+                    </span>
                   </div>
-                  <span className="text-xs font-bold tracking-widest text-brand-600/60 lg:mt-4">
-                    STEP {item.step}
-                  </span>
-                </div>
-
-                {/* Card — equal height */}
-                <div className="card-hover gradient-border flex min-h-[180px] flex-1 flex-col p-5 sm:min-h-[200px] lg:min-h-[220px]">
                   <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">{item.desc}</p>
                 </div>
