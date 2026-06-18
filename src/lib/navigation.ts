@@ -1,3 +1,5 @@
+import { certifications } from "@/lib/data/certifications";
+
 export type NavItem = {
   label: string;
   href: string;
@@ -32,13 +34,11 @@ export const mainNavigation: NavItem[] = [
   {
     label: "Certificazioni",
     href: "/certificazioni",
-    children: [
-      { label: "CompTIA Security+", href: "/certificazioni/security-plus" },
-      { label: "CompTIA Network+", href: "/certificazioni/network-plus" },
-      { label: "CompTIA PenTest+", href: "/certificazioni/pentest-plus" },
-      { label: "eCPPT", href: "/certificazioni/ecppt" },
-      { label: "C|VNP", href: "/certificazioni/cvnp" },
-    ],
+    children: certifications.map((c) => ({
+      label: c.name,
+      href: `/certificazioni/${c.slug}`,
+      description: c.subtitle ?? c.issuer,
+    })),
   },
   { label: "Chi siamo", href: "/chi-siamo" },
   { label: "FAQ", href: "/faq" },

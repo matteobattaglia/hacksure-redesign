@@ -49,6 +49,15 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/certificazioni/cvnp",
+        destination: "/certificazioni/cnvp",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

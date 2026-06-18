@@ -53,7 +53,9 @@ export function Header() {
 
                 {openDropdown === item.label && (
                   <div className="absolute left-0 top-full pt-1">
-                    <div className="min-w-[240px] rounded-md border border-zinc-800 bg-surface-900 py-2 shadow-xl">
+                    <div className={`rounded-lg border border-zinc-800 bg-surface-900 py-2 shadow-xl shadow-black/40 ${
+                      item.label === "Certificazioni" ? "max-h-80 w-72 overflow-y-auto" : "min-w-[240px]"
+                    }`}>
                       {item.children.map((child) => (
                         <Link
                           key={child.href}

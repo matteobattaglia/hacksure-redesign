@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AnimateIn } from "@/components/AnimateIn";
 
 type Props = {
   label: string;
@@ -8,15 +9,18 @@ type Props = {
 
 export function PageHeader({ label, title, description }: Props) {
   return (
-    <div className="border-b border-zinc-800 bg-surface-900">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <p className="section-label">{label}</p>
-        <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          {title}
-        </h1>
-        {description && (
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">{description}</p>
-        )}
+    <div className="relative overflow-hidden border-b border-zinc-800 bg-surface-900">
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-600/5 via-transparent to-transparent" />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <AnimateIn>
+          <p className="section-label">{label}</p>
+          <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            {title}
+          </h1>
+          {description && (
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">{description}</p>
+          )}
+        </AnimateIn>
       </div>
     </div>
   );
@@ -35,7 +39,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
             <li key={item.label} className="flex items-center gap-2">
               {i > 0 && <span aria-hidden="true">/</span>}
               {item.href ? (
-                <Link href={item.href} className="hover:text-brand-400">
+                <Link href={item.href} className="transition-colors hover:text-brand-400">
                   {item.label}
                 </Link>
               ) : (
@@ -53,12 +57,12 @@ export function CtaBanner() {
   return (
     <section className="border-t border-zinc-800 bg-surface-900">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:flex-row sm:items-center sm:px-6 lg:px-8">
-        <div>
+        <AnimateIn>
           <h2 className="text-xl font-semibold text-white">Parliamo del tuo progetto</h2>
           <p className="mt-1 text-sm text-zinc-400">
             Valutazione preliminare gratuita, senza impegno. Risposta entro 24 ore lavorative.
           </p>
-        </div>
+        </AnimateIn>
         <Link href="/contatti" className="btn-primary shrink-0">
           Richiedi consulenza
         </Link>
