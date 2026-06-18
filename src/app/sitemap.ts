@@ -15,6 +15,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/chi-siamo`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/faq`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${baseUrl}/contatti`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/sicurezza-informatica-azienda`, changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/multa-gdpr-azienda`, changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/obblighi-sicurezza-informatica-nis2`, changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/pentest-azienda`, changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/privacy`, changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 

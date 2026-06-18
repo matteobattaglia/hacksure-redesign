@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { PageHeader, CtaBanner } from "@/components/PageLayout";
 import { AnimateIn } from "@/components/AnimateIn";
 import { CertBadge } from "@/components/CertBadge";
+import { TeamSection } from "@/components/TeamSection";
 import { certifications, certCategories } from "@/lib/data/certifications";
 import { createMetadata, siteConfig } from "@/lib/seo";
 
@@ -59,6 +60,8 @@ export default function ChiSiamoPage() {
               ))}
             </div>
           </div>
+
+          <TeamSection />
 
           <section className="mt-16">
             <AnimateIn>

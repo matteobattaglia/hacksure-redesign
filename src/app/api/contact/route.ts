@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
   const company = sanitize(body.company, 200);
   const email = sanitize(body.email, 254);
   const phone = sanitize(body.phone, 30);
+  const need = sanitize(body.need, 80);
   const message = sanitize(body.message, 2000);
 
   if (!name || !company || !email || !phone) {
@@ -58,13 +59,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Email non valida" }, { status: 400 });
   }
 
-  // Log lead securely server-side (integrate with CRM/email service in production)
+  // TODO: integrare con CRM / email service in produzione
   console.info("[CONTACT LEAD]", {
     timestamp: new Date().toISOString(),
     name,
     company,
     email: email.replace(/(.{2}).*(@.*)/, "$1***$2"),
     phone: phone.replace(/\d(?=\d{4})/g, "*"),
+    need,
     hasMessage: !!message,
     ip: ip.replace(/\d+$/, "xxx"),
   });

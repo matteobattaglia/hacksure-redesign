@@ -13,13 +13,18 @@ export async function generateStaticParams() {
   return complianceFrameworks.map((f) => ({ slug: f.slug }));
 }
 
+const seoDescriptionBySlug: Record<string, string> = {
+  gdpr: "Evita le multe del Garante. Scopri se sei in regola con il GDPR e proteggi i dati della tua azienda.",
+  nis2: "Sei obbligato dalla NIS2? Verifica gratis in 5 minuti se la tua azienda deve adeguarsi ed evita le sanzioni.",
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const framework = getComplianceBySlug(slug);
   if (!framework) return {};
   return createMetadata({
     title: `${framework.title} — Compliance`,
-    description: framework.description,
+    description: seoDescriptionBySlug[slug] ?? framework.description,
     path: `/compliance/${slug}`,
   });
 }

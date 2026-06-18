@@ -1,3 +1,69 @@
+export type HomeFaq = {
+  question: string;
+  answer: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export const homeFaqs: HomeFaq[] = [
+  {
+    question: "Sono obbligato per legge a proteggere i dati della mia azienda?",
+    answer:
+      "Sì. Il GDPR impone a qualsiasi azienda che tratta dati di clienti, dipendenti o fornitori di adottare misure di sicurezza adeguate. In molti settori si aggiunge anche la direttiva NIS2.",
+    ctaLabel: "Verifica i tuoi obblighi",
+    ctaHref: "/obblighi-sicurezza-informatica-nis2",
+  },
+  {
+    question: "Cosa rischio se mi entrano nel computer aziendale?",
+    answer:
+      "Blocco dell'attività, furto di dati, richieste di riscatto e danni di immagine. Per molte PMI un attacco ransomware significa giorni di fermo e migliaia di euro di perdite.",
+    ctaLabel: "Scopri come proteggerti",
+    ctaHref: "/sicurezza-informatica-azienda",
+  },
+  {
+    question: "Ho ricevuto una mail sospetta: cosa faccio?",
+    answer:
+      "Non cliccare link né allegati, non rispondere e non inserire credenziali. Segnala la mail al tuo responsabile IT. Se hai già cliccato, contattaci subito per limitare i danni.",
+    ctaLabel: "Parla con un esperto",
+    ctaHref: "/contatti",
+  },
+  {
+    question: "Quanto costa proteggere la mia azienda dagli hacker?",
+    answer:
+      "Dipende dalla dimensione e dai sistemi da proteggere. Per una PMI un percorso base parte da poche centinaia di euro al mese. La valutazione preliminare è sempre gratuita.",
+    ctaLabel: "Richiedi una stima",
+    ctaHref: "/contatti",
+  },
+  {
+    question: "Cosa significa che devo essere 'conforme al GDPR'?",
+    answer:
+      "Significa trattare i dati personali in modo sicuro e documentato, con consenso, informative e misure tecniche. Se non lo fai rischi sanzioni del Garante fino a 20 milioni di euro.",
+    ctaLabel: "Controlla se sei in regola",
+    ctaHref: "/multa-gdpr-azienda",
+  },
+  {
+    question: "Mi hanno detto che devo fare la NIS2: di cosa si tratta?",
+    answer:
+      "È una normativa europea che obbliga molte aziende a rafforzare la sicurezza informatica. Se non sai se ti riguarda, una verifica gratuita di 5 minuti ti dà la risposta.",
+    ctaLabel: "Verifica la NIS2",
+    ctaHref: "/obblighi-sicurezza-informatica-nis2",
+  },
+  {
+    question: "Un antivirus non basta per proteggere la mia azienda?",
+    answer:
+      "No. L'antivirus blocca solo una parte delle minacce. Servono anche aggiornamenti, backup, formazione del personale e controlli periodici sui sistemi esposti.",
+    ctaLabel: "Vedi i nostri servizi",
+    ctaHref: "/servizi",
+  },
+  {
+    question: "Come faccio a sapere se la mia azienda è stata hackerata?",
+    answer:
+      "Spesso non è evidente: rallentamenti, accessi anomali, mail strane partite a tua insaputa. Un'analisi tecnica verifica la presenza di compromissioni anche nascoste.",
+    ctaLabel: "Richiedi un controllo",
+    ctaHref: "/pentest-azienda",
+  },
+];
+
 export const faqs = [
   {
     question: "La mia azienda è davvero a rischio attacchi informatici?",

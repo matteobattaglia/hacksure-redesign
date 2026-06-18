@@ -11,6 +11,7 @@ export function Hero() {
           alt=""
           fill
           priority
+          quality={75}
           className="object-cover opacity-15"
           sizes="100vw"
         />

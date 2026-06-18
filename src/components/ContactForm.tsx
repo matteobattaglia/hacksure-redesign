@@ -52,6 +52,7 @@ export function ContactForm({ embedded = false }: Props) {
           company: formData.get("company"),
           email: formData.get("email"),
           phone: formData.get("phone"),
+          need: formData.get("need"),
           message: formData.get("message"),
           honeypot: formData.get("website"),
         }),
@@ -148,6 +149,23 @@ export function ContactForm({ embedded = false }: Props) {
             />
             {errors.phone && <p className="mt-1 text-xs text-red-400">{errors.phone}</p>}
           </div>
+        </div>
+
+        <div>
+          <label htmlFor="need" className="mb-1 block text-sm font-medium text-zinc-300">
+            Di cosa hai bisogno?
+          </label>
+          <select
+            id="need"
+            name="need"
+            defaultValue="Valutazione gratuita"
+            className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white focus:border-brand-500 focus:outline-none"
+          >
+            <option>Valutazione gratuita</option>
+            <option>Compliance NIS2 / GDPR</option>
+            <option>Penetration testing</option>
+            <option>Non lo so ancora, ho bisogno di consiglio</option>
+          </select>
         </div>
 
         <div>

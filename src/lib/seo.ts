@@ -200,8 +200,28 @@ export function websiteJsonLd() {
   };
 }
 
-export function serviceJsonLd() {
-  return localBusinessJsonLd();
+export function serviceJsonLd({
+  serviceType,
+  description,
+  path,
+}: {
+  serviceType: string;
+  description: string;
+  path?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType,
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "IT",
+    description,
+    ...(path ? { url: `${siteConfig.url}${path}` } : {}),
+  };
 }
 
 export function faqJsonLd(faqs: { question: string; answer: string }[]) {

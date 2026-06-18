@@ -7,6 +7,8 @@ import {
   localBusinessJsonLd,
   websiteJsonLd,
 } from "@/lib/seo";
+import { CookieBanner } from "@/components/CookieBanner";
+import { UrgencyBanner } from "@/components/UrgencyBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,7 +48,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <UrgencyBanner />
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   );
 }

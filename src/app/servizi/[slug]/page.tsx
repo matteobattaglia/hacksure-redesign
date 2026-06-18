@@ -5,7 +5,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumb, CtaBanner } from "@/components/PageLayout";
 import { securityServices, getSecurityServiceBySlug } from "@/lib/data/services";
-import { createMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { createMetadata, serviceJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -13,13 +14,18 @@ export async function generateStaticParams() {
   return securityServices.map((s) => ({ slug: s.slug }));
 }
 
+const seoDescriptionBySlug: Record<string, string> = {
+  "penetration-testing":
+    "Scopri quanto è facile entrare nella tua azienda prima che lo facciano gli hacker. Penetration test professionale per PMI in Italia.",
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = getSecurityServiceBySlug(slug);
   if (!service) return {};
   return createMetadata({
     title: service.title,
-    description: service.description,
+    description: seoDescriptionBySlug[slug] ?? service.description,
     path: `/servizi/${slug}`,
   });
 }
@@ -31,6 +37,20 @@ export default async function ServizioDetailPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          serviceJsonLd({
+            serviceType: service.title,
+            description: service.description,
+            path: `/servizi/${slug}`,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Servizi", url: "/servizi" },
+            { name: service.title, url: `/servizi/${slug}` },
+          ]),
+        ]}
+      />
       <Header />
       <main>
         <Breadcrumb
