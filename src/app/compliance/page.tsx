@@ -7,10 +7,17 @@ import { complianceFrameworks } from "@/lib/data/compliance";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Compliance e Normative",
+  title: "Compliance e Normative per PMI",
   description:
-    "Servizi di conformità normativa per PMI: NIS2, GDPR, ISO 27001, DORA, PCI DSS, SOC 2. Questionari di autovalutazione gratuiti.",
+    "Conformità NIS2, GDPR, ISO 27001, DORA, PCI DSS e SOC 2 per PMI italiane. Questionari di autovalutazione gratuiti e consulenza dedicata. HackSure, Brescia.",
   path: "/compliance",
+  keywords: [
+    "compliance NIS2 PMI",
+    "conformità GDPR aziende",
+    "ISO 27001 piccole imprese",
+    "autovalutazione NIS2 gratuita",
+    "consulenza compliance Italia",
+  ],
 });
 
 export default function CompliancePage() {

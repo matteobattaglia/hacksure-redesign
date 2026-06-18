@@ -7,10 +7,17 @@ import { securityServices } from "@/lib/data/services";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Servizi di Cybersecurity",
+  title: "Servizi Cybersecurity per PMI",
   description:
-    "Vulnerability assessment, penetration testing, network security, EDR/XDR, security awareness e incident response per PMI.",
+    "Penetration testing, vulnerability assessment, network security, EDR/XDR e incident response per PMI in Italia. Team certificato CompTIA, eCPPT, CCNA. HackSure Brescia.",
   path: "/servizi",
+  keywords: [
+    "penetration testing PMI",
+    "vulnerability assessment Italia",
+    "pentest aziende",
+    "network security PMI",
+    "consulenza cybersecurity",
+  ],
 });
 
 export default function ServiziPage() {

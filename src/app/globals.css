@@ -26,6 +26,8 @@
 
   body {
     @apply bg-surface-950 text-zinc-100 antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(234, 88, 12, 0.05), transparent);
   }
 
   ::selection {
@@ -75,6 +77,13 @@
     @apply inline-flex items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900/50 px-6 py-3 text-sm font-semibold text-zinc-100 transition-all duration-200 hover:border-brand-600/40 hover:bg-zinc-800/80 hover:-translate-y-0.5 active:translate-y-0;
   }
 
+  .mesh-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
   .hero-glow {
     background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(234, 88, 12, 0.12), transparent);
     animation: pulse-glow 6s ease-in-out infinite;
@@ -115,6 +124,10 @@
     .btn-primary:hover,
     .btn-secondary:hover {
       transform: none;
+    }
+
+    .animate-ping {
+      animation: none;
     }
   }
 }

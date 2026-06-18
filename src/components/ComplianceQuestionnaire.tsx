@@ -19,16 +19,15 @@ export function ComplianceQuestionnaire({ framework }: Props) {
   const questions = framework.questions;
   const progress = Math.round(((currentStep + (showResults ? 1 : 0)) / questions.length) * 100);
 
-  function toggleAnswer(id: string, value: boolean) {
-    setAnswers((prev) => ({ ...prev, [id]: value }));
-  }
-
-  function handleNext() {
-    if (currentStep < questions.length - 1) {
-      setCurrentStep((s) => s + 1);
-    } else {
-      setShowResults(true);
-    }
+  function selectAnswer(value: boolean) {
+    setAnswers((prev) => ({ ...prev, [questions[currentStep].id]: value }));
+    setTimeout(() => {
+      if (currentStep < questions.length - 1) {
+        setCurrentStep((s) => s + 1);
+      } else {
+        setShowResults(true);
+      }
+    }, 200);
   }
 
   function handlePrev() {
@@ -57,50 +56,48 @@ export function ComplianceQuestionnaire({ framework }: Props) {
           </span>
           <span>{progress}%</span>
         </div>
-        <div className="h-1 overflow-hidden rounded-full bg-zinc-800">
+        <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
           <div
-            className="h-full rounded-full bg-brand-500 transition-all duration-300"
+            className="h-full rounded-full bg-gradient-to-r from-brand-700 to-brand-400 transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
       {!showResults ? (
-        <div className="card p-6">
-          <h2 className="text-base font-medium text-white">
+        <div className="card p-6 sm:p-8">
+          <h2 className="text-base font-medium leading-relaxed text-white sm:text-lg">
             {questions[currentStep].question}
           </h2>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <button
               type="button"
-              onClick={() => {
-                toggleAnswer(questions[currentStep].id, true);
-                setTimeout(handleNext, 150);
-              }}
-              className={`rounded-md border px-4 py-4 text-left text-sm transition-colors ${
+              onClick={() => selectAnswer(true)}
+              className={`group flex items-center justify-center gap-3 rounded-xl border-2 px-6 py-5 text-base font-semibold transition-all duration-200 ${
                 answers[questions[currentStep].id] === true
-                  ? "border-brand-500 bg-brand-500/10 text-white"
-                  : "border-zinc-700 text-zinc-300 hover:border-zinc-600"
+                  ? "border-brand-500 bg-brand-500/15 text-white shadow-lg shadow-brand-600/10"
+                  : "border-zinc-700 text-zinc-200 hover:border-brand-600/50 hover:bg-brand-600/5"
               }`}
             >
-              <span className="font-medium">Sì</span>
-              <span className="mt-0.5 block text-xs text-zinc-500">Conforme / implementato</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600/20 text-brand-400 transition-colors group-hover:bg-brand-600/30">
+                ✓
+              </span>
+              Sì
             </button>
             <button
               type="button"
-              onClick={() => {
-                toggleAnswer(questions[currentStep].id, false);
-                setTimeout(handleNext, 150);
-              }}
-              className={`rounded-md border px-4 py-4 text-left text-sm transition-colors ${
+              onClick={() => selectAnswer(false)}
+              className={`group flex items-center justify-center gap-3 rounded-xl border-2 px-6 py-5 text-base font-semibold transition-all duration-200 ${
                 answers[questions[currentStep].id] === false
-                  ? "border-zinc-500 bg-zinc-800 text-white"
-                  : "border-zinc-700 text-zinc-300 hover:border-zinc-600"
+                  ? "border-zinc-400 bg-zinc-800 text-white"
+                  : "border-zinc-700 text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800/50"
               }`}
             >
-              <span className="font-medium">No</span>
-              <span className="mt-0.5 block text-xs text-zinc-500">Non conforme / da implementare</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-700/50 text-zinc-400 transition-colors group-hover:bg-zinc-700">
+                ✕
+              </span>
+              No
             </button>
           </div>
 
@@ -109,36 +106,40 @@ export function ComplianceQuestionnaire({ framework }: Props) {
               type="button"
               onClick={handlePrev}
               disabled={currentStep === 0}
-              className="text-sm text-zinc-500 hover:text-white disabled:opacity-30"
+              className="text-sm text-zinc-500 transition-colors hover:text-white disabled:opacity-30"
             >
-              Indietro
+              ← Indietro
             </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              disabled={answers[questions[currentStep].id] === undefined}
-              className="text-sm font-medium text-brand-500 hover:text-brand-400 disabled:opacity-40"
-            >
-              {currentStep === questions.length - 1 ? "Vedi risultati" : "Avanti"}
-            </button>
+            {answers[questions[currentStep].id] !== undefined && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (currentStep < questions.length - 1) setCurrentStep((s) => s + 1);
+                  else setShowResults(true);
+                }}
+                className="text-sm font-medium text-brand-500 hover:text-brand-400"
+              >
+                {currentStep === questions.length - 1 ? "Vedi risultati →" : "Avanti →"}
+              </button>
+            )}
           </div>
         </div>
       ) : (
         result && (
-          <div className="card p-6 text-center">
+          <div className="card p-8 text-center">
             <div
-              className={`mx-auto mb-4 inline-block rounded border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${levelColors[result.level]}`}
+              className={`mx-auto mb-4 inline-block rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider ${levelColors[result.level]}`}
             >
-              {result.level}
+              Livello {result.level}
             </div>
-            <p className="text-4xl font-semibold text-white">{result.score}%</p>
-            <h2 className="mt-4 text-base font-medium text-white">
+            <p className="text-5xl font-bold text-white">{result.score}%</p>
+            <h2 className="mt-4 text-lg font-semibold text-white">
               Risultato autovalutazione {framework.title}
             </h2>
-            <p className="mt-2 text-sm text-zinc-400">{result.message}</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-400">{result.message}</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link href="/contatti" className="btn-primary">
-                Richiedi consulenza
+                Richiedi consulenza gratuita
               </Link>
               <button
                 type="button"

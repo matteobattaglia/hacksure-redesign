@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimateIn } from "@/components/AnimateIn";
 
+const trustItems = ["NIS2 & GDPR", "Penetration Test", "ISO 27001", "Team certificato"];
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-zinc-800">
@@ -16,17 +18,24 @@ export function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-surface-950 via-surface-950/95 to-surface-950/70" />
         <div className="hero-glow absolute inset-0" />
+        <div className="mesh-bg absolute inset-0 opacity-40" />
       </div>
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-28">
         <AnimateIn>
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-600/30 bg-brand-600/10 px-3 py-1 text-xs font-medium text-brand-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-            Cybersecurity per PMI italiane
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-60 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
+            </span>
+            Cybersecurity per PMI — Brescia &amp; Italia
           </div>
           <h1 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
             Sicurezza informatica{" "}
-            <span className="text-brand-400">a 360°</span> per la tua azienda
+            <span className="bg-gradient-to-r from-brand-300 to-brand-500 bg-clip-text text-transparent">
+              a 360°
+            </span>{" "}
+            per la tua azienda
           </h1>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-zinc-400">
             Proteggiamo la tua infrastruttura IT da attacchi informatici, vulnerabilità e rischi
@@ -38,17 +47,27 @@ export function Hero() {
               Valutazione gratuita
             </Link>
             <Link href="/compliance" className="btn-secondary">
-              Compliance e normative
+              Autovalutazione compliance
             </Link>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {trustItems.map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-400"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </AnimateIn>
 
         <AnimateIn delay={150} className="relative hidden lg:block">
           <div className="animate-float relative mx-auto aspect-square max-w-md">
-            <div className="absolute inset-0 rounded-2xl bg-brand-600/5 blur-3xl" />
+            <div className="absolute inset-0 rounded-3xl bg-brand-600/10 blur-3xl" />
             <Image
               src="/assets/images/Sicurezza-Informatica.webp"
-              alt="Sicurezza informatica HackSure"
+              alt="Cybersecurity e compliance HackSure per PMI italiane"
               fill
               className="relative object-contain drop-shadow-2xl"
               sizes="448px"
