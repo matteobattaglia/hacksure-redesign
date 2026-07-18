@@ -57,6 +57,26 @@ export function Footer() {
 
           <div>
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Partner &amp; guide
+            </h3>
+            <ul className="mb-6 space-y-2 text-sm text-zinc-500">
+              <li>
+                <Link href="/partner/kaspersky" className="hover:text-brand-400">
+                  Kaspersky Partner
+                </Link>
+              </li>
+              <li>
+                <Link href="/servizi/notarizzazione-blockchain" className="hover:text-brand-400">
+                  Notarizzazione Blockchain
+                </Link>
+              </li>
+              <li>
+                <Link href="/servizi/perizia-truffe-online" className="hover:text-brand-400">
+                  Perizia Truffe Online
+                </Link>
+              </li>
+            </ul>
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
               Contatti
             </h3>
             <ul className="space-y-2 text-sm text-zinc-500">

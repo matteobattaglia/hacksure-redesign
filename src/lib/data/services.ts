@@ -9,6 +9,12 @@ export type SecurityService = {
   cta: string;
   category: string;
   image?: string;
+  audience?: string[];
+  deliverables?: string[];
+  useCases?: string[];
+  faqs?: { question: string; answer: string }[];
+  disclaimer?: string;
+  relatedLinks?: { label: string; href: string }[];
 };
 
 export const securityServices: SecurityService[] = [
@@ -104,6 +110,25 @@ export const securityServices: SecurityService[] = [
     cta: "Scopri Kaspersky EDR",
     category: "Endpoint Protection",
     image: "/assets/images/shutterstock_2695394565-scaled.jpg",
+    deliverables: [
+      "Assessment ambiente e raccomandazione stack Kaspersky",
+      "Deployment e configurazione EDR/XDR",
+      "Documentazione policy e runbook operativi",
+      "Formazione del team interno",
+    ],
+    useCases: [
+      "Protezione da ransomware su postazioni e server.",
+      "Visibilità centralizzata sugli endpoint della PMI.",
+      "Allineamento a requisiti NIS2 e ISO 27001 sul controllo endpoint.",
+    ],
+    faqs: [
+      {
+        question: "Siete partner ufficiali Kaspersky?",
+        answer:
+          "Sì. HackSure è Kaspersky Registered B2B Partner. Maggiori dettagli sulla pagina dedicata Partnership Kaspersky.",
+      },
+    ],
+    relatedLinks: [{ label: "Pagina Partner Kaspersky", href: "/partner/kaspersky" }],
   },
   {
     slug: "security-awareness",
@@ -150,6 +175,139 @@ export const securityServices: SecurityService[] = [
     ],
     cta: "Parla con un esperto IR",
     category: "Emergency",
+  },
+  {
+    slug: "notarizzazione-blockchain",
+    title: "Notarizzazione su Blockchain",
+    shortDescription:
+      "Timestamp immutabile di documenti e prove digitali, con supporto di studi legali qualificati.",
+    description:
+      "Ancoriamo documenti, contratti e prove digitali su blockchain per garantire data certa, integrità e opponibilità. Collaboriamo con studi legali altamente qualificati per l'utilizzo in ambito civile, commerciale e processuale.",
+    longDescription:
+      "La notarizzazione su blockchain permette di associare a un documento o a un file un timestamp crittografico immutabile: in qualsiasi momento è possibile dimostrare che quel contenuto esisteva in quella forma a una data precisa e che non è stato alterato. HackSure gestisce il processo tecnico end-to-end — dalla preparazione delle prove all'ancoraggio on-chain — e si affida a studi legali altamente qualificati per inquadrare correttamente l'utilizzo delle evidenze in ambito contrattuale, pre-contenzioso e giudiziale. Ideale per contratti, verbali, report di security, comunicazioni e-mail, log e materiale forense.",
+    features: [
+      "Hash crittografico SHA-256 del documento o del set di file",
+      "Ancoraggio su blockchain pubblica con timestamp immutabile",
+      "Certificato di notarizzazione scaricabile e verificabile",
+      "Conservazione delle prove di integrità nel tempo",
+      "Collaborazione con studi legali altamente qualificati",
+      "Supporto per utilizzi civili, commerciali e processuali",
+    ],
+    methodology: [
+      "Raccolta e inventario dei documenti o delle prove da notarizzare",
+      "Generazione dell'hash e preparazione del pacchetto di evidenze",
+      "Ancoraggio su blockchain e rilascio del certificato",
+      "Consegna del dossier tecnico e, se richiesto, affiancamento legale",
+    ],
+    cta: "Richiedi una notarizzazione",
+    category: "Digital Trust",
+    audience: [
+      "Aziende che devono dimostrare data certa di contratti, offerte o accordi.",
+      "Studi professionali e consulenti che producono report o perizie digitali.",
+      "Team IT e security che devono cristallizzare log, dump e report di incidente.",
+      "Parti in pre-contenzioso che vogliono preservare evidenze prima di un'azione legale.",
+    ],
+    deliverables: [
+      "Certificato di notarizzazione con hash, timestamp e riferimento transazione",
+      "Istruzioni di verifica indipendente dell'integrità del documento",
+      "Dossier tecnico delle evidenze (opzionale, su richiesta)",
+      "Affiancamento di studio legale qualificato per l'uso processuale (opzionale)",
+    ],
+    useCases: [
+      "Contratti e proposte commerciali da cristallizzare con data certa.",
+      "Report di vulnerability assessment o incident response da rendere non alterabili.",
+      "Email, chat e comunicazioni da preservare prima di un contenzioso.",
+      "Verbali di assemblea, delibere e documentazione societaria digitale.",
+      "Materiale forense da consegnare a legali o autorità.",
+    ],
+    faqs: [
+      {
+        question: "La notarizzazione blockchain sostituisce il notaio?",
+        answer:
+          "No. Non sostituisce l'atto notarile. Fornisce prova tecnica di esistenza e integrità di un contenuto a una data certa. Per gli aspetti giuridici ci affidiamo a studi legali qualificati.",
+      },
+      {
+        question: "I documenti restano pubblici sulla blockchain?",
+        answer:
+          "No. Sulla blockchain viene pubblicato solo l'hash crittografico, non il contenuto del file. Il documento originale resta sotto il vostro controllo.",
+      },
+      {
+        question: "Quanto tempo richiede il processo?",
+        answer:
+          "Per un singolo documento o un piccolo set di file, tipicamente entro poche ore lavorative dalla ricezione completa del materiale.",
+      },
+    ],
+    disclaimer:
+      "HackSure fornisce il servizio tecnico di notarizzazione e conservazione delle evidenze. L'assistenza legale è erogata da studi legali terzi altamente qualificati, selezionati in base al caso. Il servizio non costituisce consulenza legale.",
+  },
+  {
+    slug: "perizia-truffe-online",
+    title: "Perizia Truffe Online",
+    shortDescription:
+      "Analisi di fattibilità e perizia tecnica per vittime di truffe online, da presentare a legali e autorità.",
+    description:
+      "Se sei stato truffato online, partiamo da una call per capire cosa è successo. Dopo un'attenta analisi di fattibilità, se ci sono concrete chance di aiuto prepariamo una perizia tecnica da presentare a legali e organi competenti.",
+    longDescription:
+      "Le truffe online — phishing, SIM swap, investimenti fantasma, frodi su marketplace, social engineering, ransomware e furti di account — lasciano spesso le vittime senza sapere da dove iniziare. Il nostro servizio nasce proprio per questo: una prima call conoscitiva per ricostruire i fatti, seguita da un'analisi di fattibilità tecnica. Solo se l'esito è positivo e esistono concrete possibilità di ottenere un aiuto concreto, procediamo alla redazione di una perizia tecnica strutturata, utilizzabile da avvocati, forze dell'ordine e autorità competenti. Non promettiamo risultati impossibili: valutiamo onestamente se ha senso andare avanti e, quando sì, produciamo un documento chiaro, documentato e professionale.",
+    features: [
+      "Call iniziale gratuita per ricostruire i fatti",
+      "Analisi di fattibilità tecnica prima di qualsiasi impegno",
+      "Raccolta e preservazione delle evidenze digitali",
+      "Perizia tecnica strutturata per legali e autorità",
+      "Timeline degli eventi e ricostruzione del modus operandi",
+      "Indicazioni operative per i passi successivi",
+    ],
+    methodology: [
+      "Call conoscitiva: ascolto dei fatti, raccolta di screenshot, email, bonifici e log",
+      "Analisi di fattibilità: valutazione delle evidenze e delle chance di utilità",
+      "Se esito positivo: approfondimento tecnico e preservazione delle prove",
+      "Redazione della perizia e consegna al cliente / legale di riferimento",
+    ],
+    cta: "Prenota la call gratuita",
+    category: "Digital Forensics",
+    audience: [
+      "Privati e famiglie vittime di phishing, furto di account o frodi bancarie online.",
+      "Imprenditori e PMI colpiti da frodi B2B, false fatture o compromissione email.",
+      "Professionisti e studi che necessitano di una perizia tecnica a supporto di un fascicolo.",
+      "Persone che hanno già denunciato e devono rafforzare il dossier con evidenze tecniche.",
+    ],
+    deliverables: [
+      "Esito scritto dell'analisi di fattibilità (anche in caso negativo)",
+      "Perizia tecnica con ricostruzione dei fatti e delle evidenze (se si procede)",
+      "Allegati: screenshot, hash dei file, estratti di comunicazioni e tracce rilevanti",
+      "Indicazioni su organi e canali a cui rivolgersi (Polizia Postale, banca, legale)",
+    ],
+    useCases: [
+      "Bonifico o pagamento eseguito a seguito di una mail o messaggio fraudolento.",
+      "Investimento online rivelatosi una truffa (crypto, trading, piattaforme fantasma).",
+      "Furto di account social, email o marketplace con danni economici.",
+      "SIM swap o compromissione dell'home banking.",
+      "Frode B2B con cambio IBAN del fornitore (Business Email Compromise).",
+    ],
+    faqs: [
+      {
+        question: "La call iniziale ha un costo?",
+        answer:
+          "No. La prima call è gratuita e serve solo a capire cosa è successo e se ha senso approfondire. Non c'è alcun obbligo di proseguire.",
+      },
+      {
+        question: "Cosa succede se l'analisi di fattibilità è negativa?",
+        answer:
+          "Te lo comunichiamo con chiarezza e motivazioni. Non procediamo alla perizia se non ci sono concrete chance di produrre un documento utile. Meglio saperlo subito che spendere inutilmente.",
+      },
+      {
+        question: "Sostituite l'avvocato o la denuncia?",
+        answer:
+          "No. Non forniamo consulenza legale né sostituiamo le autorità. Prepariamo la perizia tecnica che il vostro legale o gli organi competenti possono utilizzare nel fascicolo.",
+      },
+      {
+        question: "Quanto tempo serve per avere la perizia?",
+        answer:
+          "Dipende dalla complessità del caso e dalla completezza delle evidenze. Dopo la call e l'analisi di fattibilità, i tempi tipici vanno da pochi giorni a un paio di settimane.",
+      },
+    ],
+    disclaimer:
+      "HackSure fornisce analisi tecnica e perizia informatica. Non siamo uno studio legale e non sostituiamo denunce, azioni giudiziarie o consulenza legale. L'esito positivo dell'analisi di fattibilità non garantisce il recupero delle somme o un risultato processuale.",
   },
 ];
 

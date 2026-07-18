@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/multa-gdpr-azienda`, changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/obblighi-sicurezza-informatica-nis2`, changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/pentest-azienda`, changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/partner/kaspersky`, changeFrequency: "monthly" as const, priority: 0.85 },
     { url: `${baseUrl}/privacy`, changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 

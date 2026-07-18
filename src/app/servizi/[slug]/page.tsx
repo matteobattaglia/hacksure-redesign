@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumb, CtaBanner } from "@/components/PageLayout";
+import { ServiceDetail } from "@/components/ServiceDetail";
 import { securityServices, getSecurityServiceBySlug } from "@/lib/data/services";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata, serviceJsonLd, breadcrumbJsonLd } from "@/lib/seo";
@@ -17,6 +17,10 @@ export async function generateStaticParams() {
 const seoDescriptionBySlug: Record<string, string> = {
   "penetration-testing":
     "Scopri quanto è facile entrare nella tua azienda prima che lo facciano gli hacker. Penetration test professionale per PMI in Italia.",
+  "notarizzazione-blockchain":
+    "Notarizzazione documenti su blockchain con timestamp immutabile. Collaboriamo con studi legali qualificati. HackSure.",
+  "perizia-truffe-online":
+    "Sei stato truffato online? Call gratuita, analisi di fattibilità e perizia tecnica da presentare a legali e autorità.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -62,45 +66,17 @@ export default async function ServizioDetailPage({ params }: Props) {
         />
         <div className="border-b border-zinc-800 bg-surface-900">
           <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">{service.category}</p>
-            <h1 className="mt-2 text-3xl font-semibold text-white">{service.title}</h1>
-            <p className="mt-4 max-w-3xl text-zinc-400">{service.longDescription}</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">
+              {service.category}
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold text-white sm:text-4xl">{service.title}</h1>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-400">
+              {service.longDescription}
+            </p>
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">Cosa include</h2>
-              <ul className="mt-4 space-y-3">
-                {service.features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm text-zinc-300">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">Metodologia</h2>
-              <ol className="mt-4 space-y-4">
-                {service.methodology.map((step, i) => (
-                  <li key={step} className="flex gap-4 text-sm">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-zinc-700 text-xs font-medium text-brand-500">
-                      {i + 1}
-                    </span>
-                    <span className="pt-1 text-zinc-300">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-          <div className="mt-12">
-            <Link href="/contatti" className="btn-primary">
-              {service.cta}
-            </Link>
-          </div>
-        </div>
+        <ServiceDetail service={service} />
         <CtaBanner />
       </main>
       <Footer />

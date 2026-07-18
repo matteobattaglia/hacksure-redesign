@@ -29,6 +29,21 @@ export const mainNavigation: NavItem[] = [
       { label: "Endpoint EDR/XDR", href: "/servizi/endpoint-security" },
       { label: "Security Awareness", href: "/servizi/security-awareness" },
       { label: "Incident Response", href: "/servizi/incident-response" },
+      {
+        label: "Notarizzazione Blockchain",
+        href: "/servizi/notarizzazione-blockchain",
+        description: "Timestamp immutabile e studi legali",
+      },
+      {
+        label: "Perizia Truffe Online",
+        href: "/servizi/perizia-truffe-online",
+        description: "Analisi e perizia per vittime di frodi",
+      },
+      {
+        label: "Kaspersky Partner",
+        href: "/partner/kaspersky",
+        description: "Registered B2B Partner ufficiale",
+      },
     ],
   },
   {

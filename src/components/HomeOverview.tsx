@@ -92,8 +92,8 @@ export function HomeOverview() {
             </Link>
           </AnimateIn>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {securityServices.slice(0, 6).map((s, i) => (
-              <AnimateIn key={s.slug} delay={i * 60}>
+            {securityServices.map((s, i) => (
+              <AnimateIn key={s.slug} delay={i * 50}>
                 <Link href={`/servizi/${s.slug}`} className="card-hover block p-5">
                   <p className="text-xs font-medium text-brand-500">{s.category}</p>
                   <h3 className="mt-1 font-semibold text-white">{s.title}</h3>
@@ -102,6 +102,35 @@ export function HomeOverview() {
               </AnimateIn>
             ))}
           </div>
+
+          <AnimateIn delay={200}>
+            <Link
+              href="/partner/kaspersky"
+              className="card-hover mt-6 flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center"
+            >
+              <div className="shrink-0 rounded-lg border border-zinc-800 bg-black p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/partners/kaspersky-registered-partner.jpg"
+                  alt="Kaspersky Registered B2B Partner"
+                  className="h-10 w-auto"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">
+                  Partnership ufficiale
+                </p>
+                <h3 className="mt-1 font-semibold text-white">
+                  HackSure è Kaspersky Registered B2B Partner
+                </h3>
+                <p className="mt-1 text-sm text-zinc-400">
+                  Endpoint security, EDR/XDR e protezione enterprise per PMI.
+                </p>
+              </div>
+              <span className="text-sm font-medium text-brand-500">Scopri →</span>
+            </Link>
+          </AnimateIn>
         </div>
       </section>
 
