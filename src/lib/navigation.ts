@@ -35,9 +35,9 @@ export const mainNavigation: NavItem[] = [
         description: "Timestamp immutabile e studi legali",
       },
       {
-        label: "Perizia Truffe Online",
+        label: "SOS Truffe Online",
         href: "/servizi/perizia-truffe-online",
-        description: "Analisi e perizia per vittime di frodi",
+        description: "Call, analisi e perizia per vittime di frodi",
       },
       {
         label: "Kaspersky Partner",

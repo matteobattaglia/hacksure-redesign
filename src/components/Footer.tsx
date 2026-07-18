@@ -72,7 +72,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/servizi/perizia-truffe-online" className="hover:text-brand-400">
-                  Perizia Truffe Online
+                  SOS Truffe Online
                 </Link>
               </li>
             </ul>

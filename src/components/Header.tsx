@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mainNavigation } from "@/lib/navigation";
 
 export function Header() {
@@ -14,10 +14,24 @@ export function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenDropdown(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800 bg-surface-950/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="shrink-0" onClick={() => setMobileOpen(false)}>
           <Image
             src="/assets/images/Hacksure-White.png"
             alt="HackSure"
@@ -52,10 +66,8 @@ export function Header() {
                 </Link>
 
                 {openDropdown === item.label && (
-                  <div className="absolute left-0 top-full pt-1">
-                    <div className={`rounded-lg border border-zinc-800 bg-surface-900 py-2 shadow-xl shadow-black/40 ${
-                      item.label === "Certificazioni" ? "max-h-80 w-72 overflow-y-auto" : "min-w-[240px]"
-                    }`}>
+                  <div className="absolute left-0 top-full z-50 pt-1">
+                    <div className="max-h-[min(70vh,28rem)] w-72 overflow-y-auto overscroll-contain rounded-lg border border-zinc-800 bg-surface-900 py-2 shadow-xl shadow-black/40">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
@@ -68,7 +80,7 @@ export function Header() {
                           )}
                         </Link>
                       ))}
-                      <div className="mt-1 border-t border-zinc-800 px-4 pt-2">
+                      <div className="sticky bottom-0 border-t border-zinc-800 bg-surface-900 px-4 py-2">
                         <Link
                           href={item.href}
                           className="text-xs font-medium text-brand-500 hover:text-brand-400"
@@ -113,8 +125,11 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-zinc-800 px-4 py-4 lg:hidden" aria-label="Menu mobile">
-          <div className="space-y-1">
+        <nav
+          className="max-h-[calc(100dvh-3.75rem)] overflow-y-auto overscroll-contain border-t border-zinc-800 px-4 py-4 lg:hidden"
+          aria-label="Menu mobile"
+        >
+          <div className="space-y-1 pb-6">
             <Link href="/" className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-200" onClick={() => setMobileOpen(false)}>
               Home
             </Link>

@@ -12,42 +12,71 @@ export function HomeOverview() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimateIn>
             <div className="max-w-2xl">
-              <p className="section-label">Cosa facciamo</p>
+              <p className="section-label">In evidenza</p>
               <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-                Servizi strutturati per ogni esigenza di sicurezza
+                Tre risposte concrete alle esigenze più urgenti
               </h2>
               <p className="mt-3 text-zinc-400">
-                Due aree di competenza: conformità normativa con autovalutazione guidata, e servizi
-                operativi per testare e proteggere la vostra infrastruttura.
+                Normative, notarizzazione delle prove e supporto immediato se sei stato truffato online.
               </p>
             </div>
           </AnimateIn>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <AnimateIn delay={80}>
-              <Link href="/compliance" className="card-hover gradient-border group block p-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">Compliance</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">Normative e autovalutazione</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  NIS2, GDPR, ISO 27001, DORA, PCI DSS e SOC 2. Questionari gratuiti per misurare il
-                  livello di conformità della vostra organizzazione.
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            <AnimateIn delay={60}>
+              <Link
+                href="/compliance"
+                className="card-hover gradient-border group flex h-full flex-col p-7"
+              >
+                <span className="inline-flex w-fit rounded-full border border-brand-600/40 bg-brand-600/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
+                  Normative
+                </span>
+                <h3 className="mt-4 text-xl font-semibold text-white">Compliance e obblighi di legge</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
+                  NIS2, GDPR, ISO 27001 e altri framework. Autovalutazione gratuita per capire se sei
+                  in regola e cosa fare per evitare sanzioni.
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
-                  Esplora compliance →
+                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
+                  Verifica le normative →
                 </span>
               </Link>
             </AnimateIn>
 
-            <AnimateIn delay={160}>
-              <Link href="/servizi" className="card-hover gradient-border group block p-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">Servizi</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">Test e protezione infrastrutture</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  Vulnerability assessment, penetration testing, network security, EDR/XDR, formazione
-                  e incident response per PMI.
+            <AnimateIn delay={120}>
+              <Link
+                href="/servizi/notarizzazione-blockchain"
+                className="card-hover gradient-border group flex h-full flex-col p-7"
+              >
+                <span className="inline-flex w-fit rounded-full border border-brand-600/40 bg-brand-600/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
+                  Digital Trust
+                </span>
+                <h3 className="mt-4 text-xl font-semibold text-white">Notarizzazione Blockchain</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
+                  Timestamp immutabile di documenti e prove digitali. Collaboriamo con studi legali
+                  altamente qualificati per usi civili e processuali.
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
-                  Esplora servizi →
+                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
+                  Scopri la notarizzazione →
+                </span>
+              </Link>
+            </AnimateIn>
+
+            <AnimateIn delay={180}>
+              <Link
+                href="/servizi/perizia-truffe-online"
+                className="card-hover gradient-border group relative flex h-full flex-col overflow-hidden border-brand-600/40 p-7"
+              >
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-600/15 via-transparent to-transparent" />
+                <span className="relative inline-flex w-fit rounded-full bg-brand-600 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">
+                  Emergenza
+                </span>
+                <h3 className="relative mt-4 text-xl font-semibold text-white">SOS Truffe Online</h3>
+                <p className="relative mt-3 flex-1 text-sm leading-relaxed text-zinc-300">
+                  Sei stato truffato online? Call gratuita, analisi di fattibilità e — se ci sono
+                  chance concrete — perizia tecnica da presentare a legali e autorità.
+                </p>
+                <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-400 transition-transform group-hover:translate-x-1">
+                  Richiedi aiuto ora →
                 </span>
               </Link>
             </AnimateIn>

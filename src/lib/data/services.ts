@@ -242,13 +242,13 @@ export const securityServices: SecurityService[] = [
   },
   {
     slug: "perizia-truffe-online",
-    title: "Perizia Truffe Online",
+    title: "SOS Truffe Online",
     shortDescription:
-      "Analisi di fattibilità e perizia tecnica per vittime di truffe online, da presentare a legali e autorità.",
+      "Call gratuita, analisi di fattibilità e perizia tecnica se sei stato truffato online — per legali e autorità.",
     description:
-      "Se sei stato truffato online, partiamo da una call per capire cosa è successo. Dopo un'attenta analisi di fattibilità, se ci sono concrete chance di aiuto prepariamo una perizia tecnica da presentare a legali e organi competenti.",
+      "SOS Truffe Online: se sei stato truffato, partiamo da una call per capire cosa è successo. Dopo un'attenta analisi di fattibilità, se ci sono concrete chance di aiuto prepariamo una perizia tecnica da presentare a legali e organi competenti.",
     longDescription:
-      "Le truffe online — phishing, SIM swap, investimenti fantasma, frodi su marketplace, social engineering, ransomware e furti di account — lasciano spesso le vittime senza sapere da dove iniziare. Il nostro servizio nasce proprio per questo: una prima call conoscitiva per ricostruire i fatti, seguita da un'analisi di fattibilità tecnica. Solo se l'esito è positivo e esistono concrete possibilità di ottenere un aiuto concreto, procediamo alla redazione di una perizia tecnica strutturata, utilizzabile da avvocati, forze dell'ordine e autorità competenti. Non promettiamo risultati impossibili: valutiamo onestamente se ha senso andare avanti e, quando sì, produciamo un documento chiaro, documentato e professionale.",
+      "SOS Truffe Online è il servizio HackSure per chi ha subito una frode digitale. Phishing, SIM swap, investimenti fantasma, frodi su marketplace, social engineering, ransomware e furti di account lasciano spesso le vittime senza sapere da dove iniziare. Partiamo da una call conoscitiva per ricostruire i fatti, seguita da un'analisi di fattibilità tecnica. Solo se l'esito è positivo e esistono concrete possibilità di ottenere un aiuto concreto, procediamo alla redazione di una perizia tecnica strutturata, utilizzabile da avvocati, forze dell'ordine e autorità competenti. Non promettiamo risultati impossibili: valutiamo onestamente se ha senso andare avanti e, quando sì, produciamo un documento chiaro, documentato e professionale.",
     features: [
       "Call iniziale gratuita per ricostruire i fatti",
       "Analisi di fattibilità tecnica prima di qualsiasi impegno",

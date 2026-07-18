@@ -20,7 +20,7 @@ const seoDescriptionBySlug: Record<string, string> = {
   "notarizzazione-blockchain":
     "Notarizzazione documenti su blockchain con timestamp immutabile. Collaboriamo con studi legali qualificati. HackSure.",
   "perizia-truffe-online":
-    "Sei stato truffato online? Call gratuita, analisi di fattibilità e perizia tecnica da presentare a legali e autorità.",
+    "SOS Truffe Online: call gratuita, analisi di fattibilità e perizia tecnica da presentare a legali e autorità.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

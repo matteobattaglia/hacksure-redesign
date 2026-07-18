@@ -9,13 +9,13 @@ import { createMetadata } from "@/lib/seo";
 export const metadata: Metadata = createMetadata({
   title: "Servizi Cybersecurity per PMI",
   description:
-    "Penetration testing, notarizzazione blockchain, perizia truffe online, EDR Kaspersky e incident response per PMI. HackSure Brescia.",
+    "Penetration testing, notarizzazione blockchain, SOS Truffe Online, EDR Kaspersky e incident response per PMI. HackSure Brescia.",
   path: "/servizi",
   keywords: [
     "penetration testing PMI",
     "vulnerability assessment Italia",
     "notarizzazione blockchain",
-    "perizia truffe online",
+    "SOS truffe online",
     "kaspersky partner",
     "consulenza cybersecurity",
   ],
@@ -29,7 +29,7 @@ export default function ServiziPage() {
         <PageHeader
           label="Servizi"
           title="Cybersecurity operativa per PMI"
-          description="Dai test offensivi alla protezione endpoint Kaspersky, dalla notarizzazione blockchain alla perizia per truffe online: servizi professionali end-to-end."
+          description="Dai test offensivi alla protezione endpoint Kaspersky, dalla notarizzazione blockchain a SOS Truffe Online: servizi professionali end-to-end."
         />
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
