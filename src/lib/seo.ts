@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Cybersecurity per PMI",
   description:
     "Hacksure Srl: cybersecurity e compliance per PMI in Italia. Penetration testing, vulnerability assessment, NIS2, GDPR, ISO 27001. Sedi a Brescia e Atena Lucana.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://hacksure-redesign.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hacksure.it",
   locale: "it_IT",
   language: "it",
   email: "info@hacksure.it",
@@ -71,6 +71,7 @@ export function createMetadata({
       canonical: url,
       languages: {
         "it-IT": url,
+        it: url,
       },
     },
     openGraph: {

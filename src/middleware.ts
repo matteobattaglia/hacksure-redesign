@@ -2,6 +2,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  const host = request.headers.get("host")?.toLowerCase() ?? "";
+
+  // Canonical: www.hacksure.it (apex → www)
+  if (host === "hacksure.it") {
+    const url = request.nextUrl.clone();
+    url.host = "www.hacksure.it";
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 308);
+  }
+
   const response = NextResponse.next();
 
   response.headers.set("X-Request-Id", crypto.randomUUID());
