@@ -6,7 +6,7 @@ import { createMetadata, siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
   title: "Privacy & Cookie Policy",
-  description: "Informativa privacy e cookie policy di HackSure — Seven Business srl.",
+  description: "Informativa privacy e cookie policy di Hacksure Srl.",
   path: "/privacy",
 });
 
@@ -31,9 +31,13 @@ export default function PrivacyPage() {
           <p>
             {siteConfig.legalName}
             <br />
-            {siteConfig.address}
+            {siteConfig.addressLabel}: {siteConfig.address}
+            <br />
+            {siteConfig.addressSecondaryLabel}: {siteConfig.addressSecondary}
             <br />
             P.IVA: {siteConfig.vat}
+            <br />
+            Cap. soc.: {siteConfig.capital}
             <br />
             Email: <a href={`mailto:${siteConfig.email}`} className="text-brand-500 hover:text-brand-400">{siteConfig.email}</a>
           </p>

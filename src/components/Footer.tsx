@@ -20,8 +20,8 @@ export function Footer() {
               className="mb-4 h-6 w-auto"
             />
             <p className="text-sm leading-relaxed text-zinc-500">
-              Divisione cybersecurity di {siteConfig.legalName}. Servizi professionali per PMI
-              italiane: compliance, penetration testing e protezione infrastrutture.
+              {siteConfig.legalName} — servizi professionali di cybersecurity per PMI italiane:
+              compliance, penetration testing e protezione infrastrutture.
             </p>
           </div>
 
@@ -92,7 +92,14 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              <li>{siteConfig.address}</li>
+              <li>
+                <span className="block text-zinc-600">{siteConfig.addressLabel}</span>
+                {siteConfig.address}
+              </li>
+              <li>
+                <span className="block text-zinc-600">{siteConfig.addressSecondaryLabel}</span>
+                {siteConfig.addressSecondary}
+              </li>
             </ul>
             <div className="mt-4 flex gap-3 text-sm text-zinc-500">
               <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-400">LinkedIn</a>
@@ -103,7 +110,9 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between">
-          <p>{siteConfig.legalName} — P.IVA {siteConfig.vat} — Cap. soc. {siteConfig.capital}</p>
+          <p>
+            {siteConfig.legalName} — P.IVA {siteConfig.vat} — Cap. soc. {siteConfig.capital}
+          </p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-zinc-400">Privacy Policy</Link>
             <span>© {new Date().getFullYear()} HackSure</span>

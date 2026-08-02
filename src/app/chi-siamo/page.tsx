@@ -12,7 +12,7 @@ import { createMetadata, siteConfig } from "@/lib/seo";
 export const metadata: Metadata = createMetadata({
   title: "Chi siamo",
   description:
-    "HackSure è la divisione cybersecurity di Seven Business. Team certificato con eJPT, eCPPT, CompTIA, Cisco CCNA, Sophos e EICTA IS.",
+    "Hacksure Srl — cybersecurity per PMI. Team certificato con eJPT, eCPPT, CompTIA, Cisco CCNA, Sophos e EICTA IS. Sedi a Brescia e Atena Lucana.",
   path: "/chi-siamo",
 });
 
@@ -23,14 +23,14 @@ export default function ChiSiamoPage() {
       <main>
         <PageHeader
           label="Azienda"
-          title="HackSure: cybersecurity per PMI"
-          description="Divisione cybersecurity di Seven Business. Servizi professionali di analisi vulnerabilità, penetration testing, sicurezza di rete e conformità normativa."
+          title="Hacksure Srl: cybersecurity per PMI"
+          description="Servizi professionali di analisi vulnerabilità, penetration testing, sicurezza di rete e conformità normativa. Sede legale a Brescia, sede operativa anche in Campania."
         />
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2">
             <AnimateIn className="space-y-4 leading-relaxed text-zinc-400">
               <p>
-                HackSure nasce con l&apos;obiettivo di rendere accessibili alle piccole e medie
+                Hacksure Srl nasce con l&apos;obiettivo di rendere accessibili alle piccole e medie
                 imprese italiane servizi di cybersecurity di livello enterprise, con un approccio
                 concreto e orientato ai risultati.
               </p>
@@ -49,7 +49,9 @@ export default function ChiSiamoPage() {
                 { title: "Approccio operativo", desc: "Report actionable, remediation prioritizzata, supporto continuo." },
                 { title: "Focus PMI", desc: "Soluzioni scalabili modulate su budget e complessità aziendale." },
                 { title: "Team certificato", desc: `${certifications.length} certificazioni attive e verificabili.` },
-                { title: "Sede operativa", desc: siteConfig.address },
+                { title: siteConfig.addressLabel, desc: siteConfig.address },
+                { title: siteConfig.addressSecondaryLabel, desc: siteConfig.addressSecondary },
+                { title: "Dati societari", desc: `P.IVA ${siteConfig.vat} — Cap. soc. ${siteConfig.capital}` },
               ].map((item, i) => (
                 <AnimateIn key={item.title} delay={i * 80}>
                   <div className="card-hover p-5">

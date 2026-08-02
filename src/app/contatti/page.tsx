@@ -43,9 +43,20 @@ export default function ContattiPage() {
                 ))}
               </div>
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">Sede</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
+                  {siteConfig.addressLabel}
+                </h2>
                 <p className="mt-2 text-zinc-400">{siteConfig.address}</p>
                 <p className="mt-1 text-sm text-zinc-500">{siteConfig.legalName}</p>
+                <p className="mt-1 text-sm text-zinc-500">
+                  P.IVA {siteConfig.vat} — Cap. soc. {siteConfig.capital}
+                </p>
+              </div>
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
+                  {siteConfig.addressSecondaryLabel}
+                </h2>
+                <p className="mt-2 text-zinc-400">{siteConfig.addressSecondary}</p>
               </div>
             </div>
             <div className="lg:col-span-2">
