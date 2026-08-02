@@ -18,9 +18,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...createMetadata(),
+  applicationName: "Hacksure",
   icons: {
-    icon: "/assets/images/Hacksure.png",
-    apple: "/assets/images/Hacksure.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
   },
   manifest: "/manifest.json",
 };

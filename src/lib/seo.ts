@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "HackSure",
+  name: "Hacksure",
   legalName: "Hacksure Srl",
   tagline: "Cybersecurity per PMI",
   description:
