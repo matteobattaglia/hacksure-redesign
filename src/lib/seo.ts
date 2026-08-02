@@ -8,7 +8,7 @@ export const siteConfig = {
   locale: "it_IT",
   language: "it",
   email: "info@hacksure.it",
-  phones: ["+39 350 537 2192", "+39 380 437 0199"],
+  phones: ["+39 350 537 2192", "+39 377 331 8495"],
   address: "Via Fratelli Ugoni 34 - 25126 Brescia (BS)",
   addressLabel: "Sede legale / operativa",
   addressSecondary: "Via Masero snc - 84030 Atena Lucana (SA)",
