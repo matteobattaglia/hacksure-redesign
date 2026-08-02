@@ -9,30 +9,29 @@ type TeamMember = {
   foto?: string;
 };
 
-// TODO: sostituire con nomi, foto reali (/public/assets/team/*.jpg) e link LinkedIn
-// prima del go-live. Senza `foto` viene mostrato un avatar con le iniziali.
+// Opzionale: aggiungere cognomi, foto in /public/assets/team/ e link LinkedIn.
 const team: TeamMember[] = [
   {
-    nome: "Lead Penetration Tester",
-    ruolo: "Offensive Security",
+    nome: "Giacomo",
+    ruolo: "Lead Penetration Tester",
     certificazioni: ["eCPPT", "CompTIA PenTest+", "eJPT"],
   },
   {
-    nome: "Security & Network Engineer",
-    ruolo: "Infrastruttura & Difesa",
+    nome: "Gabriel",
+    ruolo: "Security & Network Engineer",
     certificazioni: ["CompTIA Security+", "Cisco CCNA", "Sophos Firewall Engineer"],
   },
   {
-    nome: "Compliance Specialist",
-    ruolo: "NIS2 · GDPR · ISO 27001",
+    nome: "Matteo",
+    ruolo: "Compliance Specialist",
     certificazioni: ["SecurityX", "CNVP", "EICTA IS"],
   },
 ];
 
 function initials(label: string) {
-  return label
-    .split(" ")
-    .filter(Boolean)
+  const parts = label.split(" ").filter(Boolean);
+  if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
+  return parts
     .slice(0, 2)
     .map((w) => w[0]?.toUpperCase())
     .join("");
