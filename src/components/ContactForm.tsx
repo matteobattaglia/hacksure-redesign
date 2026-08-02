@@ -58,10 +58,28 @@ export function ContactForm({ embedded = false }: Props) {
         }),
       });
 
-      if (!response.ok) throw new Error("Submit failed");
+      const data = (await response.json().catch(() => null)) as {
+        error?: string;
+        activationPending?: boolean;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Submit failed");
+      }
+
+      setErrors(
+        data?.activationPending
+          ? {
+              form: "Prima attivazione: controlla info@hacksure.it e clicca il link di conferma FormSubmit, poi riprova.",
+            }
+          : {},
+      );
       setState("success");
       form.reset();
-    } catch {
+    } catch (err) {
+      setErrors({
+        form: err instanceof Error ? err.message : "Errore nell'invio. Riprova o scrivi a info@hacksure.it",
+      });
       setState("error");
     }
   }
@@ -70,7 +88,11 @@ export function ContactForm({ embedded = false }: Props) {
     state === "success" ? (
       <div className="py-10 text-center">
         <p className="text-lg font-semibold text-white">Richiesta inviata</p>
-        <p className="mt-2 text-sm text-zinc-400">Ti ricontatteremo entro 24 ore lavorative.</p>
+        <p className="mt-2 text-sm text-zinc-400">
+          {errors.form
+            ? errors.form
+            : "Ti ricontatteremo entro 24 ore lavorative."}
+        </p>
         <button
           type="button"
           onClick={() => setState("idle")}
@@ -199,7 +221,7 @@ export function ContactForm({ embedded = false }: Props) {
 
         {state === "error" && (
           <p className="text-sm text-red-400">
-            Errore nell&apos;invio. Riprova o scrivi a info@hacksure.it
+            {errors.form || "Errore nell'invio. Riprova o scrivi a info@hacksure.it"}
           </p>
         )}
 
