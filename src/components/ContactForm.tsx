@@ -40,45 +40,66 @@ export function ContactForm({ embedded = false }: Props) {
       return;
     }
 
+    // Honeypot: silenziosamente "ok" senza inviare
+    if (formData.get("website")) {
+      setState("success");
+      form.reset();
+      return;
+    }
+
     setErrors({});
     setState("submitting");
 
+    const payload = {
+      name: String(formData.get("name") || ""),
+      company: String(formData.get("company") || ""),
+      email: String(formData.get("email") || ""),
+      phone: String(formData.get("phone") || ""),
+      need: String(formData.get("need") || ""),
+      message: String(formData.get("message") || ""),
+      _subject: `[Hacksure] Nuovo contatto — ${String(formData.get("name") || "")}`,
+      _replyto: String(formData.get("email") || ""),
+      _template: "table",
+      _captcha: false,
+    };
+
     try {
-      const response = await fetch("/api/contact", {
+      // Invio diretto dal browser (FormSubmit attivato) — più affidabile di Vercel→FormSubmit
+      const response = await fetch("https://formsubmit.co/ajax/info@hacksure.it", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          company: formData.get("company"),
-          email: formData.get("email"),
-          phone: formData.get("phone"),
-          need: formData.get("need"),
-          message: formData.get("message"),
-          honeypot: formData.get("website"),
-        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       const data = (await response.json().catch(() => null)) as {
-        error?: string;
-        activationPending?: boolean;
+        success?: string | boolean;
+        message?: string;
       } | null;
 
-      if (!response.ok) {
-        throw new Error(data?.error || "Submit failed");
+      const ok = data?.success === true || data?.success === "true";
+      if (!response.ok || !ok) {
+        throw new Error(data?.message || "Invio non riuscito");
       }
 
-      setErrors(
-        data?.activationPending
-          ? {
-              form: "Prima attivazione: controlla info@hacksure.it e clicca il link di conferma FormSubmit, poi riprova.",
-            }
-          : {},
-      );
+      // Log server-side best-effort (non blocca l'UX)
+      void fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, honeypot: "", _clientDelivered: true }),
+      }).catch(() => undefined);
+
+      setErrors({});
       setState("success");
       form.reset();
     } catch (err) {
       setErrors({
-        form: err instanceof Error ? err.message : "Errore nell'invio. Riprova o scrivi a info@hacksure.it",
+        form:
+          err instanceof Error
+            ? err.message
+            : "Errore nell'invio. Riprova o scrivi a info@hacksure.it",
       });
       setState("error");
     }

@@ -65,6 +65,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
+  // Se il client ha già consegnato via FormSubmit, logghiamo soltanto
+  if (body._clientDelivered) {
+    console.info("[CONTACT LEAD CLIENT-DELIVERED]", {
+      timestamp: new Date().toISOString(),
+      company: sanitize(body.company, 200),
+      need: sanitize(body.need, 80),
+      ip: ip.replace(/\d+$/, "xxx"),
+    });
+    return NextResponse.json({ success: true, logged: true });
+  }
+
   const lead: Lead = {
     name: sanitize(body.name, 100),
     company: sanitize(body.company, 200),

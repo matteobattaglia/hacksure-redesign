@@ -33,7 +33,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https://formsubmit.co https://api.resend.com",
+      "connect-src 'self' https://formsubmit.co https://api.formsubmit.co https://api.resend.com https://api.web3forms.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
