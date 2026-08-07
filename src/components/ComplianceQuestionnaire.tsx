@@ -6,15 +6,58 @@ import {
   type ComplianceFramework,
   calculateComplianceScore,
 } from "@/lib/data/compliance";
+import { calculateComplianceScoreEn } from "@/lib/data/compliance.en";
+import { localizeHref } from "@/lib/i18n/config";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 
 type Props = {
   framework: ComplianceFramework;
 };
 
+const copy = {
+  it: {
+    progress: (current: number, total: number) => `Domanda ${current} di ${total}`,
+    yes: "Sì",
+    no: "No",
+    back: "← Indietro",
+    next: "Avanti →",
+    seeResults: "Vedi risultati →",
+    levelLabels: {
+      critico: "Livello critico",
+      medio: "Livello medio",
+      buono: "Livello buono",
+      eccellente: "Livello eccellente",
+    },
+    resultTitle: (title: string) => `Risultato autovalutazione ${title}`,
+    ctaContact: "Richiedi consulenza gratuita",
+    ctaRestart: "Ripeti questionario",
+  },
+  en: {
+    progress: (current: number, total: number) => `Question ${current} of ${total}`,
+    yes: "Yes",
+    no: "No",
+    back: "← Back",
+    next: "Next →",
+    seeResults: "See results →",
+    levelLabels: {
+      critico: "Critical level",
+      medio: "Moderate level",
+      buono: "Good level",
+      eccellente: "Excellent level",
+    },
+    resultTitle: (title: string) => `${title} self-assessment result`,
+    ctaContact: "Request a free consultation",
+    ctaRestart: "Retake the questionnaire",
+  },
+} as const;
+
 export function ComplianceQuestionnaire({ framework }: Props) {
   const [answers, setAnswers] = useState<Record<string, boolean>>({});
   const [currentStep, setCurrentStep] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const locale = useLocale();
+
+  const t = copy[locale];
 
   const questions = framework.questions;
   const progress = Math.round(((currentStep + (showResults ? 1 : 0)) / questions.length) * 100);
@@ -38,7 +81,8 @@ export function ComplianceQuestionnaire({ framework }: Props) {
     }
   }
 
-  const result = showResults ? calculateComplianceScore(framework, answers) : null;
+  const calculate = locale === "en" ? calculateComplianceScoreEn : calculateComplianceScore;
+  const result = showResults ? calculate(framework, answers) : null;
 
   const levelColors = {
     critico: "text-red-400 bg-red-500/10 border-red-500/30",
@@ -52,7 +96,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
       <div className="mb-6">
         <div className="mb-2 flex justify-between text-xs text-zinc-500">
           <span>
-            Domanda {showResults ? questions.length : currentStep + 1} di {questions.length}
+            {t.progress(showResults ? questions.length : currentStep + 1, questions.length)}
           </span>
           <span>{progress}%</span>
         </div>
@@ -83,7 +127,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600/20 text-brand-400 transition-colors group-hover:bg-brand-600/30">
                 ✓
               </span>
-              Sì
+              {t.yes}
             </button>
             <button
               type="button"
@@ -97,7 +141,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-700/50 text-zinc-400 transition-colors group-hover:bg-zinc-700">
                 ✕
               </span>
-              No
+              {t.no}
             </button>
           </div>
 
@@ -108,7 +152,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
               disabled={currentStep === 0}
               className="text-sm text-zinc-500 transition-colors hover:text-white disabled:opacity-30"
             >
-              ← Indietro
+              {t.back}
             </button>
             {answers[questions[currentStep].id] !== undefined && (
               <button
@@ -119,7 +163,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
                 }}
                 className="text-sm font-medium text-brand-500 hover:text-brand-400"
               >
-                {currentStep === questions.length - 1 ? "Vedi risultati →" : "Avanti →"}
+                {currentStep === questions.length - 1 ? t.seeResults : t.next}
               </button>
             )}
           </div>
@@ -130,16 +174,16 @@ export function ComplianceQuestionnaire({ framework }: Props) {
             <div
               className={`mx-auto mb-4 inline-block rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider ${levelColors[result.level]}`}
             >
-              Livello {result.level}
+              {t.levelLabels[result.level]}
             </div>
             <p className="text-5xl font-bold text-white">{result.score}%</p>
             <h2 className="mt-4 text-lg font-semibold text-white">
-              Risultato autovalutazione {framework.title}
+              {t.resultTitle(framework.title)}
             </h2>
             <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-400">{result.message}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/contatti" className="btn-primary">
-                Richiedi consulenza gratuita
+              <Link href={localizeHref(locale, "/contatti")} className="btn-primary">
+                {t.ctaContact}
               </Link>
               <button
                 type="button"
@@ -150,7 +194,7 @@ export function ComplianceQuestionnaire({ framework }: Props) {
                 }}
                 className="btn-secondary"
               >
-                Ripeti questionario
+                {t.ctaRestart}
               </button>
             </div>
           </div>

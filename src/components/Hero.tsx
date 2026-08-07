@@ -1,8 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateIn } from "@/components/AnimateIn";
+import { localizeHref, type Locale } from "@/lib/i18n/config";
 
-export function Hero() {
+const copy = {
+  it: {
+    titleStart: "Sicurezza informatica",
+    titleAccent: "a 360°",
+    titleEnd: "per la tua azienda",
+    intro:
+      "Proteggiamo la tua infrastruttura IT da attacchi informatici, vulnerabilità e rischi normativi. Analizziamo, testiamo e rafforziamo i sistemi prima che possano essere compromessi.",
+    ctaPrimary: "Valutazione gratuita",
+    ctaSecondary: "Autovalutazione compliance",
+    ctaPartner: "Collabora con noi",
+    imageAlt: "Cybersecurity e compliance HackSure per PMI italiane",
+  },
+  en: {
+    titleStart: "End-to-end",
+    titleAccent: "cybersecurity",
+    titleEnd: "for your company",
+    intro:
+      "We protect your IT infrastructure from cyberattacks, vulnerabilities and regulatory risk. We assess, test and harden your systems before they can be compromised.",
+    ctaPrimary: "Free assessment",
+    ctaSecondary: "Compliance self-assessment",
+    ctaPartner: "Partner with us",
+    imageAlt: "HackSure cybersecurity and compliance for Italian SMEs",
+  },
+} as const;
+
+export function Hero({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+  const href = (path: string) => localizeHref(locale, path);
+
   return (
     <section className="relative overflow-hidden border-b border-zinc-800">
       <div className="absolute inset-0 -z-10">
@@ -23,26 +52,24 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-28">
         <AnimateIn>
           <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
-            Sicurezza informatica{" "}
+            {t.titleStart}{" "}
             <span className="bg-gradient-to-r from-brand-300 to-brand-500 bg-clip-text text-transparent">
-              a 360°
+              {t.titleAccent}
             </span>{" "}
-            per la tua azienda
+            {t.titleEnd}
           </h1>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-zinc-400">
-            Proteggiamo la tua infrastruttura IT da attacchi informatici, vulnerabilità e rischi
-            normativi. Analizziamo, testiamo e rafforziamo i sistemi prima che possano essere
-            compromessi.
+            {t.intro}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/contatti" className="btn-primary">
-              Valutazione gratuita
+            <Link href={href("/contatti")} className="btn-primary">
+              {t.ctaPrimary}
             </Link>
-            <Link href="/compliance" className="btn-secondary">
-              Autovalutazione compliance
+            <Link href={href("/compliance")} className="btn-secondary">
+              {t.ctaSecondary}
             </Link>
-            <Link href="/collabora" className="btn-outline">
-              Collabora con noi
+            <Link href={href("/collabora")} className="btn-outline">
+              {t.ctaPartner}
             </Link>
           </div>
         </AnimateIn>
@@ -52,7 +79,7 @@ export function Hero() {
             <div className="absolute inset-0 rounded-3xl bg-brand-600/10 blur-3xl" />
             <Image
               src="/assets/images/Sicurezza-Informatica.webp"
-              alt="Cybersecurity e compliance HackSure per PMI italiane"
+              alt={t.imageAlt}
               fill
               className="relative object-contain drop-shadow-2xl"
               sizes="448px"

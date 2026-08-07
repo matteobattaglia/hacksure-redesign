@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { faqs } from "@/lib/data/faq";
+import { getFaqs } from "@/lib/data/localized";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const locale = useLocale();
+
+  const faqs = getFaqs(locale);
 
   return (
     <div className="space-y-2">

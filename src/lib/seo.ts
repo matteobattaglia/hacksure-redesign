@@ -1,3 +1,5 @@
+import { defaultLocale, hreflang, localizeHref, ogLocale, type Locale } from "@/lib/i18n/config";
+
 export const siteConfig = {
   name: "Hacksure",
   legalName: "Hacksure Srl",
@@ -40,12 +42,39 @@ export const siteConfig = {
   },
 };
 
+export const defaultSeoTitle: Record<Locale, string> = {
+  it: `${siteConfig.name} — Cybersecurity e Compliance per PMI in Italia`,
+  en: `${siteConfig.name} — Cybersecurity and Compliance for Italian SMEs`,
+};
+
+export const defaultSeoDescription: Record<Locale, string> = {
+  it: siteConfig.description,
+  en: "Hacksure Srl: cybersecurity and compliance for small and medium businesses in Italy. Penetration testing, vulnerability assessment, NIS2, GDPR, ISO 27001. Offices in Brescia and Atena Lucana.",
+};
+
+export const defaultSeoKeywords: Record<Locale, string[]> = {
+  it: siteConfig.keywords,
+  en: [
+    "cybersecurity for SMEs Italy",
+    "penetration testing Italy",
+    "vulnerability assessment",
+    "NIS2 compliance consulting",
+    "GDPR compliance company",
+    "ISO 27001 small business",
+    "cybersecurity company Brescia",
+    "managed security services Italy",
+  ],
+};
+
 export type MetadataProps = {
   title?: string;
   description?: string;
   path?: string;
   keywords?: string[];
   noIndex?: boolean;
+  locale?: Locale;
+  /** Pages that exist in Italian only: no alternate language links. */
+  italianOnly?: boolean;
 };
 
 export function createMetadata({
@@ -54,13 +83,20 @@ export function createMetadata({
   path = "",
   keywords,
   noIndex = false,
+  locale = defaultLocale,
+  italianOnly = false,
 }: MetadataProps = {}) {
-  const pageTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : `${siteConfig.name} — Cybersecurity e Compliance per PMI in Italia`;
-  const pageDescription = description ?? siteConfig.description;
-  const url = `${siteConfig.url}${path}`;
-  const pageKeywords = keywords ?? siteConfig.keywords;
+  const pageTitle = title ? `${title} | ${siteConfig.name}` : defaultSeoTitle[locale];
+  const pageDescription = description ?? defaultSeoDescription[locale];
+  const url = `${siteConfig.url}${localizeHref(locale, path || "/")}`;
+  const pageKeywords = keywords ?? defaultSeoKeywords[locale];
+
+  const itUrl = `${siteConfig.url}${localizeHref("it", path || "/")}`;
+  const enUrl = `${siteConfig.url}${localizeHref("en", path || "/")}`;
+
+  const languages = italianOnly
+    ? { "it-IT": itUrl, it: itUrl }
+    : { "it-IT": itUrl, en: enUrl, "x-default": itUrl };
 
   return {
     title: pageTitle,
@@ -69,14 +105,11 @@ export function createMetadata({
     metadataBase: new URL(siteConfig.url),
     alternates: {
       canonical: url,
-      languages: {
-        "it-IT": url,
-        it: url,
-      },
+      languages,
     },
     openGraph: {
       type: "website",
-      locale: siteConfig.locale,
+      locale: ogLocale[locale],
       url,
       siteName: siteConfig.name,
       title: pageTitle,
@@ -116,7 +149,7 @@ export function createMetadata({
   };
 }
 
-export function organizationJsonLd() {
+export function organizationJsonLd(locale: Locale = defaultLocale) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -124,7 +157,7 @@ export function organizationJsonLd() {
     legalName: siteConfig.legalName,
     url: siteConfig.url,
     logo: `${siteConfig.url}/assets/images/Hacksure.png`,
-    description: siteConfig.description,
+    description: defaultSeoDescription[locale],
     email: siteConfig.email,
     telephone: siteConfig.phones[0],
     address: {
@@ -137,14 +170,40 @@ export function organizationJsonLd() {
     },
     sameAs: Object.values(siteConfig.social),
     areaServed: [
-      { "@type": "Country", name: "Italia" },
+      { "@type": "Country", name: countryName[locale] },
       { "@type": "AdministrativeArea", name: "Lombardia" },
     ],
-    knowsAbout: siteConfig.keywords,
+    knowsAbout: defaultSeoKeywords[locale],
   };
 }
 
-export function localBusinessJsonLd() {
+const countryName: Record<Locale, string> = {
+  it: "Italia",
+  en: "Italy",
+};
+
+const serviceTypes: Record<Locale, string[]> = {
+  it: [
+    "Penetration Testing",
+    "Vulnerability Assessment",
+    "Compliance NIS2",
+    "Conformità GDPR",
+    "ISO 27001",
+    "Network Security",
+    "Endpoint Security EDR/XDR",
+  ],
+  en: [
+    "Penetration Testing",
+    "Vulnerability Assessment",
+    "NIS2 Compliance",
+    "GDPR Compliance",
+    "ISO 27001",
+    "Network Security",
+    "Endpoint Security EDR/XDR",
+  ],
+};
+
+export function localBusinessJsonLd(locale: Locale = defaultLocale) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -169,17 +228,9 @@ export function localBusinessJsonLd() {
     },
     areaServed: {
       "@type": "Country",
-      name: "Italia",
+      name: countryName[locale],
     },
-    serviceType: [
-      "Penetration Testing",
-      "Vulnerability Assessment",
-      "Compliance NIS2",
-      "Conformità GDPR",
-      "ISO 27001",
-      "Network Security",
-      "Endpoint Security EDR/XDR",
-    ],
+    serviceType: serviceTypes[locale],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -189,14 +240,14 @@ export function localBusinessJsonLd() {
   };
 }
 
-export function websiteJsonLd() {
+export function websiteJsonLd(locale: Locale = defaultLocale) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
-    url: siteConfig.url,
-    description: siteConfig.description,
-    inLanguage: "it-IT",
+    url: `${siteConfig.url}${localizeHref(locale, "/")}`,
+    description: defaultSeoDescription[locale],
+    inLanguage: hreflang[locale],
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
@@ -208,10 +259,12 @@ export function serviceJsonLd({
   serviceType,
   description,
   path,
+  locale = defaultLocale,
 }: {
   serviceType: string;
   description: string;
   path?: string;
+  locale?: Locale;
 }) {
   return {
     "@context": "https://schema.org",
@@ -224,7 +277,7 @@ export function serviceJsonLd({
     },
     areaServed: "IT",
     description,
-    ...(path ? { url: `${siteConfig.url}${path}` } : {}),
+    ...(path ? { url: `${siteConfig.url}${localizeHref(locale, path)}` } : {}),
   };
 }
 
@@ -243,7 +296,10 @@ export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   };
 }
 
-export function breadcrumbJsonLd(items: { name: string; url?: string }[]) {
+export function breadcrumbJsonLd(
+  items: { name: string; url?: string }[],
+  locale: Locale = defaultLocale,
+) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -251,7 +307,7 @@ export function breadcrumbJsonLd(items: { name: string; url?: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      ...(item.url ? { item: `${siteConfig.url}${item.url}` } : {}),
+      ...(item.url ? { item: `${siteConfig.url}${localizeHref(locale, item.url)}` } : {}),
     })),
   };
 }

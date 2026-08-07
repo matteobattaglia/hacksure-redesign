@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
-import { partnerTypes } from "@/lib/data/partners";
+import { getPartnerTypes } from "@/lib/data/localized";
+import { localizeHref } from "@/lib/i18n/config";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { ContactForm } from "@/components/ContactForm";
 import { AnimateIn } from "@/components/AnimateIn";
 
@@ -43,35 +45,104 @@ const partnerIcons: Record<string, ReactNode> = {
   ),
 };
 
-const needById: Record<string, string> = {
-  "studio-legale": "Collaborazione — Studio legale",
-  "web-agency": "Collaborazione — Web agency",
-  "fornitore-elettronica": "Collaborazione — Fornitore elettronica",
-};
+const stepNumbers = ["01", "02", "03"];
 
-const steps = [
-  {
-    step: "01",
-    title: "Ci scrivi",
-    desc: "Compili il modulo indicando la tua tipologia di attività e cosa vorresti costruire insieme.",
+const copy = {
+  it: {
+    needById: {
+      "studio-legale": "Collaborazione — Studio legale",
+      "web-agency": "Collaborazione — Web agency",
+      "fornitore-elettronica": "Collaborazione — Fornitore elettronica",
+    } as Record<string, string>,
+    needOptions: [
+      "Collaborazione — Studio legale",
+      "Collaborazione — Web agency",
+      "Collaborazione — Fornitore elettronica",
+    ],
+    needFallback: (title: string) => `Collaborazione — ${title}`,
+    eyebrow: "Partnership",
+    headingBefore: "Collabora con",
+    intro:
+      "Costruiamo collaborazioni concrete con studi legali, web agency e fornitori di materiale elettronico. Scegli la tua tipologia di attività: ti mostriamo come lavoriamo insieme.",
+    reassurance: [
+      "Risposta entro 24 ore lavorative",
+      "Nessun impegno né vincolo di esclusiva",
+      "NDA disponibile su richiesta",
+    ],
+    selectorHeading: "Che tipo di attività hai?",
+    selectorSubtitle: "Seleziona un profilo per vedere la proposta dedicata.",
+    selectorGroupLabel: "Tipologia di attività",
+    profileSelected: "Profilo selezionato",
+    profileSelect: "Seleziona questo profilo →",
+    detailHeading: (title: string) => `La nostra proposta per ${title.toLowerCase()}`,
+    detailSubtitle: "Poi ci scrivi e fissiamo una call per i dettagli.",
+    whatYouGet: "Cosa ottieni",
+    steps: [
+      {
+        title: "Ci scrivi",
+        desc: "Compili il modulo indicando la tua tipologia di attività e cosa vorresti costruire insieme.",
+      },
+      {
+        title: "Call conoscitiva",
+        desc: "Ci confrontiamo su perimetro, modalità operative e condizioni commerciali. Senza impegno.",
+      },
+      {
+        title: "Partiamo",
+        desc: "Definiamo il processo di lavoro e i riferimenti, poi attiviamo la collaborazione sui primi casi.",
+      },
+    ],
+    formSubtitle: "Ti rispondiamo entro 24 ore lavorative con una proposta di call.",
+    directBefore: "Preferisci scrivere direttamente?",
+    directLink: "Vai ai contatti",
   },
-  {
-    step: "02",
-    title: "Call conoscitiva",
-    desc: "Ci confrontiamo su perimetro, modalità operative e condizioni commerciali. Senza impegno.",
+  en: {
+    needById: {
+      "studio-legale": "Partnership — Law firm",
+      "web-agency": "Partnership — Web agency",
+      "fornitore-elettronica": "Partnership — Electronics supplier",
+    } as Record<string, string>,
+    needOptions: [
+      "Partnership — Law firm",
+      "Partnership — Web agency",
+      "Partnership — Electronics supplier",
+    ],
+    needFallback: (title: string) => `Partnership — ${title}`,
+    eyebrow: "Partnership",
+    headingBefore: "Partner with",
+    intro:
+      "We build concrete partnerships with law firms, web agencies and electronics and hardware suppliers. Choose your type of business: we will show you how we work together.",
+    reassurance: [
+      "A reply within 24 working hours",
+      "No commitment and no exclusivity",
+      "NDA available on request",
+    ],
+    selectorHeading: "What type of business do you run?",
+    selectorSubtitle: "Select a profile to see the dedicated offer.",
+    selectorGroupLabel: "Type of business",
+    profileSelected: "Profile selected",
+    profileSelect: "Select this profile →",
+    detailHeading: (title: string) => `Our offer for you — ${title}`,
+    detailSubtitle: "Then you write to us and we set up a call to go through the details.",
+    whatYouGet: "What you get",
+    steps: [
+      {
+        title: "You write to us",
+        desc: "You fill in the form, telling us what type of business you run and what you would like to build together.",
+      },
+      {
+        title: "Intro call",
+        desc: "We discuss scope, ways of working and commercial terms. With no commitment.",
+      },
+      {
+        title: "We get started",
+        desc: "We define the working process and the points of contact, then start the partnership on the first cases.",
+      },
+    ],
+    formSubtitle: "We reply within 24 working hours with a proposed call.",
+    directBefore: "Would you rather write to us directly?",
+    directLink: "Go to Contact",
   },
-  {
-    step: "03",
-    title: "Partiamo",
-    desc: "Definiamo il processo di lavoro e i riferimenti, poi attiviamo la collaborazione sui primi casi.",
-  },
-];
-
-const reassurance = [
-  "Risposta entro 24 ore lavorative",
-  "Nessun impegno né vincolo di esclusiva",
-  "NDA disponibile su richiesta",
-];
+} as const;
 
 function CheckIcon() {
   return (
@@ -84,13 +155,17 @@ function CheckIcon() {
 }
 
 export function PartnerCollaborate({ initialId }: Props) {
+  const locale = useLocale();
+  const t = copy[locale];
+  const partnerTypes = getPartnerTypes(locale);
+
   const initial = partnerTypes.find((p) => p.id === initialId)?.id ?? partnerTypes[0].id;
   const [selectedId, setSelectedId] = useState(initial);
   const detailRef = useRef<HTMLDivElement>(null);
 
   const selected = useMemo(
     () => partnerTypes.find((p) => p.id === selectedId) ?? partnerTypes[0],
-    [selectedId],
+    [partnerTypes, selectedId],
   );
 
   const select = useCallback((id: string) => {
@@ -100,7 +175,7 @@ export function PartnerCollaborate({ initialId }: Props) {
     }
   }, []);
 
-  const needLabel = needById[selected.id] ?? `Collaborazione — ${selected.title}`;
+  const needLabel = t.needById[selected.id] ?? t.needFallback(selected.title);
 
   return (
     <>
@@ -110,20 +185,18 @@ export function PartnerCollaborate({ initialId }: Props) {
         <div className="mesh-bg absolute inset-0 opacity-30" />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <AnimateIn>
-            <p className="section-label">Partnership</p>
+            <p className="section-label">{t.eyebrow}</p>
             <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[2.6rem] lg:leading-tight">
-              Collabora con{" "}
+              {t.headingBefore}{" "}
               <span className="bg-gradient-to-r from-brand-300 to-brand-500 bg-clip-text text-transparent">
                 Hacksure
               </span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
-              Costruiamo collaborazioni concrete con studi legali, web agency e fornitori di
-              materiale elettronico. Scegli la tua tipologia di attività: ti mostriamo come
-              lavoriamo insieme.
+              {t.intro}
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {reassurance.map((item) => (
+              {t.reassurance.map((item) => (
                 <span
                   key={item}
                   className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-surface-950/60 px-3 py-1.5 text-xs text-zinc-400"
@@ -147,10 +220,10 @@ export function PartnerCollaborate({ initialId }: Props) {
               </span>
               <div>
                 <h2 className="text-xl font-semibold text-white">
-                  Che tipo di attività hai?
+                  {t.selectorHeading}
                 </h2>
                 <p className="mt-1 text-sm text-zinc-400">
-                  Seleziona un profilo per vedere la proposta dedicata.
+                  {t.selectorSubtitle}
                 </p>
               </div>
             </div>
@@ -158,7 +231,7 @@ export function PartnerCollaborate({ initialId }: Props) {
 
           <div
             role="radiogroup"
-            aria-label="Tipologia di attività"
+            aria-label={t.selectorGroupLabel}
             className="mt-8 grid gap-4 lg:grid-cols-3"
           >
             {partnerTypes.map((partner, i) => {
@@ -213,7 +286,7 @@ export function PartnerCollaborate({ initialId }: Props) {
                         active ? "text-brand-400" : "text-zinc-500 group-hover:text-brand-500"
                       }`}
                     >
-                      {active ? "Profilo selezionato" : "Seleziona questo profilo →"}
+                      {active ? t.profileSelected : t.profileSelect}
                     </span>
                   </button>
                 </AnimateIn>
@@ -233,10 +306,10 @@ export function PartnerCollaborate({ initialId }: Props) {
               </span>
               <div>
                 <h2 className="text-xl font-semibold text-white">
-                  La nostra proposta per {selected.title.toLowerCase()}
+                  {t.detailHeading(selected.title)}
                 </h2>
                 <p className="mt-1 text-sm text-zinc-400">
-                  Poi ci scrivi e fissiamo una call per i dettagli.
+                  {t.detailSubtitle}
                 </p>
               </div>
             </div>
@@ -264,7 +337,7 @@ export function PartnerCollaborate({ initialId }: Props) {
 
                   <div className="mt-7 border-t border-zinc-800 pt-6">
                     <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                      Cosa ottieni
+                      {t.whatYouGet}
                     </p>
                     <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                       {selected.benefits.map((b) => (
@@ -280,13 +353,13 @@ export function PartnerCollaborate({ initialId }: Props) {
 
               <AnimateIn delay={80}>
                 <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                  {steps.map((item) => (
-                    <div key={item.step} className="card-hover h-full p-5">
+                  {stepNumbers.map((step, i) => (
+                    <div key={step} className="card-hover h-full p-5">
                       <span className="text-xs font-bold tracking-widest text-brand-600/70">
-                        STEP {item.step}
+                        STEP {step}
                       </span>
-                      <h4 className="mt-2 font-semibold text-white">{item.title}</h4>
-                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.desc}</p>
+                      <h4 className="mt-2 font-semibold text-white">{t.steps[i].title}</h4>
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{t.steps[i].desc}</p>
                     </div>
                   ))}
                 </div>
@@ -300,27 +373,26 @@ export function PartnerCollaborate({ initialId }: Props) {
                     <div className="border-b border-zinc-800 bg-surface-950/50 px-6 py-5">
                       <h3 className="text-lg font-semibold text-white">{selected.cta}</h3>
                       <p className="mt-1 text-sm text-zinc-400">
-                        Ti rispondiamo entro 24 ore lavorative con una proposta di call.
+                        {t.formSubtitle}
                       </p>
                     </div>
                     <div className="p-6">
                       <ContactForm
                         key={selected.id}
                         defaultNeed={needLabel}
-                        needOptions={[
-                          "Collaborazione — Studio legale",
-                          "Collaborazione — Web agency",
-                          "Collaborazione — Fornitore elettronica",
-                        ]}
+                        needOptions={[...t.needOptions]}
                         subjectPrefix="[Hacksure Collaborazione]"
                       />
                     </div>
                   </div>
 
                   <p className="mt-4 text-center text-xs leading-relaxed text-zinc-500">
-                    Preferisci scrivere direttamente?{" "}
-                    <Link href="/contatti" className="text-brand-500 hover:text-brand-400">
-                      Vai ai contatti
+                    {t.directBefore}{" "}
+                    <Link
+                      href={localizeHref(locale, "/contatti")}
+                      className="text-brand-500 hover:text-brand-400"
+                    >
+                      {t.directLink}
                     </Link>
                   </p>
                 </div>

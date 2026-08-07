@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -11,26 +12,94 @@ type Props = {
   subjectPrefix?: string;
 };
 
-const defaultNeedOptions = [
-  "Valutazione gratuita",
-  "Compliance NIS2 / GDPR",
-  "Penetration testing",
-  "Non lo so ancora, ho bisogno di consiglio",
-];
+const copy = {
+  it: {
+    needOptions: [
+      "Valutazione gratuita",
+      "Compliance NIS2 / GDPR",
+      "Penetration testing",
+      "Non lo so ancora, ho bisogno di consiglio",
+    ],
+    errName: "Inserisci nome e cognome",
+    errCompany: "Inserisci la ragione sociale",
+    errEmail: "Email non valida",
+    errPhone: "Inserisci un numero di telefono valido",
+    errConsent: "Devi accettare l'informativa privacy",
+    errSubmitFailed: "Invio non riuscito",
+    errGeneric: "Errore nell'invio. Riprova o scrivi a info@hacksure.it",
+    successTitle: "Richiesta inviata",
+    successBody: "Ti ricontatteremo entro 24 ore lavorative.",
+    sendAnother: "Invia un'altra richiesta",
+    labelName: "Nome e cognome *",
+    placeholderName: "Mario Rossi",
+    labelCompany: "Ragione sociale *",
+    placeholderCompany: "Azienda Srl",
+    labelEmail: "Email *",
+    placeholderEmail: "mario@azienda.it",
+    labelPhone: "Telefono *",
+    placeholderPhone: "+39 333 1234567",
+    labelNeed: "Di cosa hai bisogno?",
+    labelMessage: "Messaggio (opzionale)",
+    placeholderMessage: "Descrivi brevemente le tue esigenze...",
+    consent:
+      "Acconsento al trattamento dei dati per la verifica preliminare e il ricontatto, nel rispetto del GDPR (Reg. UE 2016/679).",
+    submitting: "Invio in corso...",
+    submit: "Invia richiesta",
+  },
+  en: {
+    needOptions: [
+      "Free assessment",
+      "NIS2 / GDPR compliance",
+      "Penetration testing",
+      "Not sure yet, I need advice",
+    ],
+    errName: "Enter your first and last name",
+    errCompany: "Enter your registered company name",
+    errEmail: "Invalid email address",
+    errPhone: "Enter a valid phone number",
+    errConsent: "You must accept the privacy notice",
+    errSubmitFailed: "Submission failed",
+    errGeneric: "Something went wrong. Please try again or write to info@hacksure.it",
+    successTitle: "Request sent",
+    successBody: "We will get back to you within 24 working hours.",
+    sendAnother: "Send another request",
+    labelName: "Full name *",
+    placeholderName: "John Smith",
+    labelCompany: "Company name *",
+    placeholderCompany: "Company Ltd",
+    labelEmail: "Email *",
+    placeholderEmail: "john@company.com",
+    labelPhone: "Phone *",
+    placeholderPhone: "+39 333 1234567",
+    labelNeed: "What do you need?",
+    labelMessage: "Message (optional)",
+    placeholderMessage: "Briefly describe your requirements...",
+    consent:
+      "I consent to the processing of my data for the preliminary check and for being contacted back, in compliance with the GDPR (EU Reg. 2016/679).",
+    submitting: "Sending...",
+    submit: "Send request",
+  },
+} as const;
 
 export function ContactForm({
   embedded = false,
-  defaultNeed = "Valutazione gratuita",
-  needOptions = defaultNeedOptions,
+  defaultNeed,
+  needOptions,
   subjectPrefix = "[Hacksure]",
 }: Props) {
+  const locale = useLocale();
+  const t = copy[locale];
+
+  const options: readonly string[] = needOptions ?? t.needOptions;
+  const initialNeed = defaultNeed ?? t.needOptions[0];
+
   const [state, setState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [need, setNeed] = useState(defaultNeed);
+  const [need, setNeed] = useState(initialNeed);
 
   useEffect(() => {
-    setNeed(defaultNeed);
-  }, [defaultNeed]);
+    setNeed(initialNeed);
+  }, [initialNeed]);
 
   function validate(formData: FormData) {
     const newErrors: Record<string, string> = {};
@@ -40,11 +109,11 @@ export function ContactForm({
     const phone = formData.get("phone")?.toString().trim();
     const consent = formData.get("consent");
 
-    if (!name || name.length < 2) newErrors.name = "Inserisci nome e cognome";
-    if (!company || company.length < 2) newErrors.company = "Inserisci la ragione sociale";
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Email non valida";
-    if (!phone || phone.length < 8) newErrors.phone = "Inserisci un numero di telefono valido";
-    if (!consent) newErrors.consent = "Devi accettare l'informativa privacy";
+    if (!name || name.length < 2) newErrors.name = t.errName;
+    if (!company || company.length < 2) newErrors.company = t.errCompany;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = t.errEmail;
+    if (!phone || phone.length < 8) newErrors.phone = t.errPhone;
+    if (!consent) newErrors.consent = t.errConsent;
 
     return newErrors;
   }
@@ -101,7 +170,7 @@ export function ContactForm({
 
       const ok = data?.success === true || data?.success === "true";
       if (!response.ok || !ok) {
-        throw new Error(data?.message || "Invio non riuscito");
+        throw new Error(data?.message || t.errSubmitFailed);
       }
 
       // Log server-side best-effort (non blocca l'UX)
@@ -116,10 +185,7 @@ export function ContactForm({
       form.reset();
     } catch (err) {
       setErrors({
-        form:
-          err instanceof Error
-            ? err.message
-            : "Errore nell'invio. Riprova o scrivi a info@hacksure.it",
+        form: err instanceof Error ? err.message : t.errGeneric,
       });
       setState("error");
     }
@@ -128,18 +194,16 @@ export function ContactForm({
   const formContent =
     state === "success" ? (
       <div className="py-10 text-center">
-        <p className="text-lg font-semibold text-white">Richiesta inviata</p>
+        <p className="text-lg font-semibold text-white">{t.successTitle}</p>
         <p className="mt-2 text-sm text-zinc-400">
-          {errors.form
-            ? errors.form
-            : "Ti ricontatteremo entro 24 ore lavorative."}
+          {errors.form ? errors.form : t.successBody}
         </p>
         <button
           type="button"
           onClick={() => setState("idle")}
           className="mt-6 text-sm text-brand-500 hover:text-brand-400"
         >
-          Invia un&apos;altra richiesta
+          {t.sendAnother}
         </button>
       </div>
     ) : (
@@ -151,7 +215,7 @@ export function ContactForm({
 
         <div>
           <label htmlFor="name" className="mb-1 block text-sm font-medium text-zinc-300">
-            Nome e cognome *
+            {t.labelName}
           </label>
           <input
             type="text"
@@ -160,14 +224,14 @@ export function ContactForm({
             required
             autoComplete="name"
             className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white placeholder:text-zinc-600 focus:border-brand-500 focus:outline-none"
-            placeholder="Mario Rossi"
+            placeholder={t.placeholderName}
           />
           {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
         </div>
 
         <div>
           <label htmlFor="company" className="mb-1 block text-sm font-medium text-zinc-300">
-            Ragione sociale *
+            {t.labelCompany}
           </label>
           <input
             type="text"
@@ -176,7 +240,7 @@ export function ContactForm({
             required
             autoComplete="organization"
             className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white placeholder:text-zinc-600 focus:border-brand-500 focus:outline-none"
-            placeholder="Azienda Srl"
+            placeholder={t.placeholderCompany}
           />
           {errors.company && <p className="mt-1 text-xs text-red-400">{errors.company}</p>}
         </div>
@@ -184,7 +248,7 @@ export function ContactForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="email" className="mb-1 block text-sm font-medium text-zinc-300">
-              Email *
+              {t.labelEmail}
             </label>
             <input
               type="email"
@@ -193,13 +257,13 @@ export function ContactForm({
               required
               autoComplete="email"
               className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white placeholder:text-zinc-600 focus:border-brand-500 focus:outline-none"
-              placeholder="mario@azienda.it"
+              placeholder={t.placeholderEmail}
             />
             {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
           </div>
           <div>
             <label htmlFor="phone" className="mb-1 block text-sm font-medium text-zinc-300">
-              Telefono *
+              {t.labelPhone}
             </label>
             <input
               type="tel"
@@ -208,7 +272,7 @@ export function ContactForm({
               required
               autoComplete="tel"
               className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white placeholder:text-zinc-600 focus:border-brand-500 focus:outline-none"
-              placeholder="+39 333 1234567"
+              placeholder={t.placeholderPhone}
             />
             {errors.phone && <p className="mt-1 text-xs text-red-400">{errors.phone}</p>}
           </div>
@@ -216,7 +280,7 @@ export function ContactForm({
 
         <div>
           <label htmlFor="need" className="mb-1 block text-sm font-medium text-zinc-300">
-            Di cosa hai bisogno?
+            {t.labelNeed}
           </label>
           <select
             id="need"
@@ -225,7 +289,7 @@ export function ContactForm({
             onChange={(e) => setNeed(e.target.value)}
             className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white focus:border-brand-500 focus:outline-none"
           >
-            {needOptions.map((option) => (
+            {options.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -235,14 +299,14 @@ export function ContactForm({
 
         <div>
           <label htmlFor="message" className="mb-1 block text-sm font-medium text-zinc-300">
-            Messaggio (opzionale)
+            {t.labelMessage}
           </label>
           <textarea
             id="message"
             name="message"
             rows={3}
             className="w-full resize-none rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white placeholder:text-zinc-600 focus:border-brand-500 focus:outline-none"
-            placeholder="Descrivi brevemente le tue esigenze..."
+            placeholder={t.placeholderMessage}
           />
         </div>
 
@@ -254,18 +318,13 @@ export function ContactForm({
               required
               className="mt-1 h-4 w-4 rounded border-zinc-600 text-brand-600 focus:ring-brand-500"
             />
-            <span className="text-xs leading-relaxed text-zinc-500">
-              Acconsento al trattamento dei dati per la verifica preliminare e il ricontatto, nel
-              rispetto del GDPR (Reg. UE 2016/679).
-            </span>
+            <span className="text-xs leading-relaxed text-zinc-500">{t.consent}</span>
           </label>
           {errors.consent && <p className="mt-1 text-xs text-red-400">{errors.consent}</p>}
         </div>
 
         {state === "error" && (
-          <p className="text-sm text-red-400">
-            {errors.form || "Errore nell'invio. Riprova o scrivi a info@hacksure.it"}
-          </p>
+          <p className="text-sm text-red-400">{errors.form || t.errGeneric}</p>
         )}
 
         <button
@@ -273,7 +332,7 @@ export function ContactForm({
           disabled={state === "submitting"}
           className="btn-primary w-full disabled:opacity-60"
         >
-          {state === "submitting" ? "Invio in corso..." : "Invia richiesta"}
+          {state === "submitting" ? t.submitting : t.submit}
         </button>
       </form>
     );

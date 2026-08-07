@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { localizeHref } from "@/lib/i18n/config";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 
 const steps = [
   {
     step: "01",
-    title: "Analisi",
-    desc: "Valutazione preliminare gratuita del profilo di rischio e degli obblighi normativi applicabili.",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -16,8 +16,6 @@ const steps = [
   },
   {
     step: "02",
-    title: "Progetto",
-    desc: "Piano su misura con priorità, tempistiche chiare e deliverable definiti con il vostro team.",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -26,8 +24,6 @@ const steps = [
   },
   {
     step: "03",
-    title: "Esecuzione",
-    desc: "Test, remediation e implementazione controllata con report tecnici e executive summary.",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -36,8 +32,6 @@ const steps = [
   },
   {
     step: "04",
-    title: "Monitoraggio",
-    desc: "Supporto continuo, audit periodici e miglioramento costante della postura di sicurezza.",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -45,6 +39,59 @@ const steps = [
     ),
   },
 ];
+
+const copy = {
+  it: {
+    label: "Metodologia",
+    heading: "Come lavoriamo",
+    intro:
+      "Un percorso strutturato in quattro fasi, dalla prima consulenza al monitoraggio continuo.",
+    cta: "Inizia con una valutazione gratuita",
+    steps: [
+      {
+        title: "Analisi",
+        desc: "Valutazione preliminare gratuita del profilo di rischio e degli obblighi normativi applicabili.",
+      },
+      {
+        title: "Progetto",
+        desc: "Piano su misura con priorità, tempistiche chiare e deliverable definiti con il vostro team.",
+      },
+      {
+        title: "Esecuzione",
+        desc: "Test, remediation e implementazione controllata con report tecnici e executive summary.",
+      },
+      {
+        title: "Monitoraggio",
+        desc: "Supporto continuo, audit periodici e miglioramento costante della postura di sicurezza.",
+      },
+    ],
+  },
+  en: {
+    label: "Methodology",
+    heading: "How we work",
+    intro:
+      "A structured four-phase path, from the first consultation through to continuous monitoring.",
+    cta: "Start with a free assessment",
+    steps: [
+      {
+        title: "Analysis",
+        desc: "A free preliminary assessment of your risk profile and of the regulatory obligations that apply to you.",
+      },
+      {
+        title: "Plan",
+        desc: "A tailored plan with clear priorities, timelines and deliverables defined together with your team.",
+      },
+      {
+        title: "Execution",
+        desc: "Testing, remediation and controlled implementation, with technical reports and an executive summary.",
+      },
+      {
+        title: "Monitoring",
+        desc: "Ongoing support, periodic audits and continuous improvement of your security posture.",
+      },
+    ],
+  },
+} as const;
 
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -71,6 +118,9 @@ function useInView(threshold = 0.15) {
 
 export function ProcessRoadmap() {
   const { ref, visible } = useInView();
+  const locale = useLocale();
+
+  const t = copy[locale];
 
   return (
     <section className="relative overflow-hidden border-t border-zinc-800 py-16 lg:py-24">
@@ -78,11 +128,9 @@ export function ProcessRoadmap() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="section-label">Metodologia</p>
-          <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">Come lavoriamo</h2>
-          <p className="mt-3 text-zinc-400">
-            Un percorso strutturato in quattro fasi, dalla prima consulenza al monitoraggio continuo.
-          </p>
+          <p className="section-label">{t.label}</p>
+          <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{t.heading}</h2>
+          <p className="mt-3 text-zinc-400">{t.intro}</p>
         </div>
 
         <div ref={ref} className="relative mt-12 lg:mt-16">
@@ -136,8 +184,8 @@ export function ProcessRoadmap() {
                       STEP {item.step}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">{item.desc}</p>
+                  <h3 className="text-lg font-semibold text-white">{t.steps[i].title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">{t.steps[i].desc}</p>
                 </div>
               </div>
             ))}
@@ -148,8 +196,8 @@ export function ProcessRoadmap() {
           className={`mt-10 text-center transition-all duration-700 ${visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
           style={{ transitionDelay: visible ? "700ms" : "0ms" }}
         >
-          <Link href="/contatti" className="btn-primary">
-            Inizia con una valutazione gratuita
+          <Link href={localizeHref(locale, "/contatti")} className="btn-primary">
+            {t.cta}
           </Link>
         </div>
       </div>

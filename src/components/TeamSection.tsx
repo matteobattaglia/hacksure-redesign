@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AnimateIn } from "@/components/AnimateIn";
+import type { Locale } from "@/lib/i18n/config";
 
 type TeamMember = {
   nome: string;
@@ -28,6 +29,19 @@ const team: TeamMember[] = [
   },
 ];
 
+const copy = {
+  it: {
+    heading: "Il nostro team",
+    description:
+      "Specialisti certificati che seguono direttamente ogni progetto: dall'analisi offensiva alla difesa delle infrastrutture fino alla conformità normativa.",
+  },
+  en: {
+    heading: "Our team",
+    description:
+      "Certified specialists who work on every project directly: from offensive testing to infrastructure defence and regulatory compliance.",
+  },
+} as const;
+
 function initials(label: string) {
   const parts = label.split(" ").filter(Boolean);
   if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
@@ -37,15 +51,14 @@ function initials(label: string) {
     .join("");
 }
 
-export function TeamSection() {
+export function TeamSection({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
     <section className="mt-16">
       <AnimateIn>
-        <h2 className="text-lg font-semibold text-white">Il nostro team</h2>
-        <p className="mt-2 max-w-2xl text-sm text-zinc-400">
-          Specialisti certificati che seguono direttamente ogni progetto: dall&apos;analisi
-          offensiva alla difesa delle infrastrutture fino alla conformità normativa.
-        </p>
+        <h2 className="text-lg font-semibold text-white">{t.heading}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-zinc-400">{t.description}</p>
       </AnimateIn>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

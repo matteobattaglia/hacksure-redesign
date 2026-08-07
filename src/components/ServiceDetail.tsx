@@ -1,18 +1,43 @@
 import Link from "next/link";
 import { AnimateIn } from "@/components/AnimateIn";
 import type { SecurityService } from "@/lib/data/services";
+import { localizeHref, type Locale } from "@/lib/i18n/config";
 
 type Props = {
+  locale: Locale;
   service: SecurityService;
 };
 
-export function ServiceDetail({ service }: Props) {
+const copy = {
+  it: {
+    included: "Cosa include",
+    methodology: "Metodologia",
+    audience: "Per chi è pensato",
+    deliverables: "Deliverable",
+    useCases: "Casi d'uso tipici",
+    faqs: "Domande frequenti",
+    allServices: "Tutti i servizi",
+  },
+  en: {
+    included: "What's included",
+    methodology: "Methodology",
+    audience: "Who it's for",
+    deliverables: "Deliverables",
+    useCases: "Typical use cases",
+    faqs: "Frequently asked questions",
+    allServices: "All services",
+  },
+} as const;
+
+export function ServiceDetail({ locale, service }: Props) {
+  const t = copy[locale];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2">
         <AnimateIn>
           <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
-            Cosa include
+            {t.included}
           </h2>
           <ul className="mt-4 space-y-3">
             {service.features.map((f) => (
@@ -25,7 +50,7 @@ export function ServiceDetail({ service }: Props) {
         </AnimateIn>
         <AnimateIn delay={80}>
           <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
-            Metodologia
+            {t.methodology}
           </h2>
           <ol className="mt-4 space-y-4">
             {service.methodology.map((step, i) => (
@@ -43,7 +68,7 @@ export function ServiceDetail({ service }: Props) {
       {service.audience && service.audience.length > 0 && (
         <section className="mt-14">
           <AnimateIn>
-            <h2 className="text-xl font-semibold text-white">Per chi è pensato</h2>
+            <h2 className="text-xl font-semibold text-white">{t.audience}</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {service.audience.map((item) => (
                 <div key={item} className="card p-5 text-sm text-zinc-300">
@@ -58,7 +83,7 @@ export function ServiceDetail({ service }: Props) {
       {service.deliverables && service.deliverables.length > 0 && (
         <section className="mt-14">
           <AnimateIn>
-            <h2 className="text-xl font-semibold text-white">Deliverable</h2>
+            <h2 className="text-xl font-semibold text-white">{t.deliverables}</h2>
             <ul className="mt-5 space-y-3">
               {service.deliverables.map((d) => (
                 <li key={d} className="flex gap-3 text-sm text-zinc-300">
@@ -74,7 +99,7 @@ export function ServiceDetail({ service }: Props) {
       {service.useCases && service.useCases.length > 0 && (
         <section className="mt-14">
           <AnimateIn>
-            <h2 className="text-xl font-semibold text-white">Casi d&apos;uso tipici</h2>
+            <h2 className="text-xl font-semibold text-white">{t.useCases}</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {service.useCases.map((uc) => (
                 <div key={uc} className="card-hover p-5 text-sm leading-relaxed text-zinc-400">
@@ -89,7 +114,7 @@ export function ServiceDetail({ service }: Props) {
       {service.faqs && service.faqs.length > 0 && (
         <section className="mt-14">
           <AnimateIn>
-            <h2 className="text-xl font-semibold text-white">Domande frequenti</h2>
+            <h2 className="text-xl font-semibold text-white">{t.faqs}</h2>
             <div className="mt-5 space-y-3">
               {service.faqs.map((faq) => (
                 <div key={faq.question} className="card p-5">
@@ -107,7 +132,7 @@ export function ServiceDetail({ service }: Props) {
           {service.relatedLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={localizeHref(locale, link.href)}
               className="rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-brand-600/50 hover:text-brand-400"
             >
               {link.label} →
@@ -123,11 +148,11 @@ export function ServiceDetail({ service }: Props) {
       )}
 
       <div className="mt-12 flex flex-wrap gap-3">
-        <Link href="/contatti" className="btn-primary">
+        <Link href={localizeHref(locale, "/contatti")} className="btn-primary">
           {service.cta}
         </Link>
-        <Link href="/servizi" className="btn-secondary">
-          Tutti i servizi
+        <Link href={localizeHref(locale, "/servizi")} className="btn-secondary">
+          {t.allServices}
         </Link>
       </div>
     </div>
