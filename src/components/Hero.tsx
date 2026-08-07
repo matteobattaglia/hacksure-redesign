@@ -41,6 +41,9 @@ export function Hero() {
             <Link href="/compliance" className="btn-secondary">
               Autovalutazione compliance
             </Link>
+            <Link href="/collabora" className="btn-outline">
+              Collabora con noi
+            </Link>
           </div>
         </AnimateIn>
 

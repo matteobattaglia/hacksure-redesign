@@ -104,7 +104,15 @@ export function Header() {
               </Link>
             ),
           )}
-          <Link href="/contatti" className="ml-3 btn-primary !py-2 !px-4 !text-sm">
+          <Link
+            href="/collabora"
+            className={`ml-2 btn-outline !py-2 !px-3 !text-sm ${
+              isActive("/collabora") ? "!bg-brand-600/15" : ""
+            }`}
+          >
+            Collabora con noi
+          </Link>
+          <Link href="/contatti" className="ml-2 btn-primary !py-2 !px-4 !text-sm">
             Contatti
           </Link>
         </nav>
@@ -158,7 +166,14 @@ export function Header() {
                 )}
               </div>
             ))}
-            <Link href="/contatti" className="btn-primary mt-3 w-full" onClick={() => setMobileOpen(false)}>
+            <Link
+              href="/collabora"
+              className="btn-outline mt-3 w-full"
+              onClick={() => setMobileOpen(false)}
+            >
+              Collabora con noi
+            </Link>
+            <Link href="/contatti" className="btn-primary mt-2 w-full" onClick={() => setMobileOpen(false)}>
               Contatti
             </Link>
           </div>

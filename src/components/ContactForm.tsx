@@ -1,16 +1,36 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
 type Props = {
   embedded?: boolean;
+  defaultNeed?: string;
+  needOptions?: string[];
+  subjectPrefix?: string;
 };
 
-export function ContactForm({ embedded = false }: Props) {
+const defaultNeedOptions = [
+  "Valutazione gratuita",
+  "Compliance NIS2 / GDPR",
+  "Penetration testing",
+  "Non lo so ancora, ho bisogno di consiglio",
+];
+
+export function ContactForm({
+  embedded = false,
+  defaultNeed = "Valutazione gratuita",
+  needOptions = defaultNeedOptions,
+  subjectPrefix = "[Hacksure]",
+}: Props) {
   const [state, setState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [need, setNeed] = useState(defaultNeed);
+
+  useEffect(() => {
+    setNeed(defaultNeed);
+  }, [defaultNeed]);
 
   function validate(formData: FormData) {
     const newErrors: Record<string, string> = {};
@@ -55,9 +75,9 @@ export function ContactForm({ embedded = false }: Props) {
       company: String(formData.get("company") || ""),
       email: String(formData.get("email") || ""),
       phone: String(formData.get("phone") || ""),
-      need: String(formData.get("need") || ""),
+      need: String(formData.get("need") || need),
       message: String(formData.get("message") || ""),
-      _subject: `[Hacksure] Nuovo contatto — ${String(formData.get("name") || "")}`,
+      _subject: `${subjectPrefix} Nuovo contatto — ${String(formData.get("name") || "")}`,
       _replyto: String(formData.get("email") || ""),
       _template: "table",
       _captcha: false,
@@ -201,13 +221,15 @@ export function ContactForm({ embedded = false }: Props) {
           <select
             id="need"
             name="need"
-            defaultValue="Valutazione gratuita"
+            value={need}
+            onChange={(e) => setNeed(e.target.value)}
             className="w-full rounded-md border border-zinc-700 bg-surface-950 px-3 py-2.5 text-white focus:border-brand-500 focus:outline-none"
           >
-            <option>Valutazione gratuita</option>
-            <option>Compliance NIS2 / GDPR</option>
-            <option>Penetration testing</option>
-            <option>Non lo so ancora, ho bisogno di consiglio</option>
+            {needOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </div>
 

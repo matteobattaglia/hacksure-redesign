@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HomeOverview } from "@/components/HomeOverview";
 import { HomeCta } from "@/components/HomeCta";
+import { HomeCollaborate } from "@/components/HomeCollaborate";
 import { StatsBar } from "@/components/StatsBar";
 import { ProcessRoadmap } from "@/components/ProcessRoadmap";
 import { SocialProof } from "@/components/SocialProof";
@@ -49,6 +50,7 @@ export default function HomePage() {
         <HomeOverview />
         <ProcessRoadmap />
         <SocialProof />
+        <HomeCollaborate />
         <HomeContact />
         <HomeFAQ />
         <HomeCta />

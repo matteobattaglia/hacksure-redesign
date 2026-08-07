@@ -61,6 +61,11 @@ export function Footer() {
             </h3>
             <ul className="mb-6 space-y-2 text-sm text-zinc-500">
               <li>
+                <Link href="/collabora" className="hover:text-brand-400">
+                  Collabora con noi
+                </Link>
+              </li>
+              <li>
                 <Link href="/partner/kaspersky" className="hover:text-brand-400">
                   Kaspersky Partner
                 </Link>

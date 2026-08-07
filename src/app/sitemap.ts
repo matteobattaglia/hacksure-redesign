@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/chi-siamo`, changeFrequency: "monthly" as const, priority: 0.7, lastModified },
     { url: `${baseUrl}/faq`, changeFrequency: "monthly" as const, priority: 0.6, lastModified },
     { url: `${baseUrl}/contatti`, changeFrequency: "monthly" as const, priority: 0.8, lastModified },
+    { url: `${baseUrl}/collabora`, changeFrequency: "monthly" as const, priority: 0.85, lastModified },
     { url: `${baseUrl}/sicurezza-informatica-azienda`, changeFrequency: "monthly" as const, priority: 0.9, lastModified },
     { url: `${baseUrl}/multa-gdpr-azienda`, changeFrequency: "monthly" as const, priority: 0.9, lastModified },
     { url: `${baseUrl}/obblighi-sicurezza-informatica-nis2`, changeFrequency: "monthly" as const, priority: 0.9, lastModified },
