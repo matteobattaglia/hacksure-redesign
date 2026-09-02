@@ -8,7 +8,11 @@ declare global {
 }
 
 export function grantAnalyticsConsent() {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("consent", "update", { analytics_storage: "granted" });
-  }
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+
+  window.gtag("consent", "update", { analytics_storage: "granted" });
+  window.gtag("event", "page_view", {
+    page_location: window.location.href,
+    page_title: document.title,
+  });
 }
