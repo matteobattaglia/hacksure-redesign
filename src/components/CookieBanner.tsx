@@ -49,6 +49,7 @@ export function CookieBanner() {
     } catch {
       // ignora
     }
+    window.dispatchEvent(new CustomEvent("cookie-consent", { detail: { choice } }));
     setVisible(false);
   }
 

@@ -9,6 +9,7 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 import { CookieBanner } from "@/components/CookieBanner";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { htmlLang, isLocale, locales } from "@/lib/i18n/config";
@@ -77,6 +78,7 @@ export default async function RootLayout({ children, params }: Props) {
           <UrgencyBanner />
           {children}
           <CookieBanner />
+          <GoogleAnalytics />
         </LocaleProvider>
       </body>
     </html>
