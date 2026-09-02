@@ -22,7 +22,7 @@ const copy: Record<
   it: {
     seoTitle: "Collabora con noi",
     seoDescription:
-      "Partnership Hacksure per studi legali, web agency white label e fornitori di materiale elettronico. Collabora con noi e cresci insieme.",
+      "Partnership Hacksure: studi legali, web agency white label e fornitori hardware. Perizie forensics, cybersecurity e margini ricorrenti.",
     keywords: [
       "collaborazione cybersecurity",
       "partnership studio legale forensics",

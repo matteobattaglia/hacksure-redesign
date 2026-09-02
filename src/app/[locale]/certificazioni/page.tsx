@@ -28,7 +28,7 @@ const copy: Record<
   it: {
     seoTitle: "Certificazioni",
     seoDescription:
-      "Certificazioni professionali HackSure: eJPT, eCPPT, CompTIA Security+, Network+, CNVP, PenTest+, SecurityX, Cisco CCNA, Sophos e EICTA IS.",
+      "Certificazioni eJPT, eCPPT, CompTIA, CCNA, Sophos Firewall Engineer: team certificato per pentest, compliance e sicurezza PMI.",
     label: "Certificazioni",
     title: "Competenze certificate del team",
     description: (count) =>

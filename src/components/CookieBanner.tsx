@@ -60,6 +60,7 @@ export function CookieBanner() {
       role="dialog"
       aria-label={t.dialogLabel}
       aria-live="polite"
+      data-nosnippet
       className="fixed bottom-4 left-4 z-[60] w-[calc(100%-2rem)] max-w-sm rounded-xl border border-zinc-700 bg-surface-900/95 p-5 shadow-2xl shadow-black/50 backdrop-blur-md"
     >
       <p className="text-sm font-semibold text-white">{t.title}</p>

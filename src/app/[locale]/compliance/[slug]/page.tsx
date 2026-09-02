@@ -17,12 +17,24 @@ export function generateStaticParams() {
 
 const seoDescriptionBySlug: Record<Locale, Record<string, string>> = {
   it: {
-    gdpr: "Evita le multe del Garante. Scopri se sei in regola con il GDPR e proteggi i dati della tua azienda.",
+    gdpr: "Multe GDPR fino a 20 milioni o 4% del fatturato: verifica gratis se la tua azienda è in regola e come evitarle.",
     nis2: "Sei obbligato dalla NIS2? Verifica gratis in 5 minuti se la tua azienda deve adeguarsi ed evita le sanzioni.",
+    "iso-27001":
+      "Percorso ISO 27001 per PMI: valuta la maturità del tuo SGSI e preparati alla certificazione con un approccio strutturato.",
+    dora: "Compliance DORA per enti finanziari e fornitori ICT: valuta la resilienza operativa digitale e il rischio ICT.",
+    "pci-dss":
+      "PCI DSS gap analysis e gap assessment: verifica la conformità sui pagamenti con carta e proteggi i dati dei titolari.",
+    soc2: "SOC 2 readiness per SaaS e cloud: valuta i controlli su sicurezza, disponibilità, integrità e privacy.",
   },
   en: {
-    gdpr: "Avoid fines from the Italian data protection authority. Check whether your company is GDPR compliant and protect your data.",
+    gdpr: "GDPR fines up to €20M or 4% of turnover: check for free whether your company is compliant and how to avoid penalties.",
     nis2: "Does NIS2 apply to you? Check for free in 5 minutes whether your company must comply and avoid penalties.",
+    "iso-27001":
+      "ISO 27001 journey for SMEs: assess your ISMS maturity and prepare for certification with a structured approach.",
+    dora: "DORA compliance for financial entities and critical ICT providers: assess digital operational resilience and ICT risk.",
+    "pci-dss":
+      "PCI DSS gap analysis and gap assessment: verify card payment compliance and protect cardholder data.",
+    soc2: "SOC 2 readiness for SaaS and cloud: assess controls for security, availability, integrity and privacy.",
   },
 };
 

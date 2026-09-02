@@ -36,7 +36,8 @@ const copy: Record<
 > = {
   it: {
     seoTitle: "Privacy & Cookie Policy",
-    seoDescription: "Informativa privacy e cookie policy di Hacksure Srl.",
+    seoDescription:
+      "Privacy policy e cookie policy di Hacksure Srl: trattamento dati, diritti GDPR, cookie tecnici e di misurazione.",
     eyebrow: "Legale",
     title: "Privacy & Cookie Policy",
     intro:

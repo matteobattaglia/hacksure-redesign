@@ -21,7 +21,7 @@ type Props = { params: Promise<{ locale: string }> };
 const seo: Record<Locale, { description: string; keywords: string[] }> = {
   it: {
     description:
-      "Proteggi la tua azienda dagli hacker. Conformità GDPR e NIS2 per PMI. Penetration testing, vulnerability assessment, ISO 27001 — team certificato a Brescia e in tutta Italia. Valutazione gratuita.",
+      "Cybersecurity e compliance per PMI a Brescia e in Italia. NIS2, GDPR, penetration test, vulnerability assessment e ISO 27001. Valutazione gratuita.",
     keywords: [
       "cybersecurity PMI Italia",
       "proteggere azienda dagli hacker",

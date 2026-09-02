@@ -27,7 +27,7 @@ const copy: Record<
   it: {
     seoTitle: "Contatti",
     seoDescription:
-      "Contatta HackSure per una valutazione preliminare gratuita di cybersecurity e compliance. Brescia, Italia.",
+      "Contatta Hacksure a Brescia per una valutazione gratuita di cybersecurity, NIS2, GDPR e penetration test. Risposta entro 24 ore.",
     label: "Contatti",
     title: "Richiedi una valutazione gratuita",
     description:
