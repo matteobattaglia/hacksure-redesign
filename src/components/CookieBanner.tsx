@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { localizeHref } from "@/lib/i18n/config";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
-
-const STORAGE_KEY = "cookie_consent";
+import { COOKIE_CONSENT_KEY, grantAnalyticsConsent } from "@/lib/analytics";
 
 const copy = {
   it: {
@@ -36,7 +35,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
       if (!stored) setVisible(true);
     } catch {
       // localStorage non disponibile: non mostrare il banner
@@ -45,10 +44,11 @@ export function CookieBanner() {
 
   function decide(choice: "all" | "necessary") {
     try {
-      localStorage.setItem(STORAGE_KEY, choice);
+      localStorage.setItem(COOKIE_CONSENT_KEY, choice);
     } catch {
       // ignora
     }
+    if (choice === "all") grantAnalyticsConsent();
     window.dispatchEvent(new CustomEvent("cookie-consent", { detail: { choice } }));
     setVisible(false);
   }

@@ -72,13 +72,13 @@ export default async function RootLayout({ children, params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(locale)) }}
         />
+        <GoogleAnalytics />
       </head>
       <body className="font-sans">
         <LocaleProvider locale={locale}>
           <UrgencyBanner />
           {children}
           <CookieBanner />
-          <GoogleAnalytics />
         </LocaleProvider>
       </body>
     </html>
