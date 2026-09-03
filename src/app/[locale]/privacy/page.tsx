@@ -140,6 +140,9 @@ export default async function PrivacyPage({ params }: Props) {
           <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
             <p className="section-label">{t.eyebrow}</p>
             <h1 className="mt-2 text-3xl font-semibold text-white">{t.title}</h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
+              {t.seoDescription}
+            </p>
           </div>
         </div>
         <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 text-zinc-400 leading-relaxed space-y-6">

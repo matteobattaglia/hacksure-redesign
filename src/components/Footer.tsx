@@ -63,7 +63,7 @@ export function Footer() {
               height={25}
               className="mb-4 h-6 w-auto"
             />
-            <p className="text-sm leading-relaxed text-zinc-500">
+            <p className="text-sm leading-relaxed text-zinc-500" data-nosnippet>
               {siteConfig.legalName} — {t.about}
             </p>
           </div>
@@ -127,7 +127,7 @@ export function Footer() {
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
               {t.contact}
             </h3>
-            <ul className="space-y-2 text-sm text-zinc-500">
+            <ul className="space-y-2 text-sm text-zinc-500" data-nosnippet>
               <li>
                 <a href={`mailto:${siteConfig.email}`} className="hover:text-brand-400">
                   {siteConfig.email}
@@ -157,7 +157,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between">
+        <div
+          className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between"
+          data-nosnippet
+        >
           <p>
             {siteConfig.legalName} — {t.vat} {siteConfig.vat} — {t.capital} {siteConfig.capital}
           </p>

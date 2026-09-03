@@ -48,7 +48,7 @@ export function UrgencyBanner() {
   if (!onAllowedPage || dismissed) return null;
 
   return (
-    <div className="relative z-50 bg-brand-600 text-white">
+    <div className="relative z-50 bg-brand-600 text-white" data-nosnippet>
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 px-10 py-2 sm:px-6">
         <Link
           href={localizeHref(locale, "/compliance/nis2")}

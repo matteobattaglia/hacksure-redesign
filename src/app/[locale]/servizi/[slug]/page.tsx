@@ -83,6 +83,7 @@ export default async function ServizioDetailPage({ params }: Props) {
   if (!service) notFound();
 
   const labels = breadcrumbLabels[locale];
+  const lead = seoDescriptionBySlug[locale][slug] ?? service.description;
 
   return (
     <>
@@ -120,9 +121,7 @@ export default async function ServizioDetailPage({ params }: Props) {
               {service.category}
             </p>
             <h1 className="mt-2 text-3xl font-semibold text-white sm:text-4xl">{service.title}</h1>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-400">
-              {service.longDescription}
-            </p>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-400">{lead}</p>
           </div>
         </div>
 

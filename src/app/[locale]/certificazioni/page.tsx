@@ -74,7 +74,7 @@ export default async function CertificazioniPage({ params }: Props) {
           locale={locale}
           label={t.label}
           title={t.title}
-          description={t.description(certifications.length)}
+          description={t.seoDescription}
         />
 
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">

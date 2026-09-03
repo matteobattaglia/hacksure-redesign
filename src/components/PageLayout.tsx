@@ -79,7 +79,7 @@ export function CtaBanner({ locale }: { locale: Locale }) {
   const t = ctaCopy[locale];
 
   return (
-    <section className="border-t border-zinc-800 bg-surface-900">
+    <section className="border-t border-zinc-800 bg-surface-900" data-nosnippet>
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:flex-row sm:items-center sm:px-6 lg:px-8">
         <AnimateIn>
           <h2 className="text-xl font-semibold text-white">{t.title}</h2>

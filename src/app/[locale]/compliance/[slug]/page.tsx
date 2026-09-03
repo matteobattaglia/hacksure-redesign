@@ -90,6 +90,7 @@ export default async function ComplianceDetailPage({ params }: Props) {
   if (!framework) notFound();
 
   const t = copy[locale];
+  const lead = seoDescriptionBySlug[locale][slug] ?? framework.description;
 
   return (
     <>
@@ -107,7 +108,12 @@ export default async function ComplianceDetailPage({ params }: Props) {
           <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
             <p className="section-label">{framework.subtitle}</p>
             <h1 className="mt-2 text-3xl font-semibold text-white">{framework.title}</h1>
-            <p className="mt-4 max-w-3xl text-zinc-400">{framework.longDescription ?? framework.description}</p>
+            <p className="mt-4 max-w-3xl text-zinc-400">{lead}</p>
+            {framework.longDescription && framework.longDescription !== lead && (
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500">
+                {framework.longDescription}
+              </p>
+            )}
           </div>
         </div>
 

@@ -63,7 +63,7 @@ const copy = {
     eyebrow: "Partnership",
     headingBefore: "Collabora con",
     intro:
-      "Costruiamo collaborazioni concrete con studi legali, web agency e fornitori di materiale elettronico. Scegli la tua tipologia di attività: ti mostriamo come lavoriamo insieme.",
+      "Partnership Hacksure: studi legali, web agency white label e fornitori hardware. Perizie forensics, cybersecurity e margini ricorrenti.",
     reassurance: [
       "Risposta entro 24 ore lavorative",
       "Nessun impegno né vincolo di esclusiva",
@@ -110,7 +110,7 @@ const copy = {
     eyebrow: "Partnership",
     headingBefore: "Partner with",
     intro:
-      "We build concrete partnerships with law firms, web agencies and electronics and hardware suppliers. Choose your type of business: we will show you how we work together.",
+      "Hacksure partnerships for law firms, white label web agencies and electronics suppliers. Partner with us and grow together.",
     reassurance: [
       "A reply within 24 working hours",
       "No commitment and no exclusivity",
