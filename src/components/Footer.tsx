@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/seo";
 import { getNavigation } from "@/lib/navigation";
+import { isCrawlerUserAgent } from "@/lib/crawler";
 import { localizeHref } from "@/lib/i18n/config";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 
@@ -47,6 +49,11 @@ export function Footer() {
   const t = copy[locale];
   const navigation = getNavigation(locale);
   const href = (path: string) => localizeHref(locale, path);
+  const [showBoilerplate, setShowBoilerplate] = useState(false);
+
+  useEffect(() => {
+    if (!isCrawlerUserAgent(navigator.userAgent)) setShowBoilerplate(true);
+  }, []);
 
   const complianceNav = navigation[0];
   const servicesNav = navigation[1];
@@ -63,9 +70,11 @@ export function Footer() {
               height={25}
               className="mb-4 h-6 w-auto"
             />
-            <p className="text-sm leading-relaxed text-zinc-500" data-nosnippet>
-              {siteConfig.legalName} — {t.about}
-            </p>
+            {showBoilerplate && (
+              <p className="text-sm leading-relaxed text-zinc-500">
+                {siteConfig.legalName} — {t.about}
+              </p>
+            )}
           </div>
 
           <div>
@@ -127,7 +136,7 @@ export function Footer() {
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
               {t.contact}
             </h3>
-            <ul className="space-y-2 text-sm text-zinc-500" data-nosnippet>
+            <ul className="space-y-2 text-sm text-zinc-500">
               <li>
                 <a href={`mailto:${siteConfig.email}`} className="hover:text-brand-400">
                   {siteConfig.email}
@@ -140,14 +149,18 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              <li>
-                <span className="block text-zinc-600">{t.addressLabel}</span>
-                {siteConfig.address}
-              </li>
-              <li>
-                <span className="block text-zinc-600">{t.addressSecondaryLabel}</span>
-                {siteConfig.addressSecondary}
-              </li>
+              {showBoilerplate && (
+                <>
+                  <li>
+                    <span className="block text-zinc-600">{t.addressLabel}</span>
+                    {siteConfig.address}
+                  </li>
+                  <li>
+                    <span className="block text-zinc-600">{t.addressSecondaryLabel}</span>
+                    {siteConfig.addressSecondary}
+                  </li>
+                </>
+              )}
             </ul>
             <div className="mt-4 flex gap-3 text-sm text-zinc-500">
               <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-400">LinkedIn</a>
@@ -157,16 +170,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div
-          className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between"
-          data-nosnippet
-        >
-          <p>
-            {siteConfig.legalName} — {t.vat} {siteConfig.vat} — {t.capital} {siteConfig.capital}
-          </p>
+        <div className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between">
+          {showBoilerplate ? (
+            <p>
+              {siteConfig.legalName} — {t.vat} {siteConfig.vat} — {t.capital} {siteConfig.capital}
+            </p>
+          ) : (
+            <p>{siteConfig.legalName}</p>
+          )}
           <div className="flex gap-4">
             <Link href={href("/privacy")} className="hover:text-zinc-400">{t.privacy}</Link>
-            <span>© {new Date().getFullYear()} Hacksure</span>
+            {showBoilerplate && <span>© {new Date().getFullYear()} Hacksure</span>}
           </div>
         </div>
       </div>

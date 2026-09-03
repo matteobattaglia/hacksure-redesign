@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { localizeHref, stripLocale } from "@/lib/i18n/config";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
+import { isCrawlerUserAgent } from "@/lib/crawler";
 
 const STORAGE_KEY = "urgency_banner_dismissed";
 
@@ -29,6 +30,10 @@ export function UrgencyBanner() {
   const onAllowedPage = currentPath === "/" || currentPath.startsWith("/compliance");
 
   useEffect(() => {
+    if (isCrawlerUserAgent(navigator.userAgent)) {
+      setDismissed(true);
+      return;
+    }
     try {
       setDismissed(sessionStorage.getItem(STORAGE_KEY) === "1");
     } catch {

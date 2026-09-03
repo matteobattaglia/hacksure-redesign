@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { localizeHref } from "@/lib/i18n/config";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { COOKIE_CONSENT_KEY, grantAnalyticsConsent } from "@/lib/analytics";
+import { isCrawlerUserAgent } from "@/lib/crawler";
 
 const copy = {
   it: {
@@ -34,6 +35,7 @@ export function CookieBanner() {
   const t = copy[locale];
 
   useEffect(() => {
+    if (isCrawlerUserAgent(navigator.userAgent)) return;
     try {
       const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
       if (!stored) setVisible(true);
