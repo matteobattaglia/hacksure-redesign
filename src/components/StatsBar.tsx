@@ -24,14 +24,16 @@ export function StatsBar({ locale }: { locale: Locale }) {
   const stats = copy[locale].stats;
 
   return (
-    <section className="border-b border-zinc-800 bg-surface-900/80">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 divide-x divide-zinc-800/60 lg:grid-cols-4">
+    <section className="border-b border-white/[0.06] bg-surface-950">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-y-8 lg:grid-cols-4 lg:divide-x lg:divide-white/[0.06]">
           {stats.map((stat, i) => (
-            <AnimateIn key={stat.label} delay={i * 80}>
-              <div className="px-4 text-center lg:px-6 lg:text-left">
-                <p className="text-2xl font-bold tabular-nums text-brand-500 lg:text-3xl">{stat.value}</p>
-                <p className="mt-1 text-xs text-zinc-500 sm:text-sm">{stat.label}</p>
+            <AnimateIn key={stat.label} delay={i * 50}>
+              <div className="px-2 text-center lg:px-8 lg:text-left">
+                <p className="font-display text-3xl font-semibold tabular-nums tracking-tight text-brand-500 lg:text-4xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm text-zinc-500">{stat.label}</p>
               </div>
             </AnimateIn>
           ))}

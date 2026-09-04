@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -16,6 +16,12 @@ export function AnimateIn({ children, className = "", delay = 0 }: Props) {
     const el = ref.current;
     if (!el) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -23,21 +29,24 @@ export function AnimateIn({ children, className = "", delay = 0 }: Props) {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
+  const style: CSSProperties = {
+    transitionProperty: "opacity, transform",
+    transitionDuration: "var(--duration-enter)",
+    transitionTimingFunction: "var(--ease-out)",
+    transitionDelay: visible ? `${delay}ms` : "0ms",
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translate3d(0,0,0) scale(1)" : "translate3d(0,12px,0) scale(0.98)",
+  };
+
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={className} style={style}>
       {children}
     </div>
   );

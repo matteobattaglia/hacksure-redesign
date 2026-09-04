@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, Space_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import {
@@ -14,10 +14,16 @@ import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { htmlLang, isLocale, locales } from "@/lib/i18n/config";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
 });
 
 export function generateStaticParams() {
@@ -58,7 +64,7 @@ export default async function RootLayout({ children, params }: Props) {
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={htmlLang[locale]} className={inter.variable}>
+    <html lang={htmlLang[locale]} className={`${dmSans.variable} ${spaceGrotesk.variable}`}>
       <head>
         <script
           type="application/ld+json"

@@ -80,8 +80,8 @@ export default async function HomePage({ params }: Props) {
       <Header />
       <main>
         <Hero locale={locale} />
-        <StatsBar locale={locale} />
         <HomeOverview locale={locale} />
+        <StatsBar locale={locale} />
         <ProcessRoadmap />
         <SocialProof locale={locale} />
         <HomeCollaborate locale={locale} />

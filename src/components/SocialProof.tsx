@@ -28,13 +28,13 @@ export function SocialProof({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <section className="border-t border-zinc-800 bg-surface-900/60">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+    <section className="border-t border-white/[0.06] bg-surface-900/40">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid grid-cols-2 gap-10 lg:grid-cols-4">
           {stats.map((stat, i) => (
-            <AnimateIn key={stat.label} delay={i * 80}>
+            <AnimateIn key={stat.label} delay={i * 50}>
               <div className="text-center">
-                <p className="text-4xl font-bold tabular-nums text-brand-500 sm:text-5xl">
+                <p className="font-display text-4xl font-semibold tabular-nums tracking-tight text-brand-500 sm:text-5xl">
                   {stat.value}
                 </p>
                 <p className="mt-2 text-sm text-zinc-400">{stat.label}</p>

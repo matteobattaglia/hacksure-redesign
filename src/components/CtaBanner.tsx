@@ -32,11 +32,11 @@ export function CtaBanner({ locale }: { locale: Locale }) {
   if (!visible) return null;
 
   return (
-    <section className="border-t border-zinc-800 bg-surface-900" data-nosnippet>
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+    <section className="border-t border-white/[0.06] bg-surface-900/70" data-nosnippet>
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-14 sm:flex-row sm:items-center sm:px-6 lg:px-8">
         <AnimateIn>
-          <h2 className="text-xl font-semibold text-white">{t.title}</h2>
-          <p className="mt-1 text-sm text-zinc-400">{t.description}</p>
+          <h2 className="text-2xl font-semibold tracking-tight text-white">{t.title}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-400">{t.description}</p>
         </AnimateIn>
         <Link href={localizeHref(locale, "/contatti")} className="btn-primary shrink-0">
           {t.cta}

@@ -30,8 +30,8 @@ export function HomeFAQ() {
   const homeFaqs = getHomeFaqs(locale);
 
   return (
-    <section className="border-t border-zinc-800">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <section className="border-t border-white/[0.06]">
+      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <AnimateIn>
           <p className="section-label">{t.label}</p>
           <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">

@@ -84,71 +84,71 @@ export function HomeOverview({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <section className="py-16 lg:py-20">
+      <section className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimateIn>
             <div className="max-w-2xl">
               <p className="section-label">{t.featuredLabel}</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 {t.featuredTitle}
               </h2>
-              <p className="mt-3 text-zinc-400">
+              <p className="mt-4 text-base leading-relaxed text-zinc-400">
                 {t.featuredIntro}
               </p>
             </div>
           </AnimateIn>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            <AnimateIn delay={60}>
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            <AnimateIn delay={40}>
               <Link
                 href={href("/compliance")}
-                className="card-hover gradient-border group flex h-full flex-col p-7"
+                className="card-hover gradient-border group flex h-full flex-col p-8"
               >
-                <span className="inline-flex w-fit rounded-full border border-brand-600/40 bg-brand-600/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
+                <span className="inline-flex w-fit rounded-full border border-brand-600/30 bg-brand-600/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
                   {t.regulationsBadge}
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-white">{t.regulationsTitle}</h3>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-white">{t.regulationsTitle}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
                   {t.regulationsText}
                 </p>
-                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
+                <span className="mt-8 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1">
                   {t.regulationsCta}
                 </span>
               </Link>
             </AnimateIn>
 
-            <AnimateIn delay={120}>
+            <AnimateIn delay={90}>
               <Link
                 href={href("/servizi/notarizzazione-blockchain")}
-                className="card-hover gradient-border group flex h-full flex-col p-7"
+                className="card-hover gradient-border group flex h-full flex-col p-8"
               >
-                <span className="inline-flex w-fit rounded-full border border-brand-600/40 bg-brand-600/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
+                <span className="inline-flex w-fit rounded-full border border-brand-600/30 bg-brand-600/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-400">
                   {t.trustBadge}
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-white">{t.trustTitle}</h3>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-white">{t.trustTitle}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
                   {t.trustText}
                 </p>
-                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform group-hover:translate-x-1">
+                <span className="mt-8 inline-flex items-center gap-1 text-sm font-medium text-brand-500 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1">
                   {t.trustCta}
                 </span>
               </Link>
             </AnimateIn>
 
-            <AnimateIn delay={180}>
+            <AnimateIn delay={140}>
               <Link
                 href={href("/servizi/perizia-truffe-online")}
-                className="card-hover gradient-border group relative flex h-full flex-col overflow-hidden border-brand-600/40 p-7"
+                className="card-hover gradient-border group relative flex h-full flex-col overflow-hidden border-brand-600/35 p-8"
               >
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-600/15 via-transparent to-transparent" />
                 <span className="relative inline-flex w-fit rounded-full bg-brand-600 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">
                   {t.emergencyBadge}
                 </span>
-                <h3 className="relative mt-4 text-xl font-semibold text-white">{t.emergencyTitle}</h3>
+                <h3 className="relative mt-5 text-xl font-semibold tracking-tight text-white">{t.emergencyTitle}</h3>
                 <p className="relative mt-3 flex-1 text-sm leading-relaxed text-zinc-300">
                   {t.emergencyText}
                 </p>
-                <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-400 transition-transform group-hover:translate-x-1">
+                <span className="relative mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-400 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1">
                   {t.emergencyCta}
                 </span>
               </Link>
@@ -157,24 +157,24 @@ export function HomeOverview({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="border-y border-zinc-800 bg-surface-900/60 py-16 lg:py-20">
+      <section className="border-y border-white/[0.06] bg-surface-900/50 py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimateIn className="flex items-end justify-between gap-4">
             <div>
               <p className="section-label">{t.complianceLabel}</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">{t.complianceTitle}</h2>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">{t.complianceTitle}</h2>
             </div>
             <Link href={href("/compliance")} className="hidden text-sm font-medium text-brand-500 hover:text-brand-400 sm:block">
               {t.viewAllMasc}
             </Link>
           </AnimateIn>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {frameworks.slice(0, 6).map((f, i) => (
-              <AnimateIn key={f.slug} delay={i * 60}>
-                <Link href={href(`/compliance/${f.slug}`)} className="card-hover block p-5">
-                  <h3 className="font-semibold text-white">{f.title}</h3>
+              <AnimateIn key={f.slug} delay={Math.min(i * 40, 160)}>
+                <Link href={href(`/compliance/${f.slug}`)} className="card-hover block p-6">
+                  <h3 className="font-semibold tracking-tight text-white">{f.title}</h3>
                   <p className="mt-1 text-xs text-zinc-500">{f.subtitle}</p>
-                  <p className="mt-2 line-clamp-2 text-sm text-zinc-400">{f.description}</p>
+                  <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-zinc-400">{f.description}</p>
                 </Link>
               </AnimateIn>
             ))}
@@ -182,35 +182,35 @@ export function HomeOverview({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20">
+      <section className="py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimateIn className="flex items-end justify-between gap-4">
             <div>
               <p className="section-label">{t.servicesLabel}</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">{t.servicesTitle}</h2>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">{t.servicesTitle}</h2>
             </div>
             <Link href={href("/servizi")} className="hidden text-sm font-medium text-brand-500 hover:text-brand-400 sm:block">
               {t.viewAllMasc}
             </Link>
           </AnimateIn>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
-              <AnimateIn key={s.slug} delay={i * 50}>
-                <Link href={href(`/servizi/${s.slug}`)} className="card-hover block p-5">
+              <AnimateIn key={s.slug} delay={Math.min(i * 35, 160)}>
+                <Link href={href(`/servizi/${s.slug}`)} className="card-hover block p-6">
                   <p className="text-xs font-medium text-brand-500">{s.category}</p>
-                  <h3 className="mt-1 font-semibold text-white">{s.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm text-zinc-400">{s.shortDescription}</p>
+                  <h3 className="mt-1.5 font-semibold tracking-tight text-white">{s.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-400">{s.shortDescription}</p>
                 </Link>
               </AnimateIn>
             ))}
           </div>
 
-          <AnimateIn delay={200}>
+          <AnimateIn delay={120}>
             <Link
               href={href("/partner/kaspersky")}
               className="card-hover mt-6 flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center"
             >
-              <div className="shrink-0 rounded-lg border border-zinc-800 bg-black p-3">
+              <div className="shrink-0 rounded-xl border border-white/[0.06] bg-black p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/partners/kaspersky-registered-partner.jpg"
@@ -223,7 +223,7 @@ export function HomeOverview({ locale }: { locale: Locale }) {
                 <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">
                   {t.partnershipLabel}
                 </p>
-                <h3 className="mt-1 font-semibold text-white">
+                <h3 className="mt-1 font-semibold tracking-tight text-white">
                   {t.partnershipTitle}
                 </h3>
                 <p className="mt-1 text-sm text-zinc-400">
@@ -236,13 +236,13 @@ export function HomeOverview({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="border-t border-zinc-800 bg-surface-900/60 py-16 lg:py-20">
+      <section className="border-t border-white/[0.06] bg-surface-900/50 py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimateIn className="flex items-end justify-between gap-4">
             <div>
               <p className="section-label">{t.teamLabel}</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">{t.certsTitle}</h2>
-              <p className="mt-2 max-w-xl text-sm text-zinc-400">
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">{t.certsTitle}</h2>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
                 {certifications.length} {t.certsNote}
               </p>
             </div>
@@ -250,10 +250,10 @@ export function HomeOverview({ locale }: { locale: Locale }) {
               {t.viewAllFem}
             </Link>
           </AnimateIn>
-          <div className="mt-8 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {certifications.map((cert, i) => (
-              <AnimateIn key={cert.slug} delay={i * 40}>
-                <Link href={href(`/certificazioni/${cert.slug}`)} className="card-hover flex flex-col items-center p-4 text-center">
+              <AnimateIn key={cert.slug} delay={Math.min(i * 30, 150)}>
+                <Link href={href(`/certificazioni/${cert.slug}`)} className="card-hover flex flex-col items-center p-5 text-center">
                   <CertBadge src={cert.image} alt={cert.alt} size={64} />
                   <h3 className="mt-3 text-xs font-medium leading-tight text-white sm:text-sm">{cert.name}</h3>
                   <p className="mt-0.5 text-[10px] text-zinc-500 sm:text-xs">{cert.issuer}</p>

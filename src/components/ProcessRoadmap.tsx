@@ -123,14 +123,14 @@ export function ProcessRoadmap() {
   const t = copy[locale];
 
   return (
-    <section className="relative overflow-hidden border-t border-zinc-800 py-16 lg:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(234,88,12,0.06),transparent_70%)]" />
+    <section className="relative overflow-hidden border-t border-white/[0.06] py-20 lg:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(234,88,12,0.05),transparent_70%)]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <p className="section-label">{t.label}</p>
-          <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{t.heading}</h2>
-          <p className="mt-3 text-zinc-400">{t.intro}</p>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">{t.heading}</h2>
+          <p className="mt-4 text-base leading-relaxed text-zinc-400">{t.intro}</p>
         </div>
 
         <div ref={ref} className="relative mt-12 lg:mt-16">
@@ -138,19 +138,19 @@ export function ProcessRoadmap() {
           <div className="relative mb-6 hidden lg:block" aria-hidden="true">
             <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px -translate-y-1/2 bg-zinc-800" />
             <div
-              className="absolute left-[12.5%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-brand-600 to-brand-400 transition-all duration-[1.2s] ease-out"
+              className="absolute left-[12.5%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-brand-600 to-brand-400 transition-[width] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none"
               style={{ width: visible ? "75%" : "0%" }}
             />
             <div className="grid grid-cols-4">
               {steps.map((item, i) => (
                 <div key={item.step} className="flex justify-center">
                   <div
-                    className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full border-2 text-[10px] font-bold transition-all duration-500 ${
+                    className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full border-2 text-[10px] font-bold transition-[border-color,color,background-color] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
                       visible
                         ? "border-brand-500 bg-surface-950 text-brand-400"
                         : "border-zinc-700 bg-surface-950 text-zinc-600"
                     }`}
-                    style={{ transitionDelay: visible ? `${i * 150 + 200}ms` : "0ms" }}
+                    style={{ transitionDelay: visible ? `${i * 80 + 80}ms` : "0ms" }}
                   >
                     {item.step}
                   </div>
@@ -163,20 +163,22 @@ export function ProcessRoadmap() {
             {steps.map((item, i) => (
               <div
                 key={item.step}
-                className={`flex h-full flex-col transition-all duration-700 ease-out motion-reduce:transition-none ${
-                  visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
-                style={{ transitionDelay: visible ? `${i * 150}ms` : "0ms" }}
+                className="flex h-full flex-col transition-[opacity,transform] duration-[320ms] ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "translate3d(0,0,0) scale(1)" : "translate3d(0,12px,0) scale(0.98)",
+                  transitionDelay: visible ? `${i * 70}ms` : "0ms",
+                }}
               >
                 <div className="card-hover gradient-border flex min-h-[200px] flex-1 flex-col p-5 sm:min-h-[220px] lg:min-h-[240px]">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-all duration-500 ${
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-[border-color,background-color,color] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
                         visible
                           ? "border-brand-500/40 bg-brand-600/15 text-brand-400"
                           : "border-zinc-700 bg-zinc-900 text-zinc-600"
                       }`}
-                      style={{ transitionDelay: visible ? `${i * 150 + 100}ms` : "0ms" }}
+                      style={{ transitionDelay: visible ? `${i * 70 + 40}ms` : "0ms" }}
                     >
                       {item.icon}
                     </div>
@@ -184,7 +186,7 @@ export function ProcessRoadmap() {
                       STEP {item.step}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">{t.steps[i].title}</h3>
+                  <h3 className="text-lg font-semibold tracking-tight text-white">{t.steps[i].title}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">{t.steps[i].desc}</p>
                 </div>
               </div>
@@ -193,8 +195,12 @@ export function ProcessRoadmap() {
         </div>
 
         <div
-          className={`mt-10 text-center transition-all duration-700 ${visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
-          style={{ transitionDelay: visible ? "700ms" : "0ms" }}
+          className="mt-10 text-center transition-[opacity,transform] duration-[320ms] ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translate3d(0,0,0)" : "translate3d(0,8px,0)",
+            transitionDelay: visible ? "280ms" : "0ms",
+          }}
         >
           <Link href={localizeHref(locale, "/contatti")} className="btn-primary">
             {t.cta}

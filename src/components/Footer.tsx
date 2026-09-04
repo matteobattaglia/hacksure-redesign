@@ -59,7 +59,7 @@ export function Footer() {
   const servicesNav = navigation[1];
 
   return (
-    <footer className="border-t border-zinc-800 bg-surface-900" data-nosnippet>
+    <footer className="border-t border-white/[0.06] bg-surface-900" data-nosnippet>
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -170,7 +170,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-zinc-800 pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/[0.06] pt-8 text-xs text-zinc-600 sm:flex-row sm:justify-between">
           {showBoilerplate ? (
             <p>
               {siteConfig.legalName} — {t.vat} {siteConfig.vat} — {t.capital} {siteConfig.capital}
