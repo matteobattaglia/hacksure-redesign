@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n/config";
-import { resolveLegacyRedirect } from "@/lib/legacy-redirects";
+import { normalizePathname, resolveLegacyRedirect } from "@/lib/legacy-redirects";
 
 /** Paths served outside the localized route tree. */
 const RESERVED_PREFIXES = ["/api", "/_next", "/assets"];
@@ -22,40 +22,53 @@ function isReserved(pathname: string) {
   );
 }
 
+function redirectTo(
+  request: NextRequest,
+  pathname: string,
+  status: 301 | 308,
+) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  return NextResponse.redirect(url, status);
+}
+
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase() ?? "";
   const { pathname, search } = request.nextUrl;
 
+  const normalized = normalizePathname(pathname);
   const legacyDest = resolveLegacyRedirect(pathname);
+  const targetPath = legacyDest ?? normalized;
+  const isLegacy = Boolean(legacyDest);
+  const needsNormalize = pathname !== targetPath;
 
   // Apex → www, folding legacy paths into the canonical URL in one hop.
   if (host === "hacksure.it") {
     const url = request.nextUrl.clone();
     url.host = "www.hacksure.it";
     url.protocol = "https:";
-    if (legacyDest) {
-      url.pathname = legacyDest;
-      return NextResponse.redirect(url, 301);
-    }
-    return NextResponse.redirect(url, 308);
+    url.pathname = targetPath;
+    url.search = search;
+    return NextResponse.redirect(url, isLegacy ? 301 : 308);
   }
 
-  // www (or preview): permanent move for legacy WordPress / flat URLs.
-  if (legacyDest && legacyDest !== pathname.replace(/\/$/, "")) {
+  // Permanent move for legacy WordPress / flat URLs (and slash cleanup).
+  if (needsNormalize) {
     const url = request.nextUrl.clone();
-    url.pathname = legacyDest;
-    // Preserve query string (e.g. UTM) on permanent redirects.
+    url.pathname = targetPath;
     url.search = search;
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, isLegacy ? 301 : 308);
   }
 
   if (!isReserved(pathname)) {
     // Italian is the default locale and stays unprefixed: /it/* would be a
     // duplicate of the canonical URL, so send it back to the clean path.
     if (pathname === `/${defaultLocale}` || pathname.startsWith(`/${defaultLocale}/`)) {
-      const url = request.nextUrl.clone();
-      url.pathname = pathname.slice(`/${defaultLocale}`.length) || "/";
-      return NextResponse.redirect(url, 308);
+      return redirectTo(
+        request,
+        pathname.slice(`/${defaultLocale}`.length) || "/",
+        308,
+      );
     }
 
     const isPrefixed = locales.some(
