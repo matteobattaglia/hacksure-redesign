@@ -22,53 +22,42 @@ function isReserved(pathname: string) {
   );
 }
 
-function redirectTo(
-  request: NextRequest,
-  pathname: string,
-  status: 301 | 308,
-) {
-  const url = request.nextUrl.clone();
-  url.pathname = pathname;
-  return NextResponse.redirect(url, status);
-}
-
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase() ?? "";
   const { pathname, search } = request.nextUrl;
 
-  const normalized = normalizePathname(pathname);
   const legacyDest = resolveLegacyRedirect(pathname);
-  const targetPath = legacyDest ?? normalized;
-  const isLegacy = Boolean(legacyDest);
-  const needsNormalize = pathname !== targetPath;
 
   // Apex → www, folding legacy paths into the canonical URL in one hop.
   if (host === "hacksure.it") {
     const url = request.nextUrl.clone();
     url.host = "www.hacksure.it";
     url.protocol = "https:";
-    url.pathname = targetPath;
-    url.search = search;
-    return NextResponse.redirect(url, isLegacy ? 301 : 308);
+    if (legacyDest) {
+      url.pathname = legacyDest;
+      url.search = search;
+      return NextResponse.redirect(url, 301);
+    }
+    return NextResponse.redirect(url, 308);
   }
 
-  // Permanent move for legacy WordPress / flat URLs (and slash cleanup).
-  if (needsNormalize) {
+  // Permanent move for legacy WordPress / flat URLs.
+  // Compare against the slash-normalized request path so /nis2 and /nis2/
+  // both resolve once Next (or the CDN) has stabilized the pathname.
+  if (legacyDest && legacyDest !== normalizePathname(pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = targetPath;
+    url.pathname = legacyDest;
     url.search = search;
-    return NextResponse.redirect(url, isLegacy ? 301 : 308);
+    return NextResponse.redirect(url, 301);
   }
 
   if (!isReserved(pathname)) {
     // Italian is the default locale and stays unprefixed: /it/* would be a
     // duplicate of the canonical URL, so send it back to the clean path.
     if (pathname === `/${defaultLocale}` || pathname.startsWith(`/${defaultLocale}/`)) {
-      return redirectTo(
-        request,
-        pathname.slice(`/${defaultLocale}`.length) || "/",
-        308,
-      );
+      const url = request.nextUrl.clone();
+      url.pathname = pathname.slice(`/${defaultLocale}`.length) || "/";
+      return NextResponse.redirect(url, 308);
     }
 
     const isPrefixed = locales.some(

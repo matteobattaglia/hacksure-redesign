@@ -47,9 +47,6 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  // Middleware owns trailing-slash + legacy redirects so /nis2/ → /compliance/nis2
-  // in a single hop (Next's default slash strip would otherwise run first).
-  skipTrailingSlashRedirect: true,
   images: {
     formats: ["image/avif", "image/webp"],
   },
