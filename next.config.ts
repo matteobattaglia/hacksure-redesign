@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirectConfigEntries } from "./src/lib/legacy-redirects";
 
 const securityHeaders = [
   {
@@ -50,13 +51,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
-    return [
-      {
-        source: "/certificazioni/cvnp",
-        destination: "/certificazioni/cnvp",
-        permanent: true,
-      },
-    ];
+    // Middleware handles the primary legacy map (incl. apex one-hop).
+    // Keep next.config as a belt-and-suspenders layer for edge/CDN cases.
+    return legacyRedirectConfigEntries();
   },
   async headers() {
     return [

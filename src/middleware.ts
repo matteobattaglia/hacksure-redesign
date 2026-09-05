@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n/config";
+import { resolveLegacyRedirect } from "@/lib/legacy-redirects";
 
 /** Paths served outside the localized route tree. */
 const RESERVED_PREFIXES = ["/api", "/_next", "/assets"];
@@ -23,14 +24,29 @@ function isReserved(pathname: string) {
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase() ?? "";
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  // Canonical: www.hacksure.it (apex → www)
+  const legacyDest = resolveLegacyRedirect(pathname);
+
+  // Apex → www, folding legacy paths into the canonical URL in one hop.
   if (host === "hacksure.it") {
     const url = request.nextUrl.clone();
     url.host = "www.hacksure.it";
     url.protocol = "https:";
+    if (legacyDest) {
+      url.pathname = legacyDest;
+      return NextResponse.redirect(url, 301);
+    }
     return NextResponse.redirect(url, 308);
+  }
+
+  // www (or preview): permanent move for legacy WordPress / flat URLs.
+  if (legacyDest && legacyDest !== pathname.replace(/\/$/, "")) {
+    const url = request.nextUrl.clone();
+    url.pathname = legacyDest;
+    // Preserve query string (e.g. UTM) on permanent redirects.
+    url.search = search;
+    return NextResponse.redirect(url, 301);
   }
 
   if (!isReserved(pathname)) {
