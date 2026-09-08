@@ -83,7 +83,15 @@ export function resolveLegacyRedirect(pathname: string): string | null {
   return `${localePrefix}${dest}`;
 }
 
-/** Entries for next.config redirects (IT + EN, with/without trailing slash). */
+/** Canonical origin for next.config redirects (absolute → one hop even from apex). */
+const CANONICAL_ORIGIN =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://www.hacksure.it";
+
+/**
+ * Entries for next.config redirects (IT + EN, with/without trailing slash).
+ * Destinations are absolute on www so apex requests never do path-then-host hops
+ * (next.config redirects run before middleware on Vercel).
+ */
 export function legacyRedirectConfigEntries(): {
   source: string;
   destination: string;
@@ -94,13 +102,17 @@ export function legacyRedirectConfigEntries(): {
   for (const [from, to] of Object.entries(LEGACY_REDIRECTS)) {
     const variants = [from, `${from}/`, `/en${from}`, `/en${from}/`];
     for (const source of variants) {
-      const destination =
+      const path =
         source.startsWith("/en")
           ? to === "/"
             ? "/en"
             : `/en${to}`
           : to;
-      entries.push({ source, destination, permanent: true });
+      entries.push({
+        source,
+        destination: `${CANONICAL_ORIGIN}${path}`,
+        permanent: true,
+      });
     }
   }
 
