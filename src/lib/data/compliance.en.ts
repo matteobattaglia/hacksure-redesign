@@ -131,7 +131,22 @@ export const complianceFrameworksEn: ComplianceFramework[] = [
     description:
       "If you handle card payments, check your alignment with PCI DSS requirements to protect cardholder data.",
     longDescription:
-      "PCI DSS v4.0 defines the security requirements for organizations that handle payment card data. We carry out gap analysis, network segmentation and remediation support to achieve and maintain compliance.",
+      "PCI DSS v4.0 defines the security requirements for organizations that handle payment card data. We carry out PCI DSS gap analysis and gap assessment, network segmentation and remediation support to achieve and maintain compliance.",
+    contentSections: [
+      {
+        heading: "PCI DSS Gap Analysis: what it is and how it works",
+        paragraphs: [
+          "A PCI DSS gap analysis (also called PCI compliance gap analysis or PCI DSS gap assessment) compares your current payment systems against PCI DSS v4.0 requirements. The goal is to find what is missing — controls, segmentation, logging, encryption, processes — before a formal audit or an acquirer request.",
+          "In practice a PCI DSS gap assessment produces a clear map: met requirements, partial requirements and gaps to close, with remediation priorities. It is the most efficient starting point for e-commerce, retailers and anyone who stores, processes or transmits card data.",
+        ],
+        bullets: [
+          "Inventory of cardholder data (CHD) flows",
+          "Systematic comparison with PCI DSS v4.0 requirements",
+          "Remediation priorities and effort estimate",
+          "Documentation base for ASV, penetration testing and audit",
+        ],
+      },
+    ],
     benefits: [
       "Protection of payment data",
       "Reduction of fraud and chargebacks",
@@ -140,6 +155,7 @@ export const complianceFrameworksEn: ComplianceFramework[] = [
     ],
     deliverables: [
       "PCI DSS v4.0 gap analysis",
+      "PCI DSS gap assessment with remediation plan",
       "Payment network segmentation",
       "Hardening of cardholder systems",
       "ASV reports and remediation",

@@ -118,6 +118,29 @@ export default async function ComplianceDetailPage({ params }: Props) {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          {framework.contentSections?.map((section) => (
+            <section key={section.heading} className="mb-12 max-w-3xl">
+              <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                {section.heading}
+              </h2>
+              {section.paragraphs.map((p) => (
+                <p key={p.slice(0, 48)} className="mt-4 text-base leading-relaxed text-zinc-400">
+                  {p}
+                </p>
+              ))}
+              {section.bullets && (
+                <ul className="mt-4 space-y-2">
+                  {section.bullets.map((b) => (
+                    <li key={b} className="flex gap-3 text-sm text-zinc-300">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
+
           <div className="grid gap-12 lg:grid-cols-3">
             <div className="lg:col-span-1">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">{t.benefits}</h2>
