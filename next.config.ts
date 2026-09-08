@@ -51,8 +51,8 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
-    // Middleware handles the primary legacy map (incl. apex one-hop).
-    // Keep next.config as a belt-and-suspenders layer for edge/CDN cases.
+    // Absolute www destinations: on Vercel, next.config redirects run before
+    // middleware, so relative legacy redirects would leave apex→www as a 2nd hop.
     return legacyRedirectConfigEntries();
   },
   async headers() {

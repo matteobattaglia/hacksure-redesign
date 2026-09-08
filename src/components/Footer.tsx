@@ -20,6 +20,7 @@ const copy = {
     collaborate: "Collabora con noi",
     notarization: "Notarizzazione Blockchain",
     fraud: "SOS Truffe Online",
+    brescia: "Sicurezza informatica Brescia",
     addressLabel: siteConfig.addressLabel,
     addressSecondaryLabel: siteConfig.addressSecondaryLabel,
     vat: "P.IVA",
@@ -36,6 +37,7 @@ const copy = {
     collaborate: "Partner with us",
     notarization: "Blockchain Notarization",
     fraud: "Online Fraud Response",
+    brescia: "Cybersecurity in Brescia",
     addressLabel: "Registered and operating office",
     addressSecondaryLabel: "Operating office",
     vat: "VAT no.",
@@ -132,6 +134,13 @@ export function Footer() {
                   {t.fraud}
                 </Link>
               </li>
+              {locale === "it" && (
+                <li>
+                  <Link href="/sicurezza-informatica-brescia" className="hover:text-brand-400">
+                    {t.brescia}
+                  </Link>
+                </li>
+              )}
             </ul>
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
               {t.contact}

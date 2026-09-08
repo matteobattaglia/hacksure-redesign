@@ -63,6 +63,7 @@ export function stripLocale(pathname: string): { locale: Locale; path: string } 
 /** Pages that only exist in Italian (SEO landing pages built on Italian keywords). */
 export const italianOnlyPaths = [
   "/sicurezza-informatica-azienda",
+  "/sicurezza-informatica-brescia",
   "/multa-gdpr-azienda",
   "/obblighi-sicurezza-informatica-nis2",
   "/pentest-azienda",

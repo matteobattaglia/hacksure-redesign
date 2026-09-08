@@ -14,6 +14,11 @@ export type ComplianceFramework = {
   benefits: string[];
   deliverables: string[];
   questions: ComplianceQuestion[];
+  contentSections?: {
+    heading: string;
+    paragraphs: string[];
+    bullets?: string[];
+  }[];
 };
 
 export const complianceFrameworks: ComplianceFramework[] = [
@@ -147,7 +152,22 @@ export const complianceFrameworks: ComplianceFramework[] = [
     description:
       "Se gestite pagamenti con carta, verificate l'aderenza ai requisiti PCI DSS per proteggere i dati dei titolari.",
     longDescription:
-      "PCI DSS v4.0 definisce i requisiti di sicurezza per chi tratta dati di carte di pagamento. Eseguiamo gap analysis, segmentazione di rete e supporto alla remediation per raggiungere e mantenere la conformità.",
+      "PCI DSS v4.0 definisce i requisiti di sicurezza per chi tratta dati di carte di pagamento. Eseguiamo gap analysis e gap assessment PCI DSS, segmentazione di rete e supporto alla remediation per raggiungere e mantenere la conformità.",
+    contentSections: [
+      {
+        heading: "Gap Analysis PCI DSS: cos'è e come funziona",
+        paragraphs: [
+          "La gap analysis PCI DSS (anche chiamata PCI compliance gap analysis o PCI DSS gap assessment) confronta lo stato attuale dei tuoi sistemi di pagamento con i requisiti dello standard PCI DSS v4.0. L'obiettivo è individuare cosa manca — controlli, segmentazione, logging, cifratura, processi — prima di un audit formale o di una richiesta dell'acquirer.",
+          "In pratica il gap assessment PCI DSS produce una mappa chiara: requisiti soddisfatti, requisiti parziali e gap da chiudere, con priorità di remediation. È il punto di partenza più efficiente per e-commerce, retailer e chiunque memorizzi, processi o trasmetta dati di carte.",
+        ],
+        bullets: [
+          "Inventario dei flussi cardholder data (CHD)",
+          "Confronto sistematico con i requisiti PCI DSS v4.0",
+          "Priorità di remediation e stima dello sforzo",
+          "Base documentale per ASV, penetration test e audit",
+        ],
+      },
+    ],
     benefits: [
       "Protezione dati di pagamento",
       "Riduzione frodi e chargeback",
@@ -156,6 +176,7 @@ export const complianceFrameworks: ComplianceFramework[] = [
     ],
     deliverables: [
       "Gap analysis PCI DSS v4.0",
+      "PCI DSS gap assessment con piano remediation",
       "Segmentazione rete pagamenti",
       "Hardening sistemi cardholder",
       "Report ASV e remediation",

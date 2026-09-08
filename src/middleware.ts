@@ -38,7 +38,8 @@ export function middleware(request: NextRequest) {
       url.search = search;
       return NextResponse.redirect(url, 301);
     }
-    return NextResponse.redirect(url, 308);
+    // 301 (not 308): Search Console consolidates ranking signals on www.
+    return NextResponse.redirect(url, 301);
   }
 
   // Permanent move for legacy WordPress / flat URLs.

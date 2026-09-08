@@ -204,13 +204,17 @@ const serviceTypes: Record<Locale, string[]> = {
 export function localBusinessJsonLd(locale: Locale = defaultLocale) {
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
+    legalName: siteConfig.legalName,
     image: `${siteConfig.url}/assets/images/Hacksure.png`,
+    logo: `${siteConfig.url}/assets/images/Hacksure.png`,
     url: siteConfig.url,
     telephone: siteConfig.phones[0],
     email: siteConfig.email,
     priceRange: "$$",
+    description: defaultSeoDescription[locale],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Via Fratelli Ugoni 34",
@@ -224,11 +228,14 @@ export function localBusinessJsonLd(locale: Locale = defaultLocale) {
       latitude: siteConfig.geo.latitude,
       longitude: siteConfig.geo.longitude,
     },
-    areaServed: {
-      "@type": "Country",
-      name: countryName[locale],
-    },
+    areaServed: [
+      { "@type": "Country", name: countryName[locale] },
+      { "@type": "AdministrativeArea", name: "Lombardia" },
+      { "@type": "City", name: "Brescia" },
+    ],
     serviceType: serviceTypes[locale],
+    knowsAbout: defaultSeoKeywords[locale],
+    sameAs: Object.values(siteConfig.social),
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
