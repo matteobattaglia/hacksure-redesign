@@ -26,6 +26,7 @@ export const siteConfig = {
     "sicurezza informatica aziende",
     "penetration testing Italia",
     "vulnerability assessment",
+    "vulnerability assessment Brescia",
     "compliance NIS2",
     "conformità GDPR",
     "ISO 27001 PMI",

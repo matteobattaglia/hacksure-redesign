@@ -40,6 +40,9 @@ export const securityServices: SecurityService[] = [
     ],
     cta: "Richiedi un assessment",
     category: "Offensive Security",
+    relatedLinks: [
+      { label: "Vulnerability Assessment a Brescia", href: "/vulnerability-assessment-brescia" },
+    ],
   },
   {
     slug: "penetration-testing",

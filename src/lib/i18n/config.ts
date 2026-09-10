@@ -64,6 +64,7 @@ export function stripLocale(pathname: string): { locale: Locale; path: string } 
 export const italianOnlyPaths = [
   "/sicurezza-informatica-azienda",
   "/sicurezza-informatica-brescia",
+  "/vulnerability-assessment-brescia",
   "/multa-gdpr-azienda",
   "/obblighi-sicurezza-informatica-nis2",
   "/pentest-azienda",

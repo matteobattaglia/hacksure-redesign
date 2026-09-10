@@ -84,6 +84,7 @@ export default async function Page({ params }: Props) {
       related={[
         { label: "I nostri servizi", href: "/servizi" },
         { label: "Sicurezza informatica a Brescia", href: "/sicurezza-informatica-brescia" },
+        { label: "Vulnerability Assessment Brescia", href: "/vulnerability-assessment-brescia" },
         { label: "Vulnerability Assessment", href: "/servizi/vulnerability-assessment" },
         { label: "Pentest aziendale", href: "/pentest-azienda" },
         { label: "Conformità GDPR", href: "/compliance/gdpr" },

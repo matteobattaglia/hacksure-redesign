@@ -77,6 +77,7 @@ export default async function Page({ params }: Props) {
         },
       ]}
       related={[
+        { label: "Vulnerability Assessment Brescia", href: "/vulnerability-assessment-brescia" },
         { label: "Penetration testing", href: "/servizi/penetration-testing" },
         { label: "Vulnerability Assessment", href: "/servizi/vulnerability-assessment" },
         { label: "Pentest aziendale", href: "/pentest-azienda" },
