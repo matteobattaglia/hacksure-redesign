@@ -60,6 +60,29 @@ const breadcrumbLabels: Record<Locale, { home: string; services: string }> = {
   en: { home: "Home", services: "Services" },
 };
 
+const seoTitleBySlug: Record<Locale, Record<string, string>> = {
+  it: {
+    "vulnerability-assessment": "Vulnerability Assessment per PMI",
+    "penetration-testing": "Penetration Test aziendale",
+    "network-security": "Network Security e Firewall per PMI",
+    "endpoint-security": "Endpoint Security EDR/XDR Kaspersky",
+    "security-awareness": "Security Awareness e formazione anti-phishing",
+    "incident-response": "Incident Response e digital forensics",
+    "notarizzazione-blockchain": "Notarizzazione digitale con blockchain",
+    "perizia-truffe-online": "SOS Truffe Online",
+  },
+  en: {
+    "vulnerability-assessment": "Vulnerability Assessment for SMEs",
+    "penetration-testing": "Company Penetration Testing",
+    "network-security": "Network Security and Firewall for SMEs",
+    "endpoint-security": "Kaspersky EDR/XDR Endpoint Security",
+    "security-awareness": "Security Awareness and anti-phishing training",
+    "incident-response": "Incident Response and digital forensics",
+    "notarizzazione-blockchain": "Digital notarization on blockchain",
+    "perizia-truffe-online": "Online Fraud Response",
+  },
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) notFound();
@@ -68,7 +91,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service) return {};
 
   return createMetadata({
-    title: service.title,
+    title: seoTitleBySlug[locale][slug] ?? service.title,
     description: seoDescriptionBySlug[locale][slug] ?? service.description,
     path: `/servizi/${slug}`,
     locale,

@@ -57,6 +57,13 @@ export const homeFaqsEn: HomeFaq[] = [
     ctaLabel: "Request a check",
     ctaHref: "/servizi/penetration-testing",
   },
+  {
+    question: "Do you run penetration tests and vulnerability assessments in Brescia?",
+    answer:
+      "Yes. We operate from Brescia (Via Fratelli Ugoni 34) across the province: vulnerability assessments on networks and applications, penetration tests and NIS2/GDPR support, on-site or remote.",
+    ctaLabel: "Vulnerability assessment",
+    ctaHref: "/servizi/vulnerability-assessment",
+  },
 ];
 
 export const faqsEn = [

@@ -118,9 +118,9 @@ export function createMetadata({
       images: [
         {
           url: "/assets/images/Sicurezza-Informatica.webp",
-          width: 691,
-          height: 691,
-          alt: "HackSure — Cybersecurity e compliance per PMI italiane",
+          width: 1080,
+          height: 1080,
+          alt: "Hacksure — cybersecurity e compliance per PMI a Brescia",
         },
       ],
     },

@@ -18,22 +18,25 @@ import { isLocale, type Locale } from "@/lib/i18n/config";
 
 type Props = { params: Promise<{ locale: string }> };
 
-const seo: Record<Locale, { description: string; keywords: string[] }> = {
+const seo: Record<Locale, { title: string; description: string; keywords: string[] }> = {
   it: {
+    title: "Cybersecurity a Brescia per PMI",
     description:
-      "Cybersecurity e compliance per PMI a Brescia e in Italia. NIS2, GDPR, penetration test, vulnerability assessment e ISO 27001. Valutazione gratuita.",
+      "Cybersecurity a Brescia per PMI: penetration test, vulnerability assessment, NIS2, GDPR e ISO 27001. Sede in Via Fratelli Ugoni 34. Valutazione gratuita.",
     keywords: [
+      "cybersecurity brescia",
+      "sicurezza informatica Brescia",
+      "penetration test brescia",
+      "pen test brescia",
+      "vulnerability assessment Brescia",
       "cybersecurity PMI Italia",
-      "proteggere azienda dagli hacker",
-      "pentest aziende italiane",
       "consulenza NIS2 PMI",
       "conformità GDPR aziende",
-      "controllo sicurezza informatica aziendale",
       "ISO 27001 piccole imprese",
-      "sicurezza informatica Brescia",
     ],
   },
   en: {
+    title: "Cybersecurity for Italian SMEs",
     description:
       "Protect your company from cyber attacks. GDPR and NIS2 compliance for SMEs. Penetration testing, vulnerability assessment and ISO 27001 delivered by a certified team in Brescia and across Italy. Free assessment.",
     keywords: [
@@ -54,6 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) notFound();
 
   return createMetadata({
+    title: seo[locale].title,
     description: seo[locale].description,
     path: "/",
     keywords: seo[locale].keywords,

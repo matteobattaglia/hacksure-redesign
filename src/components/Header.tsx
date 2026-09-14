@@ -34,7 +34,6 @@ const copy = {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const locale = useLocale();
 
@@ -48,7 +47,6 @@ export function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setOpenDropdown(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -66,7 +64,7 @@ export function Header() {
         <Link href={href("/")} className="shrink-0" onClick={() => setMobileOpen(false)}>
           <Image
             src="/assets/images/Hacksure-White.png"
-            alt="Hacksure"
+            alt="Hacksure — cybersecurity per PMI"
             width={150}
             height={25}
             priority
@@ -77,12 +75,7 @@ export function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label={t.mainNav}>
           {navigation.map((item) =>
             item.children ? (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
+              <div key={item.label} className="group relative">
                 <Link
                   href={href(item.href)}
                   className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
@@ -97,32 +90,30 @@ export function Header() {
                   </svg>
                 </Link>
 
-                {openDropdown === item.label && (
-                  <div className="absolute left-0 top-full z-50 pt-1">
-                    <div className="max-h-[min(70vh,28rem)] w-72 overflow-y-auto overscroll-contain rounded-lg border border-zinc-800 bg-surface-900 py-2 shadow-xl shadow-black/40">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={href(child.href)}
-                          className="block px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
-                        >
-                          <span className="font-medium">{child.label}</span>
-                          {child.description && (
-                            <span className="mt-0.5 block text-xs text-zinc-500">{child.description}</span>
-                          )}
-                        </Link>
-                      ))}
-                      <div className="sticky bottom-0 border-t border-zinc-800 bg-surface-900 px-4 py-2">
-                        <Link
-                          href={href(item.href)}
-                          className="text-xs font-medium text-brand-500 hover:text-brand-400"
-                        >
-                          {t.viewAll}
-                        </Link>
-                      </div>
+                <div className="invisible absolute left-0 top-full z-50 pt-1 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div className="max-h-[min(70vh,28rem)] w-72 overflow-y-auto overscroll-contain rounded-lg border border-zinc-800 bg-surface-900 py-2 shadow-xl shadow-black/40">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={href(child.href)}
+                        className="block px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
+                      >
+                        <span className="font-medium">{child.label}</span>
+                        {child.description && (
+                          <span className="mt-0.5 block text-xs text-zinc-500">{child.description}</span>
+                        )}
+                      </Link>
+                    ))}
+                    <div className="sticky bottom-0 border-t border-zinc-800 bg-surface-900 px-4 py-2">
+                      <Link
+                        href={href(item.href)}
+                        className="text-xs font-medium text-brand-500 hover:text-brand-400"
+                      >
+                        {t.viewAll}
+                      </Link>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             ) : (
               <Link

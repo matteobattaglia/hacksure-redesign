@@ -5,11 +5,11 @@ import { localizeHref, type Locale } from "@/lib/i18n/config";
 
 const copy = {
   it: {
-    titleStart: "Sicurezza informatica",
-    titleAccent: "a 360°",
-    titleEnd: "per la tua azienda",
+    titleStart: "Cybersecurity a Brescia",
+    titleAccent: "per PMI",
+    titleEnd: "e in tutta Italia",
     intro:
-      "Proteggiamo la tua infrastruttura IT da attacchi informatici, vulnerabilità e rischi normativi. Analizziamo, testiamo e rafforziamo i sistemi prima che possano essere compromessi.",
+      "Penetration test, vulnerability assessment e compliance NIS2/GDPR per imprese della provincia di Brescia e del resto d'Italia. Analizziamo, testiamo e rafforziamo i sistemi prima che vengano compromessi.",
     ctaPrimary: "Valutazione gratuita",
     ctaSecondary: "Autovalutazione compliance",
     ctaPartner: "Collabora con noi",
@@ -35,15 +35,6 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <section className="relative overflow-hidden border-b border-zinc-800">
       <div className="absolute inset-0 -z-10">
-        <Image
-          src="/assets/images/shutterstock_2695394565-scaled.jpg"
-          alt=""
-          fill
-          priority
-          quality={75}
-          className="object-cover opacity-15"
-          sizes="100vw"
-        />
         <div className="absolute inset-0 bg-gradient-to-r from-surface-950 via-surface-950/95 to-surface-950/70" />
         <div className="hero-glow absolute inset-0" />
         <div className="mesh-bg absolute inset-0 opacity-40" />

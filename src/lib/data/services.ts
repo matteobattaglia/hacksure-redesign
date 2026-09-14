@@ -66,6 +66,10 @@ export const securityServices: SecurityService[] = [
     ],
     cta: "Richiedi un pentest",
     category: "Offensive Security",
+    relatedLinks: [
+      { label: "Pentest aziendale: costi e differenza con l'assessment", href: "/pentest-azienda" },
+      { label: "Sicurezza informatica a Brescia", href: "/sicurezza-informatica-brescia" },
+    ],
   },
   {
     slug: "network-security",

@@ -69,7 +69,7 @@ export function Footer() {
           <div>
             <Image
               src="/assets/images/Hacksure-White.png"
-              alt="Hacksure"
+              alt="Hacksure — cybersecurity per PMI"
               width={150}
               height={25}
               className="mb-4 h-6 w-auto"

@@ -60,8 +60,11 @@ export function HomeFAQ() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {openIndex === index && (
-                <div className="border-t border-zinc-800 px-5 pb-4 pt-3">
+              <div
+                className={`border-t border-zinc-800 px-5 pb-4 pt-3 ${
+                  openIndex === index ? "" : "hidden"
+                }`}
+              >
                   <p className="text-sm leading-relaxed text-zinc-400">{faq.answer}</p>
                   <Link
                     href={localizeHref(locale, faq.ctaHref)}
@@ -69,8 +72,7 @@ export function HomeFAQ() {
                   >
                     {faq.ctaLabel} →
                   </Link>
-                </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

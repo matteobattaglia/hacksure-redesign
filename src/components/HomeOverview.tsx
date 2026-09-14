@@ -38,6 +38,13 @@ const copy = {
     partnershipTitle: "HackSure è Kaspersky Registered B2B Partner",
     partnershipText: "Endpoint security, EDR/XDR e protezione enterprise per PMI.",
     discover: "Scopri →",
+    localLabel: "Brescia",
+    localTitle: "Cybersecurity in provincia di Brescia",
+    localIntro:
+      "Sede legale e operativa in Via Fratelli Ugoni 34. Penetration test, vulnerability assessment e compliance NIS2 per PMI manifatturiere e servizi del territorio.",
+    localBrescia: "Sicurezza informatica Brescia",
+    localVa: "Vulnerability assessment Brescia",
+    localPentest: "Pentest aziendale",
   },
   en: {
     featuredLabel: "Highlights",
@@ -72,6 +79,13 @@ const copy = {
     partnershipTitle: "HackSure is a Kaspersky Registered B2B Partner",
     partnershipText: "Endpoint security, EDR/XDR and enterprise-grade protection for SMEs.",
     discover: "Learn more →",
+    localLabel: "Brescia",
+    localTitle: "Cybersecurity in the Brescia area",
+    localIntro:
+      "Registered office in Via Fratelli Ugoni 34. Penetration testing, vulnerability assessment and NIS2 compliance for local manufacturing and service SMEs.",
+    localBrescia: "Cybersecurity in Brescia",
+    localVa: "Vulnerability assessment in Brescia",
+    localPentest: "Company pentest",
   },
 } as const;
 
@@ -156,6 +170,44 @@ export function HomeOverview({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
+
+      {locale === "it" && (
+        <section className="border-t border-zinc-800 py-16 lg:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <AnimateIn>
+              <p className="section-label">{t.localLabel}</p>
+              <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{t.localTitle}</h2>
+              <p className="mt-3 max-w-2xl text-zinc-400">{t.localIntro}</p>
+            </AnimateIn>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <AnimateIn>
+                <Link href="/sicurezza-informatica-brescia" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">{t.localBrescia}</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Penetration test Brescia, NIS2 e cybersecurity per PMI della provincia.
+                  </p>
+                </Link>
+              </AnimateIn>
+              <AnimateIn delay={60}>
+                <Link href="/vulnerability-assessment-brescia" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">{t.localVa}</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Analisi vulnerabilità su reti, server e cloud, con report CVSS e piano di intervento.
+                  </p>
+                </Link>
+              </AnimateIn>
+              <AnimateIn delay={120}>
+                <Link href="/pentest-azienda" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">{t.localPentest}</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Cos&apos;è un pentest, quanto costa per una PMI e quando serve rispetto all&apos;assessment.
+                  </p>
+                </Link>
+              </AnimateIn>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="border-y border-zinc-800 bg-surface-900/60 py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -13,7 +13,6 @@ type Entry = {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
-  const lastModified = new Date();
 
   const entries: Entry[] = [
     { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -48,33 +47,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return entries.flatMap((entry) => {
+  // Italian URLs only: English mirrors stay reachable via hreflang on the page.
+  // Listing both locales in the sitemap doubled crawl demand without adding demand.
+  return entries.map((entry) => {
     const italianOnly = italianOnlyPaths.includes(entry.path);
     const itUrl = `${baseUrl}${localizeHref("it", entry.path)}`;
     const enUrl = `${baseUrl}${localizeHref("en", entry.path)}`;
 
-    const italian = {
+    return {
       url: itUrl,
-      lastModified,
       changeFrequency: entry.changeFrequency,
       priority: entry.priority,
-      ...(italianOnly
-        ? {}
-        : { alternates: { languages: { it: itUrl, en: enUrl, "x-default": itUrl } } }),
-    };
-
-    if (italianOnly) return [italian];
-
-    return [
-      italian,
-      {
-        url: enUrl,
-        lastModified,
-        changeFrequency: entry.changeFrequency,
-        // Italian is the primary market: English mirrors rank one step lower.
-        priority: Math.round(Math.max(entry.priority - 0.1, 0.1) * 100) / 100,
-        alternates: { languages: { it: itUrl, en: enUrl, "x-default": itUrl } },
+      alternates: {
+        languages: italianOnly
+          ? { "it-IT": itUrl, it: itUrl }
+          : { "it-IT": itUrl, it: itUrl, en: enUrl, "x-default": itUrl },
       },
-    ];
+    };
   });
 }

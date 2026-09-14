@@ -32,6 +32,7 @@ const copy: Record<
     keywords: [
       "penetration testing PMI",
       "vulnerability assessment Italia",
+      "penetration test brescia",
       "notarizzazione blockchain",
       "SOS truffe online",
       "kaspersky partner",

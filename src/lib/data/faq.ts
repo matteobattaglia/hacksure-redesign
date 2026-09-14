@@ -62,6 +62,13 @@ export const homeFaqs: HomeFaq[] = [
     ctaLabel: "Richiedi un controllo",
     ctaHref: "/pentest-azienda",
   },
+  {
+    question: "Fate penetration test e vulnerability assessment a Brescia?",
+    answer:
+      "Sì. Operiamo da Brescia (Via Fratelli Ugoni 34) su tutta la provincia: vulnerability assessment su reti e applicazioni, penetration test e supporto NIS2/GDPR, in sede o da remoto.",
+    ctaLabel: "Vulnerability assessment Brescia",
+    ctaHref: "/vulnerability-assessment-brescia",
+  },
 ];
 
 export const faqs = [
