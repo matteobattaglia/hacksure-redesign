@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: cert.description,
     path: `/certificazioni/${slug}`,
     locale,
+    noIndex: true,
   });
 }
 

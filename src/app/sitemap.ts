@@ -2,7 +2,6 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
 import { complianceFrameworks } from "@/lib/data/compliance";
 import { securityServices } from "@/lib/data/services";
-import { certifications } from "@/lib/data/certifications";
 import { italianOnlyPaths, localizeHref } from "@/lib/i18n/config";
 
 type Entry = {
@@ -39,11 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       path: `/servizi/${s.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
-    })),
-    ...certifications.map((c) => ({
-      path: `/certificazioni/${c.slug}`,
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
     })),
   ];
 

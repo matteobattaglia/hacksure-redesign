@@ -131,7 +131,7 @@ export function createMetadata({
       images: ["/assets/images/Sicurezza-Informatica.webp"],
     },
     robots: noIndex
-      ? { index: false, follow: false }
+      ? { index: false, follow: true }
       : {
           index: true,
           follow: true,
