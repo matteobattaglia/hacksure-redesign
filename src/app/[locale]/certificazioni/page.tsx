@@ -55,6 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t.seoDescription,
     path: "/certificazioni",
     locale,
+    noIndex: true,
   });
 }
 
