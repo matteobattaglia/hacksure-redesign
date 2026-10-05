@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumb } from "@/components/PageLayout";
 import { AnimateIn } from "@/components/AnimateIn";
+import { ContactForm } from "@/components/ContactForm";
+import { contactNeeds } from "@/lib/contact-needs";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { localizeHref, type Locale } from "@/lib/i18n/config";
@@ -23,32 +25,43 @@ type Props = {
   path: string;
   sections: LandingSection[];
   related: RelatedLink[];
+  /** Preselected value of "Di cosa hai bisogno?" in the on-page form. */
+  defaultNeed?: string;
 };
 
 const copy = {
   it: {
     heroCta: "Valutazione gratuita",
-    boxTitle: "Non sai da dove iniziare?",
-    boxDescription:
-      "Una valutazione preliminare gratuita ti dice esattamente cosa fare, senza impegno.",
-    boxCta: "Richiedi consulenza gratuita",
+    grantsCta: "Richiedi consulenza bandi",
+    formTitle: "Di cosa hai bisogno?",
+    formDescription: "Indica la richiesta. Ti ricontattiamo entro 24 ore lavorative.",
     relatedHeading: "Approfondimenti correlati",
-    finalCta: "Parla con un esperto",
+    finalCta: "Compila il modulo",
   },
   en: {
     heroCta: "Free assessment",
-    boxTitle: "Not sure where to start?",
-    boxDescription:
-      "A free preliminary assessment tells you exactly what to do, with no commitment.",
-    boxCta: "Request a free consultation",
+    grantsCta: "Request grant advice",
+    formTitle: "What do you need?",
+    formDescription: "Tell us what you need. We reply within 24 working hours.",
     relatedHeading: "Related insights",
-    finalCta: "Talk to an expert",
+    finalCta: "Fill in the form",
   },
 } as const;
 
-export function LandingLayout({ locale, label, title, intro, path, sections, related }: Props) {
+export function LandingLayout({
+  locale,
+  label,
+  title,
+  intro,
+  path,
+  sections,
+  related,
+  defaultNeed,
+}: Props) {
   const t = copy[locale];
-  const contactHref = localizeHref(locale, "/contatti");
+  const grantsNeed = contactNeeds[locale].grants;
+  const selectedNeed = defaultNeed ?? grantsNeed;
+  const heroCta = selectedNeed === grantsNeed ? t.grantsCta : t.heroCta;
 
   return (
     <>
@@ -74,9 +87,9 @@ export function LandingLayout({ locale, label, title, intro, path, sections, rel
                 {title}
               </h1>
               <p className="mt-4 text-lg leading-relaxed text-zinc-300">{intro}</p>
-              <Link href={contactHref} className="btn-primary mt-6">
-                {t.heroCta}
-              </Link>
+              <a href="#richiesta" className="btn-primary mt-6">
+                {heroCta}
+              </a>
             </AnimateIn>
           </div>
         </div>
@@ -105,14 +118,12 @@ export function LandingLayout({ locale, label, title, intro, path, sections, rel
             </AnimateIn>
           ))}
 
-          <div className="card-hover gradient-border my-12 flex flex-col items-start gap-4 p-8 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-white">{t.boxTitle}</h2>
-              <p className="mt-1 text-sm text-zinc-400">{t.boxDescription}</p>
+          <div id="richiesta" className="my-12 scroll-mt-24">
+            <h2 className="text-xl font-semibold text-white">{t.formTitle}</h2>
+            <p className="mt-2 text-sm text-zinc-400">{t.formDescription}</p>
+            <div className="mt-6">
+              <ContactForm embedded defaultNeed={selectedNeed} />
             </div>
-            <Link href={contactHref} className="btn-primary shrink-0">
-              {t.boxCta}
-            </Link>
           </div>
 
           <div className="border-t border-zinc-800 pt-8">
@@ -131,9 +142,9 @@ export function LandingLayout({ locale, label, title, intro, path, sections, rel
               ))}
             </div>
             <div className="mt-8">
-              <Link href={contactHref} className="btn-primary">
+              <a href="#richiesta" className="btn-primary">
                 {t.finalCta}
-              </Link>
+              </a>
             </div>
           </div>
         </article>

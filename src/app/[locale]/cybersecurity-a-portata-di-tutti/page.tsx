@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -39,6 +40,7 @@ export default async function Page({ params }: Props) {
       title="Cybersecurity a portata di tutti grazie ai bandi"
       intro="Seguiamo tutto noi, dalla preparazione dei documenti del bando all'erogazione del servizio tecnico: penetration test, vulnerability assessment e compliance NIS2, GDPR e ISO 27001."
       path={path}
+      defaultNeed={contactNeeds.it.grants}
       sections={[
         {
           heading: "Un servizio di cybersecurity che la PMI può davvero affrontare",

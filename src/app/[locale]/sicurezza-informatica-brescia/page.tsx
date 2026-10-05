@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -41,6 +42,7 @@ export default async function Page({ params }: Props) {
       title="Sicurezza informatica a Brescia per PMI"
       intro="Hacksure opera da Brescia a fianco di imprese manifatturiere, metalmeccaniche e servizi della provincia. Penetration test Brescia, vulnerability assessment e compliance NIS2/GDPR con un approccio concreto, senza tecnicismi inutili."
       path={path}
+      defaultNeed={contactNeeds.it.assessment}
       sections={[
         {
           heading: "Perché la cybersecurity conta nel tessuto industriale bresciano",

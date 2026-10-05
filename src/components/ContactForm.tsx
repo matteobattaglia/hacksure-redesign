@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
+import { contactNeeds } from "@/lib/contact-needs";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -14,15 +15,7 @@ type Props = {
 
 const copy = {
   it: {
-    needOptions: [
-      "Consulenza bandi e contributi",
-      "Valutazione gratuita",
-      "Compliance NIS2 / GDPR",
-      "ISO 27001",
-      "Penetration testing",
-      "Vulnerability assessment",
-      "Non lo so ancora, ho bisogno di consiglio",
-    ],
+    needOptions: Object.values(contactNeeds.it),
     errName: "Inserisci nome e cognome",
     errCompany: "Inserisci la ragione sociale",
     errEmail: "Email non valida",
@@ -50,15 +43,7 @@ const copy = {
     submit: "Invia richiesta",
   },
   en: {
-    needOptions: [
-      "Grant and funding advice",
-      "Free assessment",
-      "NIS2 / GDPR compliance",
-      "ISO 27001",
-      "Penetration testing",
-      "Vulnerability assessment",
-      "Not sure yet, I need advice",
-    ],
+    needOptions: Object.values(contactNeeds.en),
     errName: "Enter your first and last name",
     errCompany: "Enter your registered company name",
     errEmail: "Invalid email address",

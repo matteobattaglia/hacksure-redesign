@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -40,6 +41,7 @@ export default async function Page({ params }: Props) {
       title="Sicurezza informatica per aziende: cosa fare e da dove iniziare"
       intro="Se hai un'azienda e usi computer, email e gestionali, sei già un possibile bersaglio. Ti spieghiamo in parole semplici come proteggerti, senza tecnicismi inutili."
       path={path}
+      defaultNeed={contactNeeds.it.assessment}
       sections={[
         {
           heading: "Cos'è la sicurezza informatica aziendale",

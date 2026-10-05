@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -39,6 +40,7 @@ export default async function Page({ params }: Props) {
       title="Bandi cybersecurity per PMI"
       intro="I bandi per la sicurezza informatica delle PMI coprono, quando il testo lo prevede, analisi, test e percorsi di compliance. Hacksure prepara i documenti e svolge il servizio tecnico."
       path={path}
+      defaultNeed={contactNeeds.it.grants}
       sections={[
         {
           heading: "A cosa servono i bandi cybersecurity",

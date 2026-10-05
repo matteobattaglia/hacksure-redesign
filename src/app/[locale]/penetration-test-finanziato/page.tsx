@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -39,6 +40,7 @@ export default async function Page({ params }: Props) {
       title="Penetration test finanziato dai bandi"
       intro="Un penetration test finanziato è lo stesso intervento tecnico di un pentest diretto: cambia il modo in cui si copre il costo. Prepariamo i documenti del bando e svolgiamo il test."
       path={path}
+      defaultNeed={contactNeeds.it.grants}
       sections={[
         {
           heading: "Perché finanziare un pentest con un bando",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata, faqJsonLd } from "@/lib/seo";
@@ -62,6 +63,7 @@ export default async function Page({ params }: Props) {
         title="Quanto costa una multa GDPR?"
         intro="Le sanzioni GDPR spaventano molti imprenditori, e a ragione: gli importi possono arrivare fino a 20 milioni di euro o al 4% del fatturato globale. Ti spieghiamo quando rischi davvero e come metterti in regola in modo concreto."
         path={path}
+        defaultNeed={contactNeeds.it.compliance}
         sections={[
           {
             heading: "Multa GDPR: fino a 20 milioni di euro o il 4% del fatturato",

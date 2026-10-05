@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { contactNeeds } from "@/lib/contact-needs";
 import { LandingLayout } from "@/components/LandingLayout";
 import { createMetadata } from "@/lib/seo";
 
@@ -40,6 +41,7 @@ export default async function Page({ params }: Props) {
       title="NIS2: sei obbligato? Scopri cosa devi fare entro quando"
       intro="Hai sentito parlare di NIS2 ma non capisci se riguarda la tua azienda? In pochi minuti ti chiariamo chi è obbligato, cosa serve fare e cosa rischi se non ti adegui."
       path={path}
+      defaultNeed={contactNeeds.it.compliance}
       sections={[
         {
           heading: "Cos'è la NIS2 in parole semplici",
