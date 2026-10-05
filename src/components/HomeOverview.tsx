@@ -175,6 +175,47 @@ export function HomeOverview({ locale }: { locale: Locale }) {
         <section className="border-t border-zinc-800 py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AnimateIn>
+              <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+                Cybersecurity grazie ai bandi
+              </h2>
+              <p className="mt-3 max-w-2xl text-zinc-400">
+                Dalla preparazione dei documenti all&apos;erogazione del servizio tecnico. Un solo referente per la pratica e per l&apos;intervento.
+              </p>
+            </AnimateIn>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <AnimateIn>
+                <Link href="/cybersecurity-a-portata-di-tutti" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">Cybersecurity a portata di tutti</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Come i bandi rendono accessibili pentest, assessment e compliance alle PMI.
+                  </p>
+                </Link>
+              </AnimateIn>
+              <AnimateIn delay={60}>
+                <Link href="/bandi-cybersecurity-pmi" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">Bandi cybersecurity per PMI</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Prepariamo la documentazione e seguiamo la domanda fino all&apos;esito del contributo.
+                  </p>
+                </Link>
+              </AnimateIn>
+              <AnimateIn delay={120}>
+                <Link href="/penetration-test-finanziato" className="card-hover block p-6">
+                  <h3 className="font-semibold text-white">Penetration test finanziato</h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Il pentest dentro un progetto finanziato: documenti, test e report nello stesso percorso.
+                  </p>
+                </Link>
+              </AnimateIn>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {locale === "it" && (
+        <section className="border-t border-zinc-800 py-16 lg:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <AnimateIn>
               <p className="section-label">{t.localLabel}</p>
               <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{t.localTitle}</h2>
               <p className="mt-3 max-w-2xl text-zinc-400">{t.localIntro}</p>

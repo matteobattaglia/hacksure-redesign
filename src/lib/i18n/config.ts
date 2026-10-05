@@ -68,4 +68,7 @@ export const italianOnlyPaths = [
   "/multa-gdpr-azienda",
   "/obblighi-sicurezza-informatica-nis2",
   "/pentest-azienda",
+  "/cybersecurity-a-portata-di-tutti",
+  "/bandi-cybersecurity-pmi",
+  "/penetration-test-finanziato",
 ];

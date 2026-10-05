@@ -22,8 +22,11 @@ const seo: Record<Locale, { title: string; description: string; keywords: string
   it: {
     title: "Cybersecurity a Brescia per PMI",
     description:
-      "Cybersecurity a Brescia per PMI: penetration test, vulnerability assessment, NIS2, GDPR e ISO 27001. Sede in Via Fratelli Ugoni 34. Valutazione gratuita.",
+      "Proteggi e adegua la tua azienda con bandi e contributi attivi. Dall'accesso ai fondi alla messa in sicurezza: NIS2, GDPR, ISO 27001, penetration test e vulnerability assessment. Sede a Brescia, Via Fratelli Ugoni 34.",
     keywords: [
+      "cybersecurity a portata di tutti",
+      "cybersecurity finanziata bandi",
+      "bandi cybersecurity PMI",
       "cybersecurity brescia",
       "sicurezza informatica Brescia",
       "penetration test brescia",
@@ -38,7 +41,7 @@ const seo: Record<Locale, { title: string; description: string; keywords: string
   en: {
     title: "Cybersecurity for Italian SMEs",
     description:
-      "Protect your company from cyber attacks. GDPR and NIS2 compliance for SMEs. Penetration testing, vulnerability assessment and ISO 27001 delivered by a certified team in Brescia and across Italy. Free assessment.",
+      "Protect your company and get it compliant with active grants and funding. From accessing the funds to securing your systems: NIS2, GDPR, ISO 27001, penetration testing and vulnerability assessment. Based in Brescia.",
     keywords: [
       "cybersecurity for SMEs Italy",
       "protect company from hackers",

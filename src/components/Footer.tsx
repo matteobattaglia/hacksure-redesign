@@ -20,6 +20,7 @@ const copy = {
     collaborate: "Collabora con noi",
     notarization: "Notarizzazione Blockchain",
     fraud: "SOS Truffe Online",
+    grants: "Cybersecurity con i bandi",
     brescia: "Sicurezza informatica Brescia",
     vaBrescia: "Vulnerability Assessment Brescia",
     addressLabel: siteConfig.addressLabel,
@@ -38,6 +39,7 @@ const copy = {
     collaborate: "Partner with us",
     notarization: "Blockchain Notarization",
     fraud: "Online Fraud Response",
+    grants: "Grant-funded cybersecurity",
     brescia: "Cybersecurity in Brescia",
     vaBrescia: "Vulnerability Assessment Brescia",
     addressLabel: "Registered and operating office",
@@ -138,6 +140,11 @@ export function Footer() {
               </li>
               {locale === "it" && (
                 <>
+                  <li>
+                    <Link href="/cybersecurity-a-portata-di-tutti" className="hover:text-brand-400">
+                      {t.grants}
+                    </Link>
+                  </li>
                   <li>
                     <Link href="/sicurezza-informatica-brescia" className="hover:text-brand-400">
                       {t.brescia}
