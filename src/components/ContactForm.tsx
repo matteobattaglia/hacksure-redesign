@@ -15,9 +15,12 @@ type Props = {
 const copy = {
   it: {
     needOptions: [
+      "Consulenza bandi e contributi",
       "Valutazione gratuita",
       "Compliance NIS2 / GDPR",
+      "ISO 27001",
       "Penetration testing",
+      "Vulnerability assessment",
       "Non lo so ancora, ho bisogno di consiglio",
     ],
     errName: "Inserisci nome e cognome",
@@ -48,9 +51,12 @@ const copy = {
   },
   en: {
     needOptions: [
+      "Grant and funding advice",
       "Free assessment",
       "NIS2 / GDPR compliance",
+      "ISO 27001",
       "Penetration testing",
+      "Vulnerability assessment",
       "Not sure yet, I need advice",
     ],
     errName: "Enter your first and last name",
