@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  type Lead,
-  sendWithFormSubmit,
-  sendWithResend,
-  sendWithWeb3Forms,
-  CONTACT_TO,
-} from "@/lib/mail";
+import { contactToAddress, deliverLead, type Lead } from "@/lib/mail";
+import { isTimeoutError, REQUEST_BODY_TIMEOUT_MS, withTimeout } from "@/lib/timeout";
 
-type SendResult =
-  | { ok: true; provider: string }
-  | { ok: false; reason: string };
+export const maxDuration = 30;
+
+const NOT_CONFIGURED_ERROR =
+  "Invio email non configurato. Riprova più tardi o scrivi direttamente a info@hacksure.it";
+const DELIVERY_FAILED_ERROR =
+  "Invio email non riuscito. Controlla la casella info@hacksure.it (anche spam) per un eventuale link di attivazione, oppure scrivi direttamente a info@hacksure.it";
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 5;
@@ -34,16 +32,6 @@ function sanitize(value: unknown, maxLength = 500): string {
   return value.trim().slice(0, maxLength);
 }
 
-async function deliver(lead: Lead): Promise<SendResult> {
-  const resend = await sendWithResend(lead);
-  if (resend.ok) return resend;
-
-  const web3 = await sendWithWeb3Forms(lead);
-  if (web3.ok) return web3;
-
-  return sendWithFormSubmit(lead);
-}
-
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 
@@ -56,24 +44,21 @@ export async function POST(request: NextRequest) {
 
   let body: Record<string, unknown>;
   try {
-    body = await request.json();
-  } catch {
+    const parsed = await withTimeout(() => request.json() as Promise<unknown>, REQUEST_BODY_TIMEOUT_MS);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+    body = parsed as Record<string, unknown>;
+  } catch (error) {
+    if (isTimeoutError(error)) {
+      return NextResponse.json({ error: "Richiesta scaduta" }, { status: 408 });
+    }
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  if (body.honeypot) {
+  // Honeypot: finta riuscita, nessun invio.
+  if (body.honeypot || body.website) {
     return NextResponse.json({ success: true });
-  }
-
-  // Se il client ha già consegnato via FormSubmit, logghiamo soltanto
-  if (body._clientDelivered) {
-    console.info("[CONTACT LEAD CLIENT-DELIVERED]", {
-      timestamp: new Date().toISOString(),
-      company: sanitize(body.company, 200),
-      need: sanitize(body.need, 80),
-      ip: ip.replace(/\d+$/, "xxx"),
-    });
-    return NextResponse.json({ success: true, logged: true });
   }
 
   const lead: Lead = {
@@ -83,6 +68,7 @@ export async function POST(request: NextRequest) {
     phone: sanitize(body.phone, 30),
     need: sanitize(body.need, 80),
     message: sanitize(body.message, 2000),
+    subjectPrefix: sanitize(body.subjectPrefix, 80),
   };
 
   if (!lead.name || !lead.company || !lead.email || !lead.phone) {
@@ -93,22 +79,28 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Email non valida" }, { status: 400 });
   }
 
-  const sent = await deliver(lead);
+  const sent = await deliverLead(lead);
 
   if (!sent.ok) {
     console.error("[CONTACT EMAIL FAILED]", sent.reason);
+    if (sent.code === "not_configured") {
+      console.error(
+        "[CONTACT EMAIL NOT CONFIGURED] Set RESEND_API_KEY or WEB3FORMS_ACCESS_KEY, and CONTACT_TO_EMAIL, in the Vercel project.",
+      );
+      return NextResponse.json(
+        { error: NOT_CONFIGURED_ERROR, code: "not_configured" },
+        { status: 503 },
+      );
+    }
     return NextResponse.json(
-      {
-        error:
-          "Invio email non riuscito. Controlla la casella info@hacksure.it (anche spam) per un eventuale link di attivazione, oppure scrivi direttamente a info@hacksure.it",
-      },
+      { error: DELIVERY_FAILED_ERROR, code: "delivery_failed" },
       { status: 502 },
     );
   }
 
   console.info("[CONTACT LEAD SENT]", {
     timestamp: new Date().toISOString(),
-    to: CONTACT_TO,
+    to: contactToAddress(),
     provider: sent.provider,
     company: lead.company,
     need: lead.need,

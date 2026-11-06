@@ -3,6 +3,11 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { contactNeeds } from "@/lib/contact-needs";
+import {
+  CONTACT_SUBMIT_TIMEOUT_MS,
+  isTimeoutError,
+  withTimeout,
+} from "@/lib/timeout";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -117,6 +122,7 @@ export function ContactForm({
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setState("idle");
       return;
     }
 
@@ -137,54 +143,60 @@ export function ContactForm({
       phone: String(formData.get("phone") || ""),
       need: String(formData.get("need") || need),
       message: String(formData.get("message") || ""),
-      _subject: `${subjectPrefix} Nuovo contatto — ${String(formData.get("name") || "")}`,
-      _replyto: String(formData.get("email") || ""),
-      _template: "table",
-      _captcha: false,
+      subjectPrefix,
+      honeypot: String(formData.get("website") || ""),
     };
 
+    let succeeded = false;
     try {
-      // Invio diretto dal browser (FormSubmit attivato) — più affidabile di Vercel→FormSubmit
-      const response = await fetch("https://formsubmit.co/ajax/info@hacksure.it", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      const { response, data } = await withTimeout(async (signal) => {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+          signal,
+        });
+        const data = (await response.json().catch(() => null)) as {
+          success?: boolean;
+          error?: string;
+        } | null;
+        return { response, data };
+      }, CONTACT_SUBMIT_TIMEOUT_MS);
 
-      const data = (await response.json().catch(() => null)) as {
-        success?: string | boolean;
-        message?: string;
-      } | null;
-
-      const ok = data?.success === true || data?.success === "true";
-      if (!response.ok || !ok) {
-        throw new Error(data?.message || t.errSubmitFailed);
+      if (!response.ok || data?.success !== true) {
+        const serverError =
+          typeof data?.error === "string" && data.error.trim() ? data.error.trim() : undefined;
+        const message =
+          locale === "it" && serverError
+            ? serverError
+            : response.status === 429 || response.status >= 500
+              ? t.errGeneric
+              : t.errSubmitFailed;
+        throw new Error(message);
       }
 
-      // Log server-side best-effort (non blocca l'UX)
-      void fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, honeypot: "", _clientDelivered: true }),
-      }).catch(() => undefined);
-
-      setErrors({});
-      setState("success");
       form.reset();
+      setErrors({});
+      succeeded = true;
     } catch (err) {
-      setErrors({
-        form: err instanceof Error ? err.message : t.errGeneric,
-      });
-      setState("error");
+      const message =
+        isTimeoutError(err) || err instanceof TypeError
+          ? t.errGeneric
+          : err instanceof Error && err.message
+            ? err.message
+            : t.errGeneric;
+      setErrors({ form: message });
+    } finally {
+      setState(succeeded ? "success" : "error");
     }
   }
 
   const formContent =
     state === "success" ? (
-      <div className="py-10 text-center">
+      <div className="py-10 text-center" role="status">
         <p className="text-lg font-semibold text-white">{t.successTitle}</p>
         <p className="mt-2 text-sm text-zinc-400">
           {errors.form ? errors.form : t.successBody}
@@ -315,7 +327,9 @@ export function ContactForm({
         </div>
 
         {state === "error" && (
-          <p className="text-sm text-red-400">{errors.form || t.errGeneric}</p>
+          <p className="text-sm text-red-400" role="alert">
+            {errors.form || t.errGeneric}
+          </p>
         )}
 
         <button

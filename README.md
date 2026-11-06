@@ -21,6 +21,21 @@ npm run dev
 
 Apri [http://localhost:3000](http://localhost:3000)
 
+## Form contatti
+
+L'invio avviene solo tramite `POST /api/contact`. Il browser non chiama FormSubmit (né Resend o Web3Forms). Il server prova i provider in ordine e passa al successivo se la chiave manca, la chiamata fallisce o scade il timeout (8 secondi per provider). Se non c'è nessun provider utilizzabile la route risponde `503`; se tutti falliscono risponde `502`. Il modulo esce sempre dallo stato "Invio in corso..." e mostra conferma o errore.
+
+Variabili da impostare nel progetto Vercel (Production), senza committarle:
+
+| Variabile | Obbligatoria | Ruolo |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Sì, per la consegna principale | Chiave Resend. Senza questa chiave Resend viene saltato. |
+| `CONTACT_FROM_EMAIL` | Sì, se usi Resend verso una casella reale | Mittente verificato su Resend, es. `Hacksure Contatti <contatti@hacksure.it>`. Il default `onboarding@resend.dev` consegna solo all'indirizzo dell'account Resend. |
+| `CONTACT_TO_EMAIL` | Consigliata | Destinatario dei lead. Se assente vale `info@hacksure.it`. |
+| `WEB3FORMS_ACCESS_KEY` | Fallback | Chiave Web3Forms, usata se Resend non è configurato o fallisce. |
+
+Serve almeno una tra `RESEND_API_KEY` e `WEB3FORMS_ACCESS_KEY`. FormSubmit è l'ultimo fallback e non ha una chiave: usa `CONTACT_TO_EMAIL`. Non va considerato affidabile da solo.
+
 ## Build produzione
 
 ```bash
