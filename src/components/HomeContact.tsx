@@ -1,6 +1,7 @@
 import { AnimateIn } from "@/components/AnimateIn";
 import { ContactForm } from "@/components/ContactForm";
 import type { Locale } from "@/lib/i18n/config";
+import { getWeb3FormsAccessKey } from "@/lib/web3forms-key";
 
 const copy = {
   it: {
@@ -50,7 +51,7 @@ export function HomeContact({ locale }: { locale: Locale }) {
         </AnimateIn>
 
         <AnimateIn delay={120}>
-          <ContactForm embedded />
+          <ContactForm embedded accessKey={getWeb3FormsAccessKey()} />
         </AnimateIn>
       </div>
     </section>

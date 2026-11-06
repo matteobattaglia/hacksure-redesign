@@ -1,3 +1,4 @@
+import { contactSubject } from "@/lib/contact-subject";
 import { isTimeoutError, PROVIDER_TIMEOUT_MS, withTimeout } from "@/lib/timeout";
 
 export type Lead = {
@@ -69,17 +70,12 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-function singleLine(value: string) {
-  return value.replace(/[\r\n]+/g, " ").trim();
-}
-
 function leadSubject(lead: Lead) {
-  const prefix = singleLine(lead.subjectPrefix || "").slice(0, 80) || "[Hacksure]";
-  const name = singleLine(lead.name) || "—";
-  const company = singleLine(lead.company);
-  return company
-    ? `${prefix} Nuovo contatto — ${name} (${company})`
-    : `${prefix} Nuovo contatto — ${name}`;
+  return contactSubject({
+    subjectPrefix: lead.subjectPrefix,
+    name: lead.name,
+    company: lead.company,
+  });
 }
 
 function failure(reason: string): SendResult {

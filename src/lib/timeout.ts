@@ -5,10 +5,10 @@ export const PROVIDER_TIMEOUT_MS = 8_000;
 export const REQUEST_BODY_TIMEOUT_MS = 5_000;
 
 /**
- * Browser wait for POST /api/contact.
- * Longer than three provider attempts so a slow fallback still returns a response.
+ * Browser wait for the contact submission (Web3Forms, or POST /api/contact
+ * when the access key is missing). Keeps the submit button from staying stuck.
  */
-export const CONTACT_SUBMIT_TIMEOUT_MS = 35_000;
+export const CONTACT_SUBMIT_TIMEOUT_MS = 15_000;
 
 export class TimeoutError extends Error {
   constructor(message = "timeout") {

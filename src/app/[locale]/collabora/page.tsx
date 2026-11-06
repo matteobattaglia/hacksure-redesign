@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumb, CtaBanner } from "@/components/PageLayout";
 import { PartnerCollaborate } from "@/components/PartnerCollaborate";
+import { getWeb3FormsAccessKey } from "@/lib/web3forms-key";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { isLocale, type Locale } from "@/lib/i18n/config";
@@ -87,7 +88,7 @@ export default async function CollaboraPage({ params, searchParams }: Props) {
           locale={locale}
           items={[{ label: t.home, href: "/" }, { label: t.title }]}
         />
-        <PartnerCollaborate initialId={tipo} />
+        <PartnerCollaborate initialId={tipo} accessKey={getWeb3FormsAccessKey()} />
         <CtaBanner locale={locale} />
       </main>
       <Footer />

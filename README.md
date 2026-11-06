@@ -23,18 +23,18 @@ Apri [http://localhost:3000](http://localhost:3000)
 
 ## Form contatti
 
-L'invio avviene solo tramite `POST /api/contact`. Il browser non chiama FormSubmit (né Resend o Web3Forms). Il server prova i provider in ordine e passa al successivo se la chiave manca, la chiamata fallisce o scade il timeout (8 secondi per provider). Se non c'è nessun provider utilizzabile la route risponde `503`; se tutti falliscono risponde `502`. Il modulo esce sempre dallo stato "Invio in corso..." e mostra conferma o errore.
+Il modulo invia dal browser a Web3Forms (`POST https://api.web3forms.com/submit`). La chiave `WEB3FORMS_ACCESS_KEY` viene letta nei Server Component che renderizzano il form (homepage, contatti, landing SEO, collabora) e passata come prop. È una chiave pubblica: non creare una variabile `NEXT_PUBLIC_`.
+
+Se la chiave manca, il browser torna a `POST /api/contact`. Quella route resta per Resend (poi Web3Forms e FormSubmit lato server) quando `RESEND_API_KEY` è configurata. Il pulsante ha un timeout di 15 secondi e non resta su "Invio in corso...".
 
 Variabili da impostare nel progetto Vercel (Production), senza committarle:
 
 | Variabile | Obbligatoria | Ruolo |
 | --- | --- | --- |
-| `RESEND_API_KEY` | Sì, per la consegna principale | Chiave Resend. Senza questa chiave Resend viene saltato. |
+| `WEB3FORMS_ACCESS_KEY` | Sì, per l'invio dal browser | Chiave Web3Forms. Letta sul server e passata al form. Senza questa chiave il browser usa `/api/contact`. |
+| `RESEND_API_KEY` | Solo per il fallback della route | Chiave Resend, usata da `POST /api/contact` se la chiave Web3Forms non c'è. |
 | `CONTACT_FROM_EMAIL` | Sì, se usi Resend verso una casella reale | Mittente verificato su Resend, es. `Hacksure Contatti <contatti@hacksure.it>`. Il default `onboarding@resend.dev` consegna solo all'indirizzo dell'account Resend. |
 | `CONTACT_TO_EMAIL` | Consigliata | Destinatario dei lead. Se assente vale `info@hacksure.it`. |
-| `WEB3FORMS_ACCESS_KEY` | Fallback | Chiave Web3Forms, usata se Resend non è configurato o fallisce. |
-
-Serve almeno una tra `RESEND_API_KEY` e `WEB3FORMS_ACCESS_KEY`. FormSubmit è l'ultimo fallback e non ha una chiave: usa `CONTACT_TO_EMAIL`. Non va considerato affidabile da solo.
 
 ## Build produzione
 

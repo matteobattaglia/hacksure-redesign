@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { contactSubject } from "@/lib/contact-subject";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { contactNeeds } from "@/lib/contact-needs";
 import {
@@ -16,7 +17,91 @@ type Props = {
   defaultNeed?: string;
   needOptions?: string[];
   subjectPrefix?: string;
+  /** Public Web3Forms key, read from WEB3FORMS_ACCESS_KEY in a Server Component. */
+  accessKey?: string;
 };
+
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+
+class Web3FormsSubmitError extends Error {
+  constructor() {
+    super("web3forms_submit_failed");
+    this.name = "Web3FormsSubmitError";
+  }
+}
+
+type LeadFields = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  need: string;
+  message: string;
+};
+
+async function submitWeb3Forms(accessKey: string, subject: string, lead: LeadFields) {
+  const { response, data } = await withTimeout(async (signal) => {
+    const response = await fetch(WEB3FORMS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: accessKey,
+        subject,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        company: lead.company,
+        need: lead.need,
+        message: lead.message,
+        botcheck: false,
+      }),
+      signal,
+    });
+    const data = (await response.json().catch(() => null)) as { success?: boolean } | null;
+    return { response, data };
+  }, CONTACT_SUBMIT_TIMEOUT_MS);
+
+  if (response.status !== 200 || data?.success !== true) {
+    throw new Web3FormsSubmitError();
+  }
+}
+
+async function submitViaApi(
+  lead: LeadFields & { subjectPrefix: string; honeypot: string },
+  messages: { locale: string; errGeneric: string; errSubmitFailed: string },
+) {
+  const { response, data } = await withTimeout(async (signal) => {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(lead),
+      signal,
+    });
+    const data = (await response.json().catch(() => null)) as {
+      success?: boolean;
+      error?: string;
+    } | null;
+    return { response, data };
+  }, CONTACT_SUBMIT_TIMEOUT_MS);
+
+  if (!response.ok || data?.success !== true) {
+    const serverError =
+      typeof data?.error === "string" && data.error.trim() ? data.error.trim() : undefined;
+    const message =
+      messages.locale === "it" && serverError
+        ? serverError
+        : response.status === 429 || response.status >= 500
+          ? messages.errGeneric
+          : messages.errSubmitFailed;
+    throw new Error(message);
+  }
+}
 
 const copy = {
   it: {
@@ -82,6 +167,7 @@ export function ContactForm({
   defaultNeed,
   needOptions,
   subjectPrefix = "[Hacksure]",
+  accessKey,
 }: Props) {
   const locale = useLocale();
   const t = copy[locale];
@@ -136,46 +222,29 @@ export function ContactForm({
     setErrors({});
     setState("submitting");
 
-    const payload = {
+    const lead: LeadFields = {
       name: String(formData.get("name") || ""),
       company: String(formData.get("company") || ""),
       email: String(formData.get("email") || ""),
       phone: String(formData.get("phone") || ""),
       need: String(formData.get("need") || need),
       message: String(formData.get("message") || ""),
-      subjectPrefix,
-      honeypot: String(formData.get("website") || ""),
     };
+    const web3Key = accessKey?.trim() ?? "";
 
     let succeeded = false;
     try {
-      const { response, data } = await withTimeout(async (signal) => {
-        const response = await fetch("/api/contact", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(payload),
-          signal,
-        });
-        const data = (await response.json().catch(() => null)) as {
-          success?: boolean;
-          error?: string;
-        } | null;
-        return { response, data };
-      }, CONTACT_SUBMIT_TIMEOUT_MS);
-
-      if (!response.ok || data?.success !== true) {
-        const serverError =
-          typeof data?.error === "string" && data.error.trim() ? data.error.trim() : undefined;
-        const message =
-          locale === "it" && serverError
-            ? serverError
-            : response.status === 429 || response.status >= 500
-              ? t.errGeneric
-              : t.errSubmitFailed;
-        throw new Error(message);
+      if (web3Key) {
+        await submitWeb3Forms(
+          web3Key,
+          contactSubject({ subjectPrefix, name: lead.name, company: lead.company }),
+          lead,
+        );
+      } else {
+        await submitViaApi(
+          { ...lead, subjectPrefix, honeypot: "" },
+          { locale, errGeneric: t.errGeneric, errSubmitFailed: t.errSubmitFailed },
+        );
       }
 
       form.reset();
@@ -183,7 +252,7 @@ export function ContactForm({
       succeeded = true;
     } catch (err) {
       const message =
-        isTimeoutError(err) || err instanceof TypeError
+        isTimeoutError(err) || err instanceof TypeError || err instanceof Web3FormsSubmitError
           ? t.errGeneric
           : err instanceof Error && err.message
             ? err.message

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Breadcrumb } from "@/components/PageLayout";
 import { AnimateIn } from "@/components/AnimateIn";
 import { ContactForm } from "@/components/ContactForm";
+import { getWeb3FormsAccessKey } from "@/lib/web3forms-key";
 import { contactNeeds } from "@/lib/contact-needs";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
@@ -122,7 +123,11 @@ export function LandingLayout({
             <h2 className="text-xl font-semibold text-white">{t.formTitle}</h2>
             <p className="mt-2 text-sm text-zinc-400">{t.formDescription}</p>
             <div className="mt-6">
-              <ContactForm embedded defaultNeed={selectedNeed} />
+              <ContactForm
+                embedded
+                defaultNeed={selectedNeed}
+                accessKey={getWeb3FormsAccessKey()}
+              />
             </div>
           </div>
 

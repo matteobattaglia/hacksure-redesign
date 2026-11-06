@@ -10,6 +10,7 @@ import { AnimateIn } from "@/components/AnimateIn";
 
 type Props = {
   initialId?: string;
+  accessKey?: string;
 };
 
 const partnerIcons: Record<string, ReactNode> = {
@@ -154,7 +155,7 @@ function CheckIcon() {
   );
 }
 
-export function PartnerCollaborate({ initialId }: Props) {
+export function PartnerCollaborate({ initialId, accessKey }: Props) {
   const locale = useLocale();
   const t = copy[locale];
   const partnerTypes = getPartnerTypes(locale);
@@ -382,6 +383,7 @@ export function PartnerCollaborate({ initialId }: Props) {
                         defaultNeed={needLabel}
                         needOptions={[...t.needOptions]}
                         subjectPrefix="[Hacksure Collaborazione]"
+                        accessKey={accessKey}
                       />
                     </div>
                   </div>
