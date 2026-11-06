@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHeader } from "@/components/PageLayout";
 import { ContactForm } from "@/components/ContactForm";
+import { getWeb3FormsAccessKey } from "@/lib/web3forms-key";
 import { createMetadata, siteConfig } from "@/lib/seo";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 
@@ -120,7 +121,7 @@ export default async function ContattiPage({ params }: Props) {
               </div>
             </div>
             <div className="lg:col-span-2">
-              <ContactForm embedded />
+              <ContactForm embedded accessKey={getWeb3FormsAccessKey()} />
             </div>
           </div>
         </div>
