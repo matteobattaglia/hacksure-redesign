@@ -61,7 +61,7 @@ export default async function Page({ params }: Props) {
             "Vulnerability assessment Brescia su reti e applicazioni",
             "Penetration test Brescia (web, infrastruttura, scenari mirati)",
             "Supporto a obblighi NIS2 e audit di sicurezza",
-            "Endpoint security e partner Kaspersky per PMI",
+            "Endpoint security e protezione EDR/XDR per PMI",
           ],
         },
         {

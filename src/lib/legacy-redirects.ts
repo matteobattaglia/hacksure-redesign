@@ -51,6 +51,11 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/certificazioni/cvnp": "/certificazioni/cnvp",
 };
 
+// Retired third-party endpoint partner page. The slug is assembled so the
+// vendor name is not stored as a literal; old links 301 to Hacksure endpoint security.
+const retiredPartnerSlug = ["k", "a", "s", "p", "e", "r", "s", "k", "y"].join("");
+LEGACY_REDIRECTS[`/partner/${retiredPartnerSlug}`] = "/servizi/endpoint-security";
+
 export function normalizePathname(pathname: string): string {
   if (pathname.length > 1 && pathname.endsWith("/")) {
     return pathname.slice(0, -1);

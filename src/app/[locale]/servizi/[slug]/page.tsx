@@ -25,7 +25,7 @@ const seoDescriptionBySlug: Record<Locale, Record<string, string>> = {
     "network-security":
       "Firewall, segmentazione e monitoraggio rete per PMI. Proteggi la tua infrastruttura con consulenza certificata a Brescia.",
     "endpoint-security":
-      "EDR/XDR e endpoint security per aziende. Partner Kaspersky ufficiale. Protezione da ransomware e minacce avanzate.",
+      "EDR/XDR e endpoint security per aziende. Protezione da ransomware e minacce avanzate, con deployment e monitoraggio continuo.",
     "security-awareness":
       "Formazione anti-phishing e security awareness per dipendenti. Riduci il rischio umano, prima linea di difesa della tua PMI.",
     "incident-response":
@@ -43,7 +43,7 @@ const seoDescriptionBySlug: Record<Locale, Record<string, string>> = {
     "network-security":
       "Firewall, segmentation and network monitoring for SMEs. Protect your infrastructure with certified consulting in Brescia.",
     "endpoint-security":
-      "EDR/XDR and endpoint security for businesses. Official Kaspersky partner. Protection from ransomware and advanced threats.",
+      "EDR/XDR and endpoint security for businesses. Protection from ransomware and advanced threats, with deployment and continuous monitoring.",
     "security-awareness":
       "Anti-phishing training and security awareness for employees. Reduce human risk — your SME's first line of defence.",
     "incident-response":
@@ -65,7 +65,7 @@ const seoTitleBySlug: Record<Locale, Record<string, string>> = {
     "vulnerability-assessment": "Vulnerability Assessment per PMI",
     "penetration-testing": "Penetration Test aziendale",
     "network-security": "Network Security e Firewall per PMI",
-    "endpoint-security": "Endpoint Security EDR/XDR Kaspersky",
+    "endpoint-security": "Endpoint Security EDR/XDR per aziende",
     "security-awareness": "Security Awareness e formazione anti-phishing",
     "incident-response": "Incident Response e digital forensics",
     "notarizzazione-blockchain": "Notarizzazione digitale con blockchain",
@@ -75,7 +75,7 @@ const seoTitleBySlug: Record<Locale, Record<string, string>> = {
     "vulnerability-assessment": "Vulnerability Assessment for SMEs",
     "penetration-testing": "Company Penetration Testing",
     "network-security": "Network Security and Firewall for SMEs",
-    "endpoint-security": "Kaspersky EDR/XDR Endpoint Security",
+    "endpoint-security": "EDR/XDR Endpoint Security for Businesses",
     "security-awareness": "Security Awareness and anti-phishing training",
     "incident-response": "Incident Response and digital forensics",
     "notarizzazione-blockchain": "Digital notarization on blockchain",

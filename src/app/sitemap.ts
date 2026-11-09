@@ -21,7 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
     { path: "/contatti", changeFrequency: "monthly", priority: 0.8 },
     { path: "/collabora", changeFrequency: "monthly", priority: 0.85 },
-    { path: "/partner/kaspersky", changeFrequency: "monthly", priority: 0.85 },
     { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
     ...italianOnlyPaths.map((path) => ({
       path,
