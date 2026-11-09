@@ -31,12 +31,10 @@ const copy = {
       incident: "Incident Response",
       notarization: "Notarizzazione Blockchain",
       fraud: "SOS Truffe Online",
-      kaspersky: "Kaspersky Partner",
     },
     serviceDescriptions: {
       notarization: "Timestamp immutabile e studi legali",
       fraud: "Call, analisi e perizia per vittime di frodi",
-      kaspersky: "Registered B2B Partner ufficiale",
     },
   },
   en: {
@@ -62,12 +60,10 @@ const copy = {
       incident: "Incident Response",
       notarization: "Blockchain Notarization",
       fraud: "Online Fraud Response",
-      kaspersky: "Kaspersky Partner",
     },
     serviceDescriptions: {
       notarization: "Immutable timestamp with qualified law firms",
       fraud: "Call, feasibility analysis and expert report",
-      kaspersky: "Official Registered B2B Partner",
     },
   },
 } as const;
@@ -107,11 +103,6 @@ export function getNavigation(locale: Locale): NavItem[] {
           label: t.serviceLabels.fraud,
           href: "/servizi/perizia-truffe-online",
           description: t.serviceDescriptions.fraud,
-        },
-        {
-          label: t.serviceLabels.kaspersky,
-          href: "/partner/kaspersky",
-          description: t.serviceDescriptions.kaspersky,
         },
       ],
     },

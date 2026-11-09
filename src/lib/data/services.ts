@@ -99,7 +99,7 @@ export const securityServices: SecurityService[] = [
     title: "Endpoint Security (EDR/XDR)",
     shortDescription: "Difesa avanzata di tutti i dispositivi aziendali da minacce moderne.",
     description:
-      "Implementiamo soluzioni EDR/XDR di classe enterprise — inclusa partnership Kaspersky — per rilevare, contenere e rispondere a minacce avanzate e ransomware in tempo reale.",
+      "Implementiamo soluzioni EDR/XDR di classe enterprise per rilevare, contenere e rispondere a minacce avanzate e ransomware in tempo reale.",
     longDescription:
       "Gli endpoint sono il perimetro più esposto delle moderne organizzazioni. Selezioniamo, implementiamo e gestiamo soluzioni EDR/XDR adatte alla dimensione e al budget della vostra azienda, con deployment, tuning e monitoraggio continuo.",
     features: [
@@ -114,11 +114,11 @@ export const securityServices: SecurityService[] = [
       "Tuning policy e integrazione SIEM",
       "Formazione operatori e supporto",
     ],
-    cta: "Scopri Kaspersky EDR",
+    cta: "Proteggi gli endpoint",
     category: "Endpoint Protection",
     image: "/assets/images/shutterstock_2695394565-scaled.jpg",
     deliverables: [
-      "Assessment ambiente e raccomandazione stack Kaspersky",
+      "Assessment dell'ambiente e indicazione della soluzione più adatta",
       "Deployment e configurazione EDR/XDR",
       "Documentazione policy e runbook operativi",
       "Formazione del team interno",
@@ -130,12 +130,14 @@ export const securityServices: SecurityService[] = [
     ],
     faqs: [
       {
-        question: "Siete partner ufficiali Kaspersky?",
+        question: "Come scegliete la protezione degli endpoint?",
         answer:
-          "Sì. HackSure è Kaspersky Registered B2B Partner. Maggiori dettagli sulla pagina dedicata Partnership Kaspersky.",
+          "Partiamo da un assessment dell'ambiente, della dimensione e del livello di rischio. Poi implementiamo e gestiamo la soluzione EDR/XDR più adatta, con tuning delle policy, monitoraggio e supporto operativo.",
       },
     ],
-    relatedLinks: [{ label: "Pagina Partner Kaspersky", href: "/partner/kaspersky" }],
+    relatedLinks: [
+      { label: "Incident Response e forensics", href: "/servizi/incident-response" },
+    ],
   },
   {
     slug: "security-awareness",

@@ -34,10 +34,6 @@ const copy = {
     certsNote: "certificazioni attive in offensive security, CompTIA e vendor enterprise.",
     viewAllMasc: "Vedi tutti →",
     viewAllFem: "Vedi tutte →",
-    partnershipLabel: "Partnership ufficiale",
-    partnershipTitle: "HackSure è Kaspersky Registered B2B Partner",
-    partnershipText: "Endpoint security, EDR/XDR e protezione enterprise per PMI.",
-    discover: "Scopri →",
     localLabel: "Brescia",
     localTitle: "Cybersecurity in provincia di Brescia",
     localIntro:
@@ -75,10 +71,6 @@ const copy = {
     certsNote: "active certifications in offensive security, CompTIA and enterprise vendors.",
     viewAllMasc: "View all →",
     viewAllFem: "View all →",
-    partnershipLabel: "Official partnership",
-    partnershipTitle: "HackSure is a Kaspersky Registered B2B Partner",
-    partnershipText: "Endpoint security, EDR/XDR and enterprise-grade protection for SMEs.",
-    discover: "Learn more →",
     localLabel: "Brescia",
     localTitle: "Cybersecurity in the Brescia area",
     localIntro:
@@ -297,35 +289,6 @@ export function HomeOverview({ locale }: { locale: Locale }) {
               </AnimateIn>
             ))}
           </div>
-
-          <AnimateIn delay={200}>
-            <Link
-              href={href("/partner/kaspersky")}
-              className="card-hover mt-6 flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center"
-            >
-              <div className="shrink-0 rounded-lg border border-zinc-800 bg-black p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/partners/kaspersky-registered-partner.jpg"
-                  alt="Kaspersky Registered B2B Partner"
-                  className="h-10 w-auto"
-                  loading="lazy"
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">
-                  {t.partnershipLabel}
-                </p>
-                <h3 className="mt-1 font-semibold text-white">
-                  {t.partnershipTitle}
-                </h3>
-                <p className="mt-1 text-sm text-zinc-400">
-                  {t.partnershipText}
-                </p>
-              </div>
-              <span className="text-sm font-medium text-brand-500">{t.discover}</span>
-            </Link>
-          </AnimateIn>
         </div>
       </section>
 

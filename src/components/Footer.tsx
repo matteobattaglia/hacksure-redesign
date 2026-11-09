@@ -124,11 +124,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={href("/partner/kaspersky")} className="hover:text-brand-400">
-                  Kaspersky Partner
-                </Link>
-              </li>
-              <li>
                 <Link href={href("/servizi/notarizzazione-blockchain")} className="hover:text-brand-400">
                   {t.notarization}
                 </Link>
